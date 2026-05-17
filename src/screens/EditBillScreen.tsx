@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
@@ -15,7 +14,6 @@ import {
 import { RootStackParamList } from "@/src/navigation/types";
 import { styles } from "@/src/styles/styles";
 import { SunsparkResult } from "@/src/types/sunspark";
-import { STORAGE_KEY } from "@/src/utils/storage";
 
 type Props = NativeStackScreenProps<RootStackParamList, "EditBill">;
 
@@ -132,9 +130,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
 
     const finalResult = recomputeEstimate(updatedResult);
 
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(finalResult));
-
-    navigation.replace("Main", {
+    navigation.replace("SunlightQuestion", {
       result: finalResult,
     });
   }

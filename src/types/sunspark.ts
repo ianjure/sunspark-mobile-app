@@ -1,9 +1,17 @@
+export type AssessmentAnswers = {
+  sunlight?: string;
+  roof_space?: string;
+  payment_preference?: string;
+  installation_timeline?: string;
+};
+
 export type SunsparkResult = {
   success: boolean;
   monthly_bill: number | null;
   kwh_usage: number | null;
   rate_per_kwh_found_on_bill: number | null;
   effective_rate_per_kwh: number | null;
+  assessment_answers?: AssessmentAnswers;
   solar: {
     lat: number;
     lon: number;
