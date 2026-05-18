@@ -3,5 +3,8 @@ export function formatCurrency(value: number | null | undefined) {
     return "Not found";
   }
 
-  return `₱${value.toFixed(2)}`;
+  return `₱${value.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }

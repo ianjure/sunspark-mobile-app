@@ -209,20 +209,6 @@ export default function EditBillScreen({ navigation, route }: Props) {
           </Text>
         </View>
 
-        <View style={styles.resultCard}>
-          <Text style={styles.resultTitle}>Solar Data Found</Text>
-
-          <Text style={styles.label}>PV Output Daily</Text>
-          <Text style={styles.value}>
-            {originalResult.solar?.pvout_daily ?? "Not available"} kWh/kWp/day
-          </Text>
-
-          <Text style={styles.label}>Optimal Tilt Angle</Text>
-          <Text style={styles.value}>
-            {originalResult.solar?.optimal_tilt_angle ?? "Not available"}°
-          </Text>
-        </View>
-
         <TouchableOpacity style={styles.primaryButtonFull} onPress={continueToMain}>
           <Text style={styles.primaryButtonText}>Continue to Assessment</Text>
         </TouchableOpacity>

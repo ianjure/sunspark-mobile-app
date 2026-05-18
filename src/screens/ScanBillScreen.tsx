@@ -2,13 +2,13 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRef, useState } from "react";
 import {
-    ActivityIndicator,
-    Button,
-    Image,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Button,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 import { API_URL } from "@/src/constants/api";
@@ -111,12 +111,6 @@ export default function ScanBillScreen({ navigation, route }: Props) {
         Take a clear photo of your latest electric bill so Sunspark can estimate
         your solar savings.
       </Text>
-
-      <View style={styles.smallCard}>
-        <Text style={styles.smallCardTitle}>Location detected</Text>
-        <Text style={styles.smallText}>Lat: {latitude}</Text>
-        <Text style={styles.smallText}>Lon: {longitude}</Text>
-      </View>
 
       {!cameraPermission && (
         <Text style={styles.text}>Loading camera permission...</Text>
