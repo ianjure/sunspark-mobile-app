@@ -27,10 +27,21 @@ export type SunsparkResult = {
     temperature: number | null;
   };
   estimate: {
+    target_offset_percent: number | null;
+    monthly_production_per_kwp: number | null;
+    target_kwh_offset: number | null;
     recommended_system_size_kwp: number | null;
+    estimated_monthly_solar_kwh: number | null;
     estimated_monthly_production_kwh: number | null;
     estimated_monthly_savings: number | null;
     estimated_annual_savings: number | null;
+    estimated_new_bill: number | null;
+    estimated_install_cost: number | null;
+    cost_per_kwp: number | null;
+    payback_years: number | null;
+    grid_emission_factor: number | null;
+    monthly_co2_reduction_kg: number | null;
+    annual_co2_reduction_tons: number | null;
     coverage_percentage: number | null;
   };
 };

@@ -86,29 +86,20 @@ export default function MainScreen({ navigation, route }: Props) {
     return "Needs more review";
   }, [readinessScore]);
 
-  const estimatedCostRange = useMemo(() => {
-    const systemSize = result?.estimate?.recommended_system_size_kwp;
+  const estimatedInstallCost = useMemo(() => {
+    const cost = result?.estimate?.estimated_install_cost;
 
-    if (!systemSize) return "Not available";
+    if (!cost) return "Not available";
 
-    const low = systemSize * 50000;
-    const high = systemSize * 70000;
-
-    return `${formatPeso(low)} - ${formatPeso(high)}`;
+    return formatPeso(cost);
   }, [result]);
 
   const paybackYears = useMemo(() => {
-    const systemSize = result?.estimate?.recommended_system_size_kwp;
-    const annualSavings = result?.estimate?.estimated_annual_savings;
+    const years = result?.estimate?.payback_years;
 
-    if (!systemSize || !annualSavings || annualSavings <= 0) {
-      return "Not available";
-    }
+    if (!years) return "Not available";
 
-    const estimatedCost = systemSize * 60000;
-    const years = estimatedCost / annualSavings;
-
-    return `${years.toFixed(1)} years`;
+    return `${years} years`;
   }, [result]);
 
   if (loading) {
@@ -191,8 +182,8 @@ export default function MainScreen({ navigation, route }: Props) {
 
         <View style={styles.estimateMiniCard}>
           <Text style={styles.estimateIcon}>🏷️</Text>
-          <Text style={styles.estimateLabel}>Cost range</Text>
-          <Text style={styles.estimateSmallValue}>{estimatedCostRange}</Text>
+          <Text style={styles.estimateLabel}>Install cost</Text>
+          <Text style={styles.estimateSmallValue}>{estimatedInstallCost}</Text>
         </View>
 
         <View style={styles.estimateMiniCard}>
@@ -214,6 +205,35 @@ export default function MainScreen({ navigation, route }: Props) {
         <Text style={styles.label}>Effective Rate per kWh</Text>
         <Text style={styles.value}>
           {formatCurrency(result.effective_rate_per_kwh)}
+        </Text>
+      </View>
+
+      <View style={styles.resultCard}>
+        <Text style={styles.resultTitle}>After Solar Estimate</Text>
+
+        <Text style={styles.label}>Target Offset</Text>
+        <Text style={styles.value}>
+          {result.estimate?.coverage_percentage ?? "N/A"}%
+        </Text>
+
+        <Text style={styles.label}>Estimated New Monthly Bill</Text>
+        <Text style={styles.value}>
+          {formatCurrency(result.estimate?.estimated_new_bill)}
+        </Text>
+
+        <Text style={styles.label}>Monthly Solar Production</Text>
+        <Text style={styles.value}>
+          {result.estimate?.estimated_monthly_solar_kwh ?? "N/A"} kWh
+        </Text>
+
+        <Text style={styles.label}>Monthly CO₂ Reduction</Text>
+        <Text style={styles.value}>
+          {result.estimate?.monthly_co2_reduction_kg ?? "N/A"} kg CO₂
+        </Text>
+
+        <Text style={styles.label}>Annual CO₂ Reduction</Text>
+        <Text style={styles.value}>
+          {result.estimate?.annual_co2_reduction_tons ?? "N/A"} tons CO₂
         </Text>
       </View>
 
