@@ -12,6 +12,11 @@ export type SunsparkResult = {
   rate_per_kwh_found_on_bill: number | null;
   effective_rate_per_kwh: number | null;
   assessment_answers?: AssessmentAnswers;
+  location: {
+    barangay: string | null;
+    city_or_municipality: string | null;
+    province: string | null;
+  };
   solar: {
     lat: number;
     lon: number;

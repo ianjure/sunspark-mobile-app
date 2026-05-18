@@ -61,6 +61,21 @@ export default function ProfileTab({ result, resetApp }: Props) {
       <View style={styles.resultCard}>
         <Text style={styles.resultTitle}>Location Data</Text>
 
+        <Text style={styles.label}>Barangay</Text>
+        <Text style={styles.value}>
+            {result.location?.barangay ?? "Not available"}
+        </Text>
+
+        <Text style={styles.label}>City / Municipality</Text>
+        <Text style={styles.value}>
+            {result.location?.city_or_municipality ?? "Not available"}
+        </Text>
+
+        <Text style={styles.label}>Province</Text>
+        <Text style={styles.value}>
+            {result.location?.province ?? "Not available"}
+        </Text>
+
         <Text style={styles.label}>Latitude</Text>
         <Text style={styles.value}>{result.solar?.lat ?? "Not available"}</Text>
 
@@ -69,7 +84,7 @@ export default function ProfileTab({ result, resetApp }: Props) {
 
         <Text style={styles.label}>Global Solar Atlas URL</Text>
         <Text style={styles.profileLinkText}>
-          {result.solar?.atlas_url ?? "Not available"}
+            {result.solar?.atlas_url ?? "Not available"}
         </Text>
       </View>
 

@@ -80,7 +80,7 @@ export default function MainScreen({ navigation, route }: Props) {
       <ScrollView contentContainerStyle={styles.tabContent}>
         {activeTab === "home" && <HomeTab result={result} />}
 
-        {activeTab === "providers" && <ProvidersTab />}
+        {activeTab === "providers" && <ProvidersTab result={result} />}
 
         {activeTab === "profile" && (
           <ProfileTab result={result} resetApp={resetApp} />
