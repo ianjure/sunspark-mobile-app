@@ -1,15 +1,15 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import QuestionScreenLayout from "@/src/components/QuestionScreenLayout";
-import { RootStackParamList } from "@/src/navigation/types";
+import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
+import { RootStackParamList } from '@/src/navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, "RoofSpaceQuestion">;
+type Props = NativeStackScreenProps<RootStackParamList, 'RoofSpaceQuestion'>;
 
 export default function RoofSpaceQuestionScreen({ navigation, route }: Props) {
   const { result } = route.params;
 
   function handleSelect(answer: string) {
-    navigation.replace("PaymentQuestion", {
+    navigation.replace('PaymentQuestion', {
       result: {
         ...result,
         assessment_answers: {
@@ -28,13 +28,13 @@ export default function RoofSpaceQuestionScreen({ navigation, route }: Props) {
       title="How much usable roof space do you have?"
       subtitle="Roof space helps estimate possible system size."
       options={[
-        { label: "Large", description: "Enough for 15+ panels" },
-        { label: "Medium", description: "Enough for 8-12 panels" },
-        { label: "Small", description: "Enough for 4-6 panels" },
-        { label: "Not sure", description: "I need help measuring" },
+        { label: 'Large', description: 'Enough for 15+ panels' },
+        { label: 'Medium', description: 'Enough for 8-12 panels' },
+        { label: 'Small', description: 'Enough for 4-6 panels' },
+        { label: 'Not sure', description: 'I need help measuring' },
       ]}
       onSelect={handleSelect}
-      onBack={() => navigation.replace("SunlightQuestion", { result })}
+      onBack={() => navigation.replace('SunlightQuestion', { result })}
     />
   );
 }

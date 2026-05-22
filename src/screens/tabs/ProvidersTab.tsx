@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
-    Linking,
-    Modal,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+  ActivityIndicator,
+  Linking,
+  Modal,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import { supabase } from "@/src/lib/supabase";
-import { styles } from "@/src/styles/styles";
-import { SolarDeveloper } from "@/src/types/provider";
-import { SunsparkResult } from "@/src/types/sunspark";
+import { supabase } from '@/src/lib/supabase';
+import { styles } from '@/src/styles/styles';
+import { SolarDeveloper } from '@/src/types/provider';
+import { SunsparkResult } from '@/src/types/sunspark';
 
 type Props = {
   result: SunsparkResult;
@@ -23,7 +23,7 @@ export default function ProvidersTab({ result }: Props) {
   const [selectedProvider, setSelectedProvider] =
     useState<SolarDeveloper | null>(null);
   const [loading, setLoading] = useState(true);
-  const [matchLevel, setMatchLevel] = useState<string>("region");
+  const [matchLevel, setMatchLevel] = useState<string>('region');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const cityOrMunicipality = result.location?.city_or_municipality;
@@ -43,7 +43,7 @@ export default function ProvidersTab({ result }: Props) {
 
         if (cityResult.length > 0) {
           setProviders(cityResult);
-          setMatchLevel("city / municipality");
+          setMatchLevel('city / municipality');
           return;
         }
       }
@@ -53,7 +53,7 @@ export default function ProvidersTab({ result }: Props) {
 
         if (provinceResult.length > 0) {
           setProviders(provinceResult);
-          setMatchLevel("province");
+          setMatchLevel('province');
           return;
         }
       }
@@ -61,10 +61,10 @@ export default function ProvidersTab({ result }: Props) {
       const fallbackResult = await queryFallbackProviders();
 
       setProviders(fallbackResult);
-      setMatchLevel("national fallback");
+      setMatchLevel('national fallback');
     } catch (error: any) {
-      console.log("Fetch providers error:", error);
-      setErrorMessage(error.message || "Unable to fetch providers.");
+      console.log('Fetch providers error:', error);
+      setErrorMessage(error.message || 'Unable to fetch providers.');
     } finally {
       setLoading(false);
     }
@@ -72,9 +72,9 @@ export default function ProvidersTab({ result }: Props) {
 
   async function queryProvidersByCity(city: string) {
     const { data, error } = await supabase
-      .from("solar_developers")
-      .select("*")
-      .ilike("city_municipality", `%${city}%`)
+      .from('solar_developers')
+      .select('*')
+      .ilike('city_municipality', `%${city}%`)
       .limit(20);
 
     if (error) throw error;
@@ -84,9 +84,9 @@ export default function ProvidersTab({ result }: Props) {
 
   async function queryProvidersByProvince(province: string) {
     const { data, error } = await supabase
-      .from("solar_developers")
-      .select("*")
-      .ilike("province", `%${province}%`)
+      .from('solar_developers')
+      .select('*')
+      .ilike('province', `%${province}%`)
       .limit(20);
 
     if (error) throw error;
@@ -96,8 +96,8 @@ export default function ProvidersTab({ result }: Props) {
 
   async function queryFallbackProviders() {
     const { data, error } = await supabase
-      .from("solar_developers")
-      .select("*")
+      .from('solar_developers')
+      .select('*')
       .limit(20);
 
     if (error) throw error;
@@ -106,17 +106,17 @@ export default function ProvidersTab({ result }: Props) {
   }
 
   function openEmail(email: string | null) {
-    if (!email || email === "N/A") return;
+    if (!email || email === 'N/A') return;
 
-    const firstEmail = email.split("/")[0].trim();
+    const firstEmail = email.split('/')[0].trim();
 
     Linking.openURL(`mailto:${firstEmail}`);
   }
 
   function callProvider(phone: string | null) {
-    if (!phone || phone === "N/A") return;
+    if (!phone || phone === 'N/A') return;
 
-    const firstPhone = phone.split("/")[0].trim();
+    const firstPhone = phone.split('/')[0].trim();
 
     Linking.openURL(`tel:${firstPhone}`);
   }
@@ -131,7 +131,9 @@ export default function ProvidersTab({ result }: Props) {
         <Text style={styles.providerHeroIcon}>💡</Text>
 
         <View style={{ flex: 1 }}>
-          <Text style={styles.providerHeroTitle}>Solar developers near you</Text>
+          <Text style={styles.providerHeroTitle}>
+            Solar developers near you
+          </Text>
           <Text style={styles.providerHeroSubtitle}>
             Showing providers based on your location. Match level: {matchLevel}.
           </Text>
@@ -148,11 +150,11 @@ export default function ProvidersTab({ result }: Props) {
         </View>
 
         <View style={styles.filterChip}>
-          <Text style={styles.filterText}>{cityOrMunicipality ?? "City"}</Text>
+          <Text style={styles.filterText}>{cityOrMunicipality ?? 'City'}</Text>
         </View>
 
         <View style={styles.filterChip}>
-          <Text style={styles.filterText}>{province ?? "Province"}</Text>
+          <Text style={styles.filterText}>{province ?? 'Province'}</Text>
         </View>
       </ScrollView>
 
@@ -189,8 +191,8 @@ export default function ProvidersTab({ result }: Props) {
                   </View>
 
                   <Text style={styles.providerLocation}>
-                    📍 {provider.city_municipality ?? "Unknown city"}
-                    {provider.province ? `, ${provider.province}` : ""}
+                    📍 {provider.city_municipality ?? 'Unknown city'}
+                    {provider.province ? `, ${provider.province}` : ''}
                   </Text>
                 </View>
               </View>
@@ -237,10 +239,10 @@ export default function ProvidersTab({ result }: Props) {
                 </Text>
 
                 <Text style={styles.providerLocation}>
-                  📍 {selectedProvider?.city_municipality ?? "Unknown city"}
+                  📍 {selectedProvider?.city_municipality ?? 'Unknown city'}
                   {selectedProvider?.province
                     ? `, ${selectedProvider.province}`
-                    : ""}
+                    : ''}
                 </Text>
               </View>
             </View>
@@ -248,29 +250,31 @@ export default function ProvidersTab({ result }: Props) {
             <View style={styles.providerModalSection}>
               <Text style={styles.label}>Complete Address</Text>
               <Text style={styles.value}>
-                {selectedProvider?.address ?? "No address available"}
+                {selectedProvider?.address ?? 'No address available'}
               </Text>
 
               <Text style={styles.label}>Contact Number</Text>
               <Text style={styles.value}>
-                {selectedProvider?.contact_number ?? "Not available"}
+                {selectedProvider?.contact_number ?? 'Not available'}
               </Text>
 
               <Text style={styles.label}>Email Address</Text>
               <Text style={styles.value}>
-                {selectedProvider?.email ?? "Not available"}
+                {selectedProvider?.email ?? 'Not available'}
               </Text>
 
               <Text style={styles.label}>Region</Text>
               <Text style={styles.value}>
-                {selectedProvider?.region ?? "Not available"}
+                {selectedProvider?.region ?? 'Not available'}
               </Text>
             </View>
 
             <View style={styles.providerModalActionRow}>
               <TouchableOpacity
                 style={styles.providerSecondaryButton}
-                onPress={() => callProvider(selectedProvider?.contact_number ?? null)}
+                onPress={() =>
+                  callProvider(selectedProvider?.contact_number ?? null)
+                }
               >
                 <Text style={styles.providerSecondaryButtonText}>Call</Text>
               </TouchableOpacity>
@@ -283,7 +287,10 @@ export default function ProvidersTab({ result }: Props) {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.modalCloseButton} onPress={closeModal}>
+            <TouchableOpacity
+              style={styles.modalCloseButton}
+              onPress={closeModal}
+            >
               <Text style={styles.modalCloseButtonText}>Close</Text>
             </TouchableOpacity>
           </View>

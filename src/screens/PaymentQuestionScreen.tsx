@@ -1,15 +1,15 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import QuestionScreenLayout from "@/src/components/QuestionScreenLayout";
-import { RootStackParamList } from "@/src/navigation/types";
+import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
+import { RootStackParamList } from '@/src/navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, "PaymentQuestion">;
+type Props = NativeStackScreenProps<RootStackParamList, 'PaymentQuestion'>;
 
 export default function PaymentQuestionScreen({ navigation, route }: Props) {
   const { result } = route.params;
 
   function handleSelect(answer: string) {
-    navigation.replace("TimelineQuestion", {
+    navigation.replace('TimelineQuestion', {
       result: {
         ...result,
         assessment_answers: {
@@ -28,13 +28,13 @@ export default function PaymentQuestionScreen({ navigation, route }: Props) {
       title="How would you prefer to pay for solar?"
       subtitle="This helps match you with the right providers."
       options={[
-        { label: "Cash" },
-        { label: "Installment or financing" },
-        { label: "Lease-to-own" },
-        { label: "Not sure yet" },
+        { label: 'Cash' },
+        { label: 'Installment or financing' },
+        { label: 'Lease-to-own' },
+        { label: 'Not sure yet' },
       ]}
       onSelect={handleSelect}
-      onBack={() => navigation.replace("RoofSpaceQuestion", { result })}
+      onBack={() => navigation.replace('RoofSpaceQuestion', { result })}
     />
   );
 }

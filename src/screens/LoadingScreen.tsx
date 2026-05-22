@@ -1,13 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useEffect } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useEffect } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
 
-import { RootStackParamList } from "@/src/navigation/types";
-import { styles } from "@/src/styles/styles";
-import { STORAGE_KEY } from "@/src/utils/storage";
+import { RootStackParamList } from '@/src/navigation/types';
+import { styles } from '@/src/styles/styles';
+import { STORAGE_KEY } from '@/src/utils/storage';
 
-type Props = NativeStackScreenProps<RootStackParamList, "Loading">;
+type Props = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 
 export default function LoadingScreen({ navigation }: Props) {
   useEffect(() => {
@@ -16,13 +16,13 @@ export default function LoadingScreen({ navigation }: Props) {
         const savedResult = await AsyncStorage.getItem(STORAGE_KEY);
 
         if (savedResult) {
-          navigation.replace("Main");
+          navigation.replace('Main');
         } else {
-          navigation.replace("Location");
+          navigation.replace('Location');
         }
       } catch (error) {
-        console.log("AsyncStorage read error:", error);
-        navigation.replace("Location");
+        console.log('AsyncStorage read error:', error);
+        navigation.replace('Location');
       }
     }
 

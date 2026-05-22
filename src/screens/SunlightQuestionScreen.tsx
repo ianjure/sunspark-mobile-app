@@ -1,15 +1,15 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import QuestionScreenLayout from "@/src/components/QuestionScreenLayout";
-import { RootStackParamList } from "@/src/navigation/types";
+import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
+import { RootStackParamList } from '@/src/navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, "SunlightQuestion">;
+type Props = NativeStackScreenProps<RootStackParamList, 'SunlightQuestion'>;
 
 export default function SunlightQuestionScreen({ navigation, route }: Props) {
   const { result } = route.params;
 
   function handleSelect(answer: string) {
-    navigation.replace("RoofSpaceQuestion", {
+    navigation.replace('RoofSpaceQuestion', {
       result: {
         ...result,
         assessment_answers: {
@@ -28,13 +28,13 @@ export default function SunlightQuestionScreen({ navigation, route }: Props) {
       title="How much sunlight does your roof get?"
       subtitle="More sunlight usually means better solar performance."
       options={[
-        { label: "Mostly sunny" },
-        { label: "Partially shaded" },
-        { label: "Heavily shaded" },
-        { label: "Not sure" },
+        { label: 'Mostly sunny' },
+        { label: 'Partially shaded' },
+        { label: 'Heavily shaded' },
+        { label: 'Not sure' },
       ]}
       onSelect={handleSelect}
-      onBack={() => navigation.replace("EditBill", { result })}
+      onBack={() => navigation.replace('EditBill', { result })}
     />
   );
 }

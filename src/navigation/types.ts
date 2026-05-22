@@ -1,4 +1,4 @@
-import { SunsparkResult } from "@/src/types/sunspark";
+import { SunsparkResult } from '@/src/types/sunspark';
 
 export type RootStackParamList = {
   Loading: undefined;

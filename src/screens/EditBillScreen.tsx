@@ -1,5 +1,5 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useState } from "react";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useState } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -9,29 +9,29 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 
-import { RootStackParamList } from "@/src/navigation/types";
-import { styles } from "@/src/styles/styles";
-import { SunsparkResult } from "@/src/types/sunspark";
+import { RootStackParamList } from '@/src/navigation/types';
+import { styles } from '@/src/styles/styles';
+import { SunsparkResult } from '@/src/types/sunspark';
 
-type Props = NativeStackScreenProps<RootStackParamList, "EditBill">;
+type Props = NativeStackScreenProps<RootStackParamList, 'EditBill'>;
 
 export default function EditBillScreen({ navigation, route }: Props) {
   const originalResult = route.params.result;
 
   const [monthlyBill, setMonthlyBill] = useState(
-    originalResult.monthly_bill?.toString() ?? ""
+    originalResult.monthly_bill?.toString() ?? '',
   );
   const [kwhUsage, setKwhUsage] = useState(
-    originalResult.kwh_usage?.toString() ?? ""
+    originalResult.kwh_usage?.toString() ?? '',
   );
   const [effectiveRatePerKwh, setEffectiveRatePerKwh] = useState(
-    originalResult.effective_rate_per_kwh?.toString() ?? ""
+    originalResult.effective_rate_per_kwh?.toString() ?? '',
   );
 
   function parseNumber(value: string) {
-    const cleaned = value.replace(/[^0-9.]/g, "");
+    const cleaned = value.replace(/[^0-9.]/g, '');
     const parsed = Number(cleaned);
 
     if (!cleaned || Number.isNaN(parsed)) {
@@ -96,8 +96,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
     const estimatedNewBill = monthlyBillValue - estimatedMonthlySavings;
     const estimatedInstallCost = recommendedSystemSizeKwp * costPerKwp;
     const paybackYears = estimatedInstallCost / estimatedAnnualSavings;
-    const monthlyCo2ReductionKg =
-      estimatedMonthlySolarKwh * gridEmissionFactor;
+    const monthlyCo2ReductionKg = estimatedMonthlySolarKwh * gridEmissionFactor;
     const annualCo2ReductionTons = (monthlyCo2ReductionKg * 12) / 1000;
 
     return {
@@ -112,7 +111,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
         // Kept for compatibility with existing UI.
         estimated_monthly_production_kwh: roundNumber(
           estimatedMonthlySolarKwh,
-          2
+          2,
         ),
 
         estimated_monthly_savings: roundNumber(estimatedMonthlySavings, 2),
@@ -135,12 +134,15 @@ export default function EditBillScreen({ navigation, route }: Props) {
     const parsedEffectiveRate = parseNumber(effectiveRatePerKwh);
 
     if (parsedMonthlyBill === null) {
-      Alert.alert("Missing monthly bill", "Please enter a valid monthly bill.");
+      Alert.alert('Missing monthly bill', 'Please enter a valid monthly bill.');
       return;
     }
 
     if (parsedKwhUsage === null) {
-      Alert.alert("Missing kWh usage", "Please enter a valid monthly kWh usage.");
+      Alert.alert(
+        'Missing kWh usage',
+        'Please enter a valid monthly kWh usage.',
+      );
       return;
     }
 
@@ -156,15 +158,15 @@ export default function EditBillScreen({ navigation, route }: Props) {
 
     const finalResult = recomputeEstimate(updatedResult);
 
-    navigation.replace("SunlightQuestion", {
+    navigation.replace('SunlightQuestion', {
       result: finalResult,
     });
   }
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: "#fff" }}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      style={{ flex: 1, backgroundColor: '#fff' }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Review Bill Details</Text>
@@ -209,7 +211,10 @@ export default function EditBillScreen({ navigation, route }: Props) {
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.primaryButtonFull} onPress={continueToMain}>
+        <TouchableOpacity
+          style={styles.primaryButtonFull}
+          onPress={continueToMain}
+        >
           <Text style={styles.primaryButtonText}>Continue to Assessment</Text>
         </TouchableOpacity>
       </ScrollView>

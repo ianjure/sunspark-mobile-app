@@ -1,6 +1,6 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { CameraView, useCameraPermissions } from "expo-camera";
-import { useRef, useState } from "react";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { CameraView, useCameraPermissions } from 'expo-camera';
+import { useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Button,
@@ -9,14 +9,14 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 
-import { API_URL } from "@/src/constants/api";
-import { RootStackParamList } from "@/src/navigation/types";
-import { styles } from "@/src/styles/styles";
-import { SunsparkResult } from "@/src/types/sunspark";
+import { API_URL } from '@/src/constants/api';
+import { RootStackParamList } from '@/src/navigation/types';
+import { styles } from '@/src/styles/styles';
+import { SunsparkResult } from '@/src/types/sunspark';
 
-type Props = NativeStackScreenProps<RootStackParamList, "ScanBill">;
+type Props = NativeStackScreenProps<RootStackParamList, 'ScanBill'>;
 
 export default function ScanBillScreen({ navigation, route }: Props) {
   const cameraRef = useRef<CameraView>(null);
@@ -42,7 +42,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
       setPhotoUri(photo.uri);
     } catch (error) {
-      console.log("Error taking photo:", error);
+      console.log('Error taking photo:', error);
     } finally {
       setIsTakingPhoto(false);
     }
@@ -55,7 +55,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
   async function analyzeBill() {
     if (!photoUri) {
-      setApiErrorMsg("Please take a photo first.");
+      setApiErrorMsg('Please take a photo first.');
       return;
     }
 
@@ -65,17 +65,17 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
       const formData = new FormData();
 
-      formData.append("file", {
+      formData.append('file', {
         uri: photoUri,
-        name: "electric-bill.jpg",
-        type: "image/jpeg",
+        name: 'electric-bill.jpg',
+        type: 'image/jpeg',
       } as any);
 
-      formData.append("lat", String(latitude));
-      formData.append("lon", String(longitude));
+      formData.append('lat', String(latitude));
+      formData.append('lon', String(longitude));
 
       const response = await fetch(API_URL, {
-        method: "POST",
+        method: 'POST',
         body: formData,
       });
 
@@ -90,15 +90,15 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       }
 
       if (!response.ok || !data.success) {
-        throw new Error("Failed to analyze bill.");
+        throw new Error('Failed to analyze bill.');
       }
 
-      navigation.replace("EditBill", {
+      navigation.replace('EditBill', {
         result: data,
       });
     } catch (error: any) {
-      console.log("Analyze bill error:", error);
-      setApiErrorMsg(error.message || "Something went wrong.");
+      console.log('Analyze bill error:', error);
+      setApiErrorMsg(error.message || 'Something went wrong.');
     } finally {
       setIsUploading(false);
     }
@@ -144,7 +144,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
               disabled={isUploading}
             >
               <Text style={styles.primaryButtonText}>
-                {isUploading ? "Analyzing..." : "Analyze Bill"}
+                {isUploading ? 'Analyzing...' : 'Analyze Bill'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -157,7 +157,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
           <TouchableOpacity style={styles.captureButton} onPress={takePhoto}>
             <Text style={styles.captureButtonText}>
-              {isTakingPhoto ? "Taking..." : "Take Photo"}
+              {isTakingPhoto ? 'Taking...' : 'Take Photo'}
             </Text>
           </TouchableOpacity>
         </View>

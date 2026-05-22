@@ -1,6 +1,6 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import { styles } from "@/src/styles/styles";
+import { styles } from '@/src/styles/styles';
 
 type QuestionOption = {
   label: string;

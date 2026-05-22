@@ -1,11 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import QuestionScreenLayout from "@/src/components/QuestionScreenLayout";
-import { RootStackParamList } from "@/src/navigation/types";
-import { STORAGE_KEY } from "@/src/utils/storage";
+import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
+import { RootStackParamList } from '@/src/navigation/types';
+import { STORAGE_KEY } from '@/src/utils/storage';
 
-type Props = NativeStackScreenProps<RootStackParamList, "TimelineQuestion">;
+type Props = NativeStackScreenProps<RootStackParamList, 'TimelineQuestion'>;
 
 export default function TimelineQuestionScreen({ navigation, route }: Props) {
   const { result } = route.params;
@@ -21,7 +21,7 @@ export default function TimelineQuestionScreen({ navigation, route }: Props) {
 
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(finalResult));
 
-    navigation.replace("Main", {
+    navigation.replace('Main', {
       result: finalResult,
     });
   }
@@ -34,13 +34,13 @@ export default function TimelineQuestionScreen({ navigation, route }: Props) {
       title="When are you thinking of installing solar?"
       subtitle="No pressure. This helps us personalize your next step."
       options={[
-        { label: "As soon as possible" },
-        { label: "Within 3 months" },
-        { label: "Within 6 months" },
-        { label: "Just researching" },
+        { label: 'As soon as possible' },
+        { label: 'Within 3 months' },
+        { label: 'Within 6 months' },
+        { label: 'Just researching' },
       ]}
       onSelect={handleSelect}
-      onBack={() => navigation.replace("PaymentQuestion", { result })}
+      onBack={() => navigation.replace('PaymentQuestion', { result })}
     />
   );
 }

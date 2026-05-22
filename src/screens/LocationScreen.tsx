@@ -1,12 +1,12 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import * as Location from "expo-location";
-import { useState } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import * as Location from 'expo-location';
+import { useState } from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 
-import { RootStackParamList } from "@/src/navigation/types";
-import { styles } from "@/src/styles/styles";
+import { RootStackParamList } from '@/src/navigation/types';
+import { styles } from '@/src/styles/styles';
 
-type Props = NativeStackScreenProps<RootStackParamList, "Location">;
+type Props = NativeStackScreenProps<RootStackParamList, 'Location'>;
 
 export default function LocationScreen({ navigation }: Props) {
   const [locationErrorMsg, setLocationErrorMsg] = useState<string | null>(null);
@@ -19,8 +19,8 @@ export default function LocationScreen({ navigation }: Props) {
 
       const { status } = await Location.requestForegroundPermissionsAsync();
 
-      if (status !== "granted") {
-        setLocationErrorMsg("Permission to access location was denied.");
+      if (status !== 'granted') {
+        setLocationErrorMsg('Permission to access location was denied.');
         return;
       }
 
@@ -28,13 +28,13 @@ export default function LocationScreen({ navigation }: Props) {
         accuracy: Location.Accuracy.Balanced,
       });
 
-      navigation.replace("ScanBill", {
+      navigation.replace('ScanBill', {
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
       });
     } catch (error) {
-      console.log("Location error:", error);
-      setLocationErrorMsg("Unable to get your current location.");
+      console.log('Location error:', error);
+      setLocationErrorMsg('Unable to get your current location.');
     } finally {
       setLocationLoading(false);
     }
@@ -57,7 +57,7 @@ export default function LocationScreen({ navigation }: Props) {
         disabled={locationLoading}
       >
         <Text style={styles.primaryButtonText}>
-          {locationLoading ? "Getting Location..." : "Enable Location"}
+          {locationLoading ? 'Getting Location...' : 'Enable Location'}
         </Text>
       </TouchableOpacity>
 

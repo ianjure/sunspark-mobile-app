@@ -1,7 +1,7 @@
-import { Text, View } from "react-native";
-import Svg, { Circle } from "react-native-svg";
+import { Text, View } from 'react-native';
+import Svg, { Circle } from 'react-native-svg';
 
-import { styles } from "@/src/styles/styles";
+import { styles } from '@/src/styles/styles';
 
 type Props = {
   score: number;

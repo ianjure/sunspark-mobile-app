@@ -1,8 +1,8 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from 'react-native';
 
-import { styles } from "@/src/styles/styles";
+import { styles } from '@/src/styles/styles';
 
-export type MainTab = "home" | "providers" | "profile";
+export type MainTab = 'home' | 'providers' | 'profile';
 
 type Props = {
   activeTab: MainTab;
@@ -15,22 +15,22 @@ export default function BottomTabBar({ activeTab, setActiveTab }: Props) {
       <TabButton
         label="Home"
         icon="🏠"
-        active={activeTab === "home"}
-        onPress={() => setActiveTab("home")}
+        active={activeTab === 'home'}
+        onPress={() => setActiveTab('home')}
       />
 
       <TabButton
         label="Providers"
         icon="🏪"
-        active={activeTab === "providers"}
-        onPress={() => setActiveTab("providers")}
+        active={activeTab === 'providers'}
+        onPress={() => setActiveTab('providers')}
       />
 
       <TabButton
         label="Profile"
         icon="👤"
-        active={activeTab === "profile"}
-        onPress={() => setActiveTab("profile")}
+        active={activeTab === 'profile'}
+        onPress={() => setActiveTab('profile')}
       />
     </View>
   );
