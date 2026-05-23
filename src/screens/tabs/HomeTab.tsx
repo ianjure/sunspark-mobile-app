@@ -57,7 +57,7 @@ export default function HomeTab({ result }: Props) {
   }, [result]);
 
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <View style={styles.greetingSection}>
         <Text style={styles.greetingTitle}>Hello, Ian</Text>
         <Text style={styles.greetingSubtitle}>
@@ -109,7 +109,7 @@ export default function HomeTab({ result }: Props) {
           <Text style={styles.estimateValue}>{paybackYears}</Text>
         </View>
       </View>
-    </>
+    </View>
   );
 }
 
