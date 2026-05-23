@@ -254,14 +254,69 @@ export default function ProvidersTab({ result }: Props) {
               </Text>
 
               <Text style={styles.label}>Contact Number</Text>
-              <Text style={styles.value}>
-                {selectedProvider?.contact_number ?? 'Not available'}
-              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 4,
+                }}
+              >
+                <Text style={[styles.value, { flex: 1, marginTop: 0 }]}>
+                  {selectedProvider?.contact_number ?? 'Not available'}
+                </Text>
+                {selectedProvider?.contact_number &&
+                  selectedProvider.contact_number !== 'N/A' && (
+                    <TouchableOpacity
+                      onPress={() =>
+                        callProvider(selectedProvider?.contact_number ?? null)
+                      }
+                      style={{
+                        marginLeft: 8,
+                        padding: 7,
+                        backgroundColor: '#1f7108',
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ fontSize: 17 }}>📞</Text>
+                    </TouchableOpacity>
+                  )}
+              </View>
 
-              <Text style={styles.label}>Email Address</Text>
-              <Text style={styles.value}>
-                {selectedProvider?.email ?? 'Not available'}
+              <Text style={[styles.label, { marginTop: 12 }]}>
+                Email Address
               </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: 4,
+                }}
+              >
+                <Text
+                  style={[
+                    styles.value,
+                    { flex: 1, marginTop: 0, fontSize: 14 },
+                  ]}
+                >
+                  {selectedProvider?.email ?? 'Not available'}
+                </Text>
+                {selectedProvider?.email &&
+                  selectedProvider.email !== 'N/A' && (
+                    <TouchableOpacity
+                      onPress={() => openEmail(selectedProvider?.email ?? null)}
+                      style={{
+                        marginLeft: 8,
+                        padding: 7,
+                        backgroundColor: '#765a00',
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ fontSize: 17 }}>✉️</Text>
+                    </TouchableOpacity>
+                  )}
+              </View>
 
               <Text style={styles.label}>Region</Text>
               <Text style={styles.value}>
@@ -269,23 +324,12 @@ export default function ProvidersTab({ result }: Props) {
               </Text>
             </View>
 
-            <View style={styles.providerModalActionRow}>
-              <TouchableOpacity
-                style={styles.providerSecondaryButton}
-                onPress={() =>
-                  callProvider(selectedProvider?.contact_number ?? null)
-                }
-              >
-                <Text style={styles.providerSecondaryButtonText}>Call</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.viewProfileButton}
-                onPress={() => openEmail(selectedProvider?.email ?? null)}
-              >
-                <Text style={styles.viewProfileButtonText}>Email</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={[styles.viewProfileButtonFull, { marginBottom: 10 }]}
+              onPress={() => {}}
+            >
+              <Text style={styles.viewProfileButtonText}>Request a Quote</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.modalCloseButton}
