@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { RootStackParamList } from '@/src/navigation/types';
 import EditBillScreen from '@/src/screens/EditBillScreen';
+import HomeOwnershipQuestionScreen from '@/src/screens/HomeOwnershipQuestionScreen';
 import LoadingScreen from '@/src/screens/LoadingScreen';
 import LocationScreen from '@/src/screens/LocationScreen';
 import MainScreen from '@/src/screens/MainScreen';
@@ -31,6 +32,10 @@ export default function App() {
           <Stack.Screen name="Location" component={LocationScreen} />
           <Stack.Screen name="ScanBill" component={ScanBillScreen} />
           <Stack.Screen name="EditBill" component={EditBillScreen} />
+          <Stack.Screen
+            name="HomeOwnershipQuestion"
+            component={HomeOwnershipQuestionScreen}
+          />
           <Stack.Screen
             name="SunlightQuestion"
             component={SunlightQuestionScreen}

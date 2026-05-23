@@ -3,18 +3,24 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
 import { RootStackParamList } from '@/src/navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SunlightQuestion'>;
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  'HomeOwnershipQuestion'
+>;
 
-export default function SunlightQuestionScreen({ navigation, route }: Props) {
+export default function HomeOwnershipQuestionScreen({
+  navigation,
+  route,
+}: Props) {
   const { result } = route.params;
 
   function handleSelect(answer: string) {
-    navigation.replace('RoofSpaceQuestion', {
+    navigation.replace('SunlightQuestion', {
       result: {
         ...result,
         assessment_answers: {
           ...result.assessment_answers,
-          sunlight: answer,
+          home_ownership: answer,
         },
       },
     });
@@ -22,19 +28,19 @@ export default function SunlightQuestionScreen({ navigation, route }: Props) {
 
   return (
     <QuestionScreenLayout
-      currentStep={2}
+      currentStep={1}
       totalSteps={5}
-      progress={40}
-      title="How much sunlight does your roof get?"
-      subtitle="More sunlight usually means better solar performance."
+      progress={20}
+      title="Do you own the house?"
+      subtitle="This helps us recommend the right financing and installation options."
       options={[
-        { label: 'Mostly sunny' },
-        { label: 'Partially shaded' },
-        { label: 'Heavily shaded' },
+        { label: 'Yes, I own it' },
+        { label: 'Family-owned' },
+        { label: 'Renting' },
         { label: 'Not sure' },
       ]}
       onSelect={handleSelect}
-      onBack={() => navigation.replace('HomeOwnershipQuestion', { result })}
+      onBack={() => navigation.replace('EditBill', { result })}
     />
   );
 }

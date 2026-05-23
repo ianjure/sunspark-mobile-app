@@ -10,6 +10,9 @@ export type RootStackParamList = {
   EditBill: {
     result: SunsparkResult;
   };
+  HomeOwnershipQuestion: {
+    result: SunsparkResult;
+  };
   SunlightQuestion: {
     result: SunsparkResult;
   };

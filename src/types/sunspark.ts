@@ -1,4 +1,5 @@
 export type AssessmentAnswers = {
+  home_ownership?: string;
   sunlight?: string;
   roof_space?: string;
   payment_preference?: string;

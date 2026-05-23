@@ -158,7 +158,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
 
     const finalResult = recomputeEstimate(updatedResult);
 
-    navigation.replace('SunlightQuestion', {
+    navigation.replace('HomeOwnershipQuestion', {
       result: finalResult,
     });
   }

@@ -22,9 +22,9 @@ export default function PaymentQuestionScreen({ navigation, route }: Props) {
 
   return (
     <QuestionScreenLayout
-      currentStep={3}
-      totalSteps={4}
-      progress={75}
+      currentStep={4}
+      totalSteps={5}
+      progress={80}
       title="How would you prefer to pay for solar?"
       subtitle="This helps match you with the right providers."
       options={[
