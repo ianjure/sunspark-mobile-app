@@ -1,16 +1,14 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
 import { RootStackParamList } from '@/src/navigation/types';
-import { STORAGE_KEY } from '@/src/utils/storage';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TimelineQuestion'>;
 
 export default function TimelineQuestionScreen({ navigation, route }: Props) {
   const { result } = route.params;
 
-  async function handleSelect(answer: string) {
+  function handleSelect(answer: string) {
     const finalResult = {
       ...result,
       assessment_answers: {
@@ -19,11 +17,7 @@ export default function TimelineQuestionScreen({ navigation, route }: Props) {
       },
     };
 
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(finalResult));
-
-    navigation.replace('Main', {
-      result: finalResult,
-    });
+    navigation.replace('Register', { result: finalResult });
   }
 
   return (

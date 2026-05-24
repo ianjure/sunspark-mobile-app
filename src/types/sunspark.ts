@@ -8,6 +8,7 @@ export type AssessmentAnswers = {
 
 export type SunsparkResult = {
   success: boolean;
+  user_name?: string;
   monthly_bill: number | null;
   kwh_usage: number | null;
   rate_per_kwh_found_on_bill: number | null;

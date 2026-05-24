@@ -11,6 +11,10 @@ type Props = {
   result: SunsparkResult;
 };
 
+function getFirstName(fullName: string) {
+  return fullName.trim().split(/\s+/)[0] || fullName.trim();
+}
+
 export default function HomeTab({ result }: Props) {
   const readinessScore = useMemo(() => {
     let score = 60;
@@ -56,12 +60,16 @@ export default function HomeTab({ result }: Props) {
     return `${years} years`;
   }, [result]);
 
+  const displayName = result.user_name
+    ? getFirstName(result.user_name)
+    : 'there';
+
   return (
-    <View style={{ flex: 1 }}>
+    <>
       <View style={styles.greetingSection}>
-        <Text style={styles.greetingTitle}>Hello, Ian</Text>
+        <Text style={styles.greetingTitle}>Hello, {displayName}</Text>
         <Text style={styles.greetingSubtitle}>
-          Here’s your solar readiness snapshot.
+          Here's your solar readiness snapshot.
         </Text>
       </View>
 
@@ -109,7 +117,7 @@ export default function HomeTab({ result }: Props) {
           <Text style={styles.estimateValue}>{paybackYears}</Text>
         </View>
       </View>
-    </View>
+    </>
   );
 }
 

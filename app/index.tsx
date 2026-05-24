@@ -11,6 +11,7 @@ import LoadingScreen from '@/src/screens/LoadingScreen';
 import LocationScreen from '@/src/screens/LocationScreen';
 import MainScreen from '@/src/screens/MainScreen';
 import PaymentQuestionScreen from '@/src/screens/PaymentQuestionScreen';
+import RegisterScreen from '@/src/screens/RegisterScreen';
 import RoofSpaceQuestionScreen from '@/src/screens/RoofSpaceQuestionScreen';
 import ScanBillScreen from '@/src/screens/ScanBillScreen';
 import SunlightQuestionScreen from '@/src/screens/SunlightQuestionScreen';
@@ -52,6 +53,7 @@ export default function App() {
             name="TimelineQuestion"
             component={TimelineQuestionScreen}
           />
+          <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Main" component={MainScreen} />
         </Stack.Navigator>
       </NavigationContainer>

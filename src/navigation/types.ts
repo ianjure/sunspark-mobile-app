@@ -25,6 +25,9 @@ export type RootStackParamList = {
   TimelineQuestion: {
     result: SunsparkResult;
   };
+  Register: {
+    result: SunsparkResult;
+  };
   Main:
     | {
         result?: SunsparkResult;
