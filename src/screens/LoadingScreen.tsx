@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
 import { STORAGE_KEY } from '@/src/utils/storage';
+
+import Logo from '@/src/components/Logo';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 
@@ -31,8 +33,7 @@ export default function LoadingScreen({ navigation }: Props) {
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.logo}>☀️</Text>
-      <Text style={styles.title}>Sunspark</Text>
+      <Logo width={42} height={42} />
       <ActivityIndicator style={{ marginTop: 16 }} />
     </View>
   );

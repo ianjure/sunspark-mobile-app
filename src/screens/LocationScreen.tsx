@@ -180,7 +180,7 @@ export default function LocationScreen({ navigation }: Props) {
         style={{ marginTop: 20 }}
       >
         <Text style={mapPickerStyles.pinText}>
-          📍 Not at home? Pin your location on the map
+          Or pin your location on the map
         </Text>
       </TouchableOpacity>
 

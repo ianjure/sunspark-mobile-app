@@ -90,7 +90,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
     const recommendedSystemSizeKwpRaw =
       targetKwhOffset / monthlyProductionPerKwp;
     const recommendedSystemSizeKwp =
-      Math.ceil(recommendedSystemSizeKwpRaw * 10) / 10;
+      Math.ceil(recommendedSystemSizeKwpRaw * 2) / 2;
     const estimatedMonthlySolarKwh =
       recommendedSystemSizeKwp * monthlyProductionPerKwp;
     const estimatedMonthlySavings =

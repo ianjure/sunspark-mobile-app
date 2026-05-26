@@ -3,7 +3,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import {
   Alert,
-  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -12,17 +11,18 @@ import {
 } from 'react-native';
 
 import { RootStackParamList } from '@/src/navigation/types';
-import { styles } from '@/src/styles/styles';
 import { STORAGE_KEY } from '@/src/utils/storage';
+
+import Logo from '@/src/components/Logo';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 export default function RegisterScreen({ navigation, route }: Props) {
   const { result } = route.params;
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('Juan dela Cruz');
+  const [email, setEmail] = useState('jcruz@example.com');
+  const [password, setPassword] = useState('1234juan');
   const [showPassword, setShowPassword] = useState(false);
   const [consent, setConsent] = useState(false);
 
@@ -56,24 +56,10 @@ export default function RegisterScreen({ navigation, route }: Props) {
 
   return (
     <View style={registerStyles.screen}>
-      {/* Header */}
-      <View style={registerStyles.header}>
-        <View style={styles.brandIcon}>
-          <Text style={styles.brandIconText}>☀️</Text>
-        </View>
-        <Text style={styles.brandText}>Sunspark</Text>
-      </View>
-
       {/* Hero */}
       <View style={registerStyles.hero}>
         <View style={registerStyles.mascotContainer}>
-          <Image
-            source={{
-              uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDtESJWK7KtBfRK8FsVWk3iajCPv1oAzxL4mGdKPeFz4lGBbwOqWmMF1RYIC6bzfMJeXLN-Kc1XvJYz0WG-t3UOAqsUtpv7Nd1PhXTiilqjV5C6koXchKCnwo2m_RVjD42zb5eMzZDMMl-x6JMotNhtWA6X04WKdqlbcuKfr23ktlwFx8TmrPTFpsbnyLP3VEX0yAmGEW4FmaXZTuG0G0233X9slyUy7dgWkHTaF07Q5Psbo5eJ6mz1iWMn43xBCQO-GBn1p_KYeEf6',
-            }}
-            style={registerStyles.mascot}
-            resizeMode="contain"
-          />
+          <Logo width={100} height={200} />
           <View style={registerStyles.readyBadge}>
             <Text style={registerStyles.readyBadgeText}>Ready! ☀️</Text>
           </View>
@@ -102,31 +88,41 @@ export default function RegisterScreen({ navigation, route }: Props) {
         </View>
 
         {/* Email */}
-        <View style={registerStyles.inputCard}>
+        <View
+          style={[registerStyles.inputCard, registerStyles.inputCardDisabled]}
+        >
           <Text style={registerStyles.inputLabel}>Email Address</Text>
           <TextInput
-            style={registerStyles.input}
+            style={[registerStyles.input, registerStyles.inputDisabled]}
             value={email}
             onChangeText={setEmail}
             placeholder="juan@example.com"
             placeholderTextColor="#807660"
             keyboardType="email-address"
             autoCapitalize="none"
+            editable={false}
           />
         </View>
 
         {/* Password */}
-        <View style={registerStyles.inputCard}>
+        <View
+          style={[registerStyles.inputCard, registerStyles.inputCardDisabled]}
+        >
           <Text style={registerStyles.inputLabel}>Create Password</Text>
           <View style={registerStyles.passwordRow}>
             <TextInput
-              style={[registerStyles.input, { flex: 1 }]}
+              style={[
+                registerStyles.input,
+                registerStyles.inputDisabled,
+                { flex: 1 },
+              ]}
               value={password}
               onChangeText={setPassword}
               placeholder="Min. 8 characters"
               placeholderTextColor="#807660"
               secureTextEntry={!showPassword}
               autoCapitalize="none"
+              editable={false}
             />
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
               <Text style={registerStyles.eyeIcon}>
@@ -250,6 +246,9 @@ const registerStyles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 12,
   },
+  inputCardDisabled: {
+    backgroundColor: '#f0ebe3',
+  },
   inputLabel: {
     fontSize: 12,
     fontWeight: '700',
@@ -260,6 +259,9 @@ const registerStyles = StyleSheet.create({
     fontSize: 16,
     color: '#201b11',
     padding: 0,
+  },
+  inputDisabled: {
+    color: '#807660',
   },
   passwordRow: {
     flexDirection: 'row',
