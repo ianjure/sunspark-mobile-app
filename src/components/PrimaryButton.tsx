@@ -85,13 +85,11 @@ export default function PrimaryButton({
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginHorizontal: 20,
-    // Reserve space for the shadow (4px below)
     marginBottom: 4,
   },
   shadow: {
     position: 'absolute',
-    top: 4, // offset matches Y4 shadow
+    top: 4,
     left: 0,
     right: 0,
     height: 55,
@@ -104,11 +102,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFC928',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 16,
   },
   label: {
-    fontFamily: 'Nunito_700Bold',
     fontSize: 14,
-    letterSpacing: 14 * 0.05, // 5% of font size
+    fontWeight: '700',
+    letterSpacing: 14 * 0.05,
     color: '#17202A',
   },
   disabledButton: {

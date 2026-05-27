@@ -31,7 +31,7 @@ export default function MainScreen({ navigation, route }: Props) {
         const savedResult = await AsyncStorage.getItem(STORAGE_KEY);
 
         if (!savedResult) {
-          navigation.replace('Location');
+          navigation.replace('Welcome');
           return;
         }
 
@@ -50,7 +50,7 @@ export default function MainScreen({ navigation, route }: Props) {
   async function resetApp() {
     try {
       await AsyncStorage.removeItem(STORAGE_KEY);
-      navigation.replace('Location');
+      navigation.replace('Welcome');
     } catch (error) {
       console.log('Reset app error:', error);
     }

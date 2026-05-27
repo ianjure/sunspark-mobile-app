@@ -2,6 +2,7 @@ import { SunsparkResult } from '@/src/types/sunspark';
 
 export type RootStackParamList = {
   Loading: undefined;
+  Welcome: undefined;
   Location: undefined;
   ScanBill: {
     latitude: number;

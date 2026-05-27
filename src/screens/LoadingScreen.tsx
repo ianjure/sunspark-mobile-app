@@ -20,11 +20,11 @@ export default function LoadingScreen({ navigation }: Props) {
         if (savedResult) {
           navigation.replace('Main');
         } else {
-          navigation.replace('Location');
+          navigation.replace('Welcome');
         }
       } catch (error) {
         console.log('AsyncStorage read error:', error);
-        navigation.replace('Location');
+        navigation.replace('Welcome');
       }
     }
 

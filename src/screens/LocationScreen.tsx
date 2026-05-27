@@ -46,11 +46,9 @@ function isInsidePhilippines(lat: number, lon: number): boolean {
 }
 
 function clampRegion(region: Region): Region {
-  // Clamp deltas so user can't zoom out beyond PH bounds
   const latDelta = Math.min(region.latitudeDelta, MAX_LATITUDE_DELTA);
   const lonDelta = Math.min(region.longitudeDelta, MAX_LONGITUDE_DELTA);
 
-  // Clamp center so the visible area stays within PH bounds
   const halfLat = latDelta / 2;
   const halfLon = lonDelta / 2;
 
@@ -150,6 +148,14 @@ export default function LocationScreen({ navigation }: Props) {
 
   return (
     <View style={styles.screen}>
+      {/* X Button */}
+      <TouchableOpacity
+        style={locationStyles.closeButton}
+        onPress={() => navigation.replace('Welcome')}
+      >
+        <Text style={locationStyles.closeButtonText}>✕</Text>
+      </TouchableOpacity>
+
       <Text style={styles.logo}>☀️</Text>
       <Text style={styles.title}>Welcome to Sunspark</Text>
       <Text style={styles.subtitle}>
@@ -230,8 +236,6 @@ export default function LocationScreen({ navigation }: Props) {
             onRegionChangeComplete={handleRegionChangeComplete}
             showsUserLocation
             showsMyLocationButton
-            // Prevent the user from tilting/rotating so the boundary
-            // clamping logic stays reliable
             rotateEnabled={false}
             pitchEnabled={false}
           >
@@ -272,6 +276,26 @@ export default function LocationScreen({ navigation }: Props) {
     </View>
   );
 }
+
+const locationStyles = StyleSheet.create({
+  closeButton: {
+    position: 'absolute',
+    top: 56,
+    left: 20,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#e5e7eb',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10,
+  },
+  closeButtonText: {
+    fontSize: 16,
+    color: '#374151',
+    fontWeight: '700',
+  },
+});
 
 const mapPickerStyles = StyleSheet.create({
   pinText: {

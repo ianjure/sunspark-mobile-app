@@ -85,13 +85,11 @@ export default function SecondaryButton({
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginHorizontal: 20,
-    // Reserve space for the shadow (4px below)
     marginBottom: 4,
   },
   shadow: {
     position: 'absolute',
-    top: 4, // offset matches Y4 shadow
+    top: 4,
     left: 0,
     right: 0,
     height: 55,
@@ -101,20 +99,21 @@ const styles = StyleSheet.create({
   button: {
     height: 55,
     borderRadius: 12,
-    backgroundColor: 'transparent',
+    backgroundColor: '#F5F7FA',
     borderWidth: 2,
     borderColor: '#D0D5DD',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 16,
   },
   label: {
-    fontFamily: 'Nunito_700Bold',
     fontSize: 14,
-    letterSpacing: 14 * 0.05, // 5% of font size
+    fontWeight: '700',
+    letterSpacing: 14 * 0.05,
     color: '#1E88E5',
   },
   disabledButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#F5F7FA',
     borderColor: '#D0D5DD',
   },
   disabledLabel: {

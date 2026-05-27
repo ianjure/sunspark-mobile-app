@@ -16,6 +16,7 @@ import RoofSpaceQuestionScreen from '@/src/screens/RoofSpaceQuestionScreen';
 import ScanBillScreen from '@/src/screens/ScanBillScreen';
 import SunlightQuestionScreen from '@/src/screens/SunlightQuestionScreen';
 import TimelineQuestionScreen from '@/src/screens/TimelineQuestionScreen';
+import WelcomeScreen from '@/src/screens/WelcomeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,6 +31,7 @@ export default function App() {
           }}
         >
           <Stack.Screen name="Loading" component={LoadingScreen} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Location" component={LocationScreen} />
           <Stack.Screen name="ScanBill" component={ScanBillScreen} />
           <Stack.Screen name="EditBill" component={EditBillScreen} />
