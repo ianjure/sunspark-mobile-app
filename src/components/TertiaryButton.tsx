@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   button: {
     height: 65,
     borderRadius: 12,
-    backgroundColor: 'transparent',
+    backgroundColor: '#F5F7FA',
     borderWidth: 2,
     borderColor: '#D0D5DD',
     alignItems: 'center',
@@ -110,11 +110,11 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'Inter_700Bold',
     fontSize: 20,
-    letterSpacing: 14 * 0.05, // 5% of font size
+    letterSpacing: 14 * 0.05,
     color: '#667085',
   },
   disabledButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#F5F7FA',
     borderColor: '#D0D5DD',
   },
   disabledLabel: {

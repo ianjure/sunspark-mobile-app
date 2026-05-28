@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import AppTopBar from '@/src/components/AppTopBar';
 import BottomTabBar, { MainTab } from '@/src/components/BottomTabBar';
@@ -73,11 +74,19 @@ export default function MainScreen({ navigation, route }: Props) {
     );
   }
 
+  const insets = useSafeAreaInsets();
+  const TAB_BAR_HEIGHT = 60 + insets.bottom + 10;
+
   return (
     <View style={styles.mainShell}>
       <AppTopBar />
 
-      <ScrollView contentContainerStyle={styles.tabContent}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.tabContent,
+          { paddingBottom: TAB_BAR_HEIGHT + 16 },
+        ]}
+      >
         {activeTab === 'home' && <HomeTab result={result} />}
 
         {activeTab === 'providers' && <ProvidersTab result={result} />}

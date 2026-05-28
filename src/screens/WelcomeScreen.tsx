@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Logo from '@/src/components/Logo';
 import PrimaryButton from '@/src/components/PrimaryButton';
@@ -10,7 +11,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 export default function WelcomeScreen({ navigation }: Props) {
   return (
-    <View style={welcomeStyles.screen}>
+    <SafeAreaView style={welcomeStyles.screen} edges={['top', 'bottom']}>
       {/* Top Bar with Logo */}
       <View style={welcomeStyles.topBar}>
         <Logo width={150} height={25} />
@@ -29,18 +30,16 @@ export default function WelcomeScreen({ navigation }: Props) {
       </View>
 
       {/* Bottom Button Area */}
-      <View style={welcomeStyles.buttonArea}>
-        <PrimaryButton
-          label="GET STARTED"
-          onPress={() => navigation.replace('Location')}
-        />
-        <View style={{ height: 16 }} />
-        <SecondaryButton
-          label="I ALREADY HAVE AN ACCOUNT"
-          onPress={() => navigation.replace('Main')}
-        />
-      </View>
-    </View>
+      <PrimaryButton
+        label="GET STARTED"
+        onPress={() => navigation.replace('Location')}
+      />
+      <View style={{ height: 16 }} />
+      <SecondaryButton
+        label="I ALREADY HAVE AN ACCOUNT"
+        onPress={() => navigation.replace('Main')}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -78,8 +77,5 @@ const welcomeStyles = StyleSheet.create({
     color: '#6b7280',
     textAlign: 'center',
     lineHeight: 22,
-  },
-  buttonArea: {
-    paddingBottom: 20,
   },
 });

@@ -3,15 +3,17 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 24,
-    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    backgroundColor: '#F5F7FA',
     alignItems: 'center',
     justifyContent: 'center',
   },
   container: {
     flexGrow: 1,
-    padding: 24,
-    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingTop: 24,
+    paddingBottom: 24,
+    backgroundColor: '#F5F7FA',
   },
   logo: {
     fontSize: 64,
@@ -463,9 +465,8 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    minHeight: 86,
     paddingTop: 10,
-    paddingBottom: 18,
+    paddingBottom: 10,
     paddingHorizontal: 16,
     backgroundColor: '#fff8f1',
     borderTopWidth: 2,

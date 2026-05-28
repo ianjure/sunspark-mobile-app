@@ -85,6 +85,7 @@ export default function PrimaryButton({
 
 const styles = StyleSheet.create({
   wrapper: {
+    marginHorizontal: 20,
     marginBottom: 4,
   },
   shadow: {

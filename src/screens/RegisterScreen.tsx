@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { RootStackParamList } from '@/src/navigation/types';
 import { STORAGE_KEY } from '@/src/utils/storage';
@@ -55,7 +56,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
   }
 
   return (
-    <View style={registerStyles.screen}>
+    <SafeAreaView style={registerStyles.screen} edges={['top', 'bottom']}>
       {/* Hero */}
       <View style={registerStyles.hero}>
         <View style={registerStyles.mascotContainer}>
@@ -166,7 +167,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
           <Text style={registerStyles.termsLink}>Privacy Policy</Text>.
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

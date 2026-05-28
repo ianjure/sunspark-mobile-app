@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
@@ -147,7 +148,7 @@ export default function LocationScreen({ navigation }: Props) {
   }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
       {/* X Button */}
       <TouchableOpacity
         style={locationStyles.closeButton}
@@ -273,7 +274,7 @@ export default function LocationScreen({ navigation }: Props) {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 }
 

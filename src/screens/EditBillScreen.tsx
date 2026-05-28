@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
@@ -167,61 +168,66 @@ export default function EditBillScreen({ navigation, route }: Props) {
   }
 
   return (
-    <KeyboardAvoidingView
+    <SafeAreaView
       style={{ flex: 1, backgroundColor: '#fff' }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      edges={['top', 'bottom']}
     >
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Review Bill Details</Text>
-        <Text style={styles.subtitle}>
-          Check the values we found from your bill. You can edit them before we
-          create your Sunspark assessment.
-        </Text>
-
-        <View style={styles.resultCard}>
-          <Text style={styles.resultTitle}>Bill Summary</Text>
-
-          <Text style={styles.label}>Monthly Bill</Text>
-          <TextInput
-            style={styles.input}
-            value={monthlyBill}
-            onChangeText={setMonthlyBill}
-            keyboardType="decimal-pad"
-            placeholder="Example: 3500"
-          />
-
-          <Text style={styles.label}>Monthly kWh Usage</Text>
-          <TextInput
-            style={styles.input}
-            value={kwhUsage}
-            onChangeText={setKwhUsage}
-            keyboardType="decimal-pad"
-            placeholder="Example: 420"
-          />
-
-          <Text style={styles.label}>Effective Rate per kWh</Text>
-          <TextInput
-            style={styles.input}
-            value={effectiveRatePerKwh}
-            onChangeText={setEffectiveRatePerKwh}
-            keyboardType="decimal-pad"
-            placeholder="Leave blank to compute automatically"
-          />
-
-          <Text style={styles.helperText}>
-            Tip: Effective rate is usually monthly bill divided by monthly kWh
-            usage. You can leave this blank and Sunspark will compute it.
+      <KeyboardAvoidingView
+        style={{ flex: 1, backgroundColor: '#fff' }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <ScrollView contentContainerStyle={styles.container}>
+          <Text style={styles.title}>Review Bill Details</Text>
+          <Text style={styles.subtitle}>
+            Check the values we found from your bill. You can edit them before
+            we create your Sunspark assessment.
           </Text>
-        </View>
 
-        <TouchableOpacity
-          style={styles.primaryButtonFull}
-          onPress={continueToMain}
-        >
-          <Text style={styles.primaryButtonText}>Continue to Assessment</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </KeyboardAvoidingView>
+          <View style={styles.resultCard}>
+            <Text style={styles.resultTitle}>Bill Summary</Text>
+
+            <Text style={styles.label}>Monthly Bill</Text>
+            <TextInput
+              style={styles.input}
+              value={monthlyBill}
+              onChangeText={setMonthlyBill}
+              keyboardType="decimal-pad"
+              placeholder="Example: 3500"
+            />
+
+            <Text style={styles.label}>Monthly kWh Usage</Text>
+            <TextInput
+              style={styles.input}
+              value={kwhUsage}
+              onChangeText={setKwhUsage}
+              keyboardType="decimal-pad"
+              placeholder="Example: 420"
+            />
+
+            <Text style={styles.label}>Effective Rate per kWh</Text>
+            <TextInput
+              style={styles.input}
+              value={effectiveRatePerKwh}
+              onChangeText={setEffectiveRatePerKwh}
+              keyboardType="decimal-pad"
+              placeholder="Leave blank to compute automatically"
+            />
+
+            <Text style={styles.helperText}>
+              Tip: Effective rate is usually monthly bill divided by monthly kWh
+              usage. You can leave this blank and Sunspark will compute it.
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.primaryButtonFull}
+            onPress={continueToMain}
+          >
+            <Text style={styles.primaryButtonText}>Continue to Assessment</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 

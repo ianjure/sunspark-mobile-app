@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { API_URL } from '@/src/constants/api';
 import { RootStackParamList } from '@/src/navigation/types';
@@ -105,72 +106,77 @@ export default function ScanBillScreen({ navigation, route }: Props) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Scan Your Electric Bill</Text>
-      <Text style={styles.subtitle}>
-        Take a clear photo of your latest electric bill so Sunspark can estimate
-        your solar savings.
-      </Text>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: '#fff' }}
+      edges={['top', 'bottom']}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Scan Your Electric Bill</Text>
+        <Text style={styles.subtitle}>
+          Take a clear photo of your latest electric bill so Sunspark can
+          estimate your solar savings.
+        </Text>
 
-      {!cameraPermission && (
-        <Text style={styles.text}>Loading camera permission...</Text>
-      )}
+        {!cameraPermission && (
+          <Text style={styles.text}>Loading camera permission...</Text>
+        )}
 
-      {cameraPermission && !cameraPermission.granted && (
-        <View style={styles.centerContent}>
-          <Text style={styles.text}>
-            We need your permission to use the camera.
-          </Text>
-          <Button title="Allow Camera" onPress={requestCameraPermission} />
-        </View>
-      )}
+        {cameraPermission && !cameraPermission.granted && (
+          <View style={styles.centerContent}>
+            <Text style={styles.text}>
+              We need your permission to use the camera.
+            </Text>
+            <Button title="Allow Camera" onPress={requestCameraPermission} />
+          </View>
+        )}
 
-      {cameraPermission && cameraPermission.granted && photoUri && (
-        <View style={styles.previewContainer}>
-          <Image source={{ uri: photoUri }} style={styles.previewImage} />
+        {cameraPermission && cameraPermission.granted && photoUri && (
+          <View style={styles.previewContainer}>
+            <Image source={{ uri: photoUri }} style={styles.previewImage} />
 
-          <View style={styles.buttonRow}>
-            <TouchableOpacity
-              style={styles.secondaryButton}
-              onPress={retakePhoto}
-              disabled={isUploading}
-            >
-              <Text style={styles.secondaryButtonText}>Retake</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity
+                style={styles.secondaryButton}
+                onPress={retakePhoto}
+                disabled={isUploading}
+              >
+                <Text style={styles.secondaryButtonText}>Retake</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.primaryButton}
-              onPress={analyzeBill}
-              disabled={isUploading}
-            >
-              <Text style={styles.primaryButtonText}>
-                {isUploading ? 'Analyzing...' : 'Analyze Bill'}
+              <TouchableOpacity
+                style={styles.primaryButton}
+                onPress={analyzeBill}
+                disabled={isUploading}
+              >
+                <Text style={styles.primaryButtonText}>
+                  {isUploading ? 'Analyzing...' : 'Analyze Bill'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {cameraPermission && cameraPermission.granted && !photoUri && (
+          <View style={styles.cameraContainer}>
+            <CameraView ref={cameraRef} style={styles.camera} facing="back" />
+
+            <TouchableOpacity style={styles.captureButton} onPress={takePhoto}>
+              <Text style={styles.captureButtonText}>
+                {isTakingPhoto ? 'Taking...' : 'Take Photo'}
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
-      )}
+        )}
 
-      {cameraPermission && cameraPermission.granted && !photoUri && (
-        <View style={styles.cameraContainer}>
-          <CameraView ref={cameraRef} style={styles.camera} facing="back" />
+        {isUploading && (
+          <View style={styles.loadingBox}>
+            <ActivityIndicator />
+            <Text style={styles.text}>Reading your bill and solar data...</Text>
+          </View>
+        )}
 
-          <TouchableOpacity style={styles.captureButton} onPress={takePhoto}>
-            <Text style={styles.captureButtonText}>
-              {isTakingPhoto ? 'Taking...' : 'Take Photo'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      {isUploading && (
-        <View style={styles.loadingBox}>
-          <ActivityIndicator />
-          <Text style={styles.text}>Reading your bill and solar data...</Text>
-        </View>
-      )}
-
-      {apiErrorMsg && <Text style={styles.error}>{apiErrorMsg}</Text>}
-    </ScrollView>
+        {apiErrorMsg && <Text style={styles.error}>{apiErrorMsg}</Text>}
+      </ScrollView>
+    </SafeAreaView>
   );
 }

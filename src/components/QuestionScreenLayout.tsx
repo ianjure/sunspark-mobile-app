@@ -1,4 +1,5 @@
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { styles } from '@/src/styles/styles';
 
@@ -29,48 +30,53 @@ export default function QuestionScreenLayout({
   onBack,
 }: Props) {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.progressHeader}>
-        <Text style={styles.progressText}>
-          Question {currentStep} of {totalSteps}
-        </Text>
-        <Text style={styles.progressText}>{progress}% Complete</Text>
-      </View>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: '#fff' }}
+      edges={['top', 'bottom']}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.progressHeader}>
+          <Text style={styles.progressText}>
+            Question {currentStep} of {totalSteps}
+          </Text>
+          <Text style={styles.progressText}>{progress}% Complete</Text>
+        </View>
 
-      <View style={styles.progressTrack}>
-        <View style={[styles.progressFill, { width: `${progress}%` }]} />
-      </View>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${progress}%` }]} />
+        </View>
 
-      <View style={styles.questionCard}>
-        <Text style={styles.questionTitle}>{title}</Text>
+        <View style={styles.questionCard}>
+          <Text style={styles.questionTitle}>{title}</Text>
 
-        {subtitle && <Text style={styles.questionSubtitle}>{subtitle}</Text>}
-      </View>
+          {subtitle && <Text style={styles.questionSubtitle}>{subtitle}</Text>}
+        </View>
 
-      <View style={styles.optionList}>
-        {options.map((option) => (
-          <TouchableOpacity
-            key={option.label}
-            style={styles.optionButton}
-            onPress={() => onSelect(option.label)}
-          >
-            <View>
-              <Text style={styles.optionLabel}>{option.label}</Text>
-              {option.description && (
-                <Text style={styles.optionDescription}>
-                  {option.description}
-                </Text>
-              )}
-            </View>
+        <View style={styles.optionList}>
+          {options.map((option) => (
+            <TouchableOpacity
+              key={option.label}
+              style={styles.optionButton}
+              onPress={() => onSelect(option.label)}
+            >
+              <View>
+                <Text style={styles.optionLabel}>{option.label}</Text>
+                {option.description && (
+                  <Text style={styles.optionDescription}>
+                    {option.description}
+                  </Text>
+                )}
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {onBack && (
+          <TouchableOpacity style={styles.secondaryButtonFull} onPress={onBack}>
+            <Text style={styles.secondaryButtonText}>Back</Text>
           </TouchableOpacity>
-        ))}
-      </View>
-
-      {onBack && (
-        <TouchableOpacity style={styles.secondaryButtonFull} onPress={onBack}>
-          <Text style={styles.secondaryButtonText}>Back</Text>
-        </TouchableOpacity>
-      )}
-    </ScrollView>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }

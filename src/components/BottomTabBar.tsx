@@ -1,6 +1,6 @@
-import { Text, TouchableOpacity, View } from 'react-native';
-
 import { styles } from '@/src/styles/styles';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export type MainTab = 'home' | 'providers' | 'profile';
 
@@ -10,22 +10,22 @@ type Props = {
 };
 
 export default function BottomTabBar({ activeTab, setActiveTab }: Props) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.bottomTabBar}>
+    <View style={[styles.bottomTabBar, { paddingBottom: insets.bottom + 10 }]}>
       <TabButton
         label="Home"
         icon="🏠"
         active={activeTab === 'home'}
         onPress={() => setActiveTab('home')}
       />
-
       <TabButton
         label="Providers"
         icon="🏪"
         active={activeTab === 'providers'}
         onPress={() => setActiveTab('providers')}
       />
-
       <TabButton
         label="Profile"
         icon="👤"
@@ -55,7 +55,6 @@ function TabButton({
       <Text style={active ? styles.bottomTabActiveIcon : styles.bottomTabIcon}>
         {icon}
       </Text>
-
       <Text style={active ? styles.bottomTabActiveText : styles.bottomTabText}>
         {label}
       </Text>
