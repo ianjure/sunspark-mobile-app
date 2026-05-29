@@ -75,7 +75,7 @@ export default function MainScreen({ navigation, route }: Props) {
   }
 
   const insets = useSafeAreaInsets();
-  const TAB_BAR_HEIGHT = 60 + insets.bottom + 10;
+  const TAB_BAR_HEIGHT = 84 + insets.bottom;
 
   return (
     <View style={styles.mainShell}>
