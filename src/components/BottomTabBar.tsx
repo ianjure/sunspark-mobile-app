@@ -45,7 +45,7 @@ export default function BottomTabBar({ activeTab, setActiveTab }: Props) {
               onPress={() => setActiveTab(id)}
               activeOpacity={0.7}
             >
-              <SvgXml xml={xml} width={36} height={36} />
+              <SvgXml xml={xml} width={34} height={34} />
             </TouchableOpacity>
           );
         })}
@@ -65,7 +65,7 @@ const tabStyles = StyleSheet.create({
     borderTopColor: '#D0D5DD',
   },
   inner: {
-    height: 84,
+    height: 85,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -74,7 +74,7 @@ const tabStyles = StyleSheet.create({
   tabButton: {
     width: 50,
     height: 50,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
