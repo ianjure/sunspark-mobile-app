@@ -18,11 +18,14 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
 export default function MainScreen({ navigation, route }: Props) {
   const [activeTab, setActiveTab] = useState<MainTab>('home');
-
   const [result, setResult] = useState<SunsparkResult | null>(
     route.params?.result ?? null,
   );
   const [loading, setLoading] = useState(route.params?.result ? false : true);
+
+  // Always call hooks at the top level, before any early returns
+  const insets = useSafeAreaInsets();
+  const TAB_BAR_HEIGHT = 85 + insets.bottom;
 
   useEffect(() => {
     async function loadSavedResult() {
@@ -74,9 +77,6 @@ export default function MainScreen({ navigation, route }: Props) {
     );
   }
 
-  const insets = useSafeAreaInsets();
-  const TAB_BAR_HEIGHT = 84 + insets.bottom;
-
   return (
     <View style={styles.mainShell}>
       <AppTopBar />
@@ -88,9 +88,7 @@ export default function MainScreen({ navigation, route }: Props) {
         ]}
       >
         {activeTab === 'home' && <HomeTab result={result} />}
-
         {activeTab === 'providers' && <ProvidersTab result={result} />}
-
         {activeTab === 'profile' && (
           <ProfileTab result={result} resetApp={resetApp} />
         )}
