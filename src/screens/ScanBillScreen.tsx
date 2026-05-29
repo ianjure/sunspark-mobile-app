@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { API_URL } from '@/src/constants/api';
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
 import { SunsparkResult } from '@/src/types/sunspark';
@@ -107,7 +108,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: '#fff' }}
+      style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
       <ScrollView contentContainerStyle={styles.container}>

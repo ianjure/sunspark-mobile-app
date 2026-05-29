@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Logo from '@/src/components/Logo';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -46,7 +47,7 @@ export default function WelcomeScreen({ navigation }: Props) {
 const welcomeStyles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#EEF0F6',
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
   topBar: {
     paddingTop: 56,

@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
 
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#F5F7FA',
+    backgroundColor: APP_BACKGROUND_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -13,7 +15,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 24,
     paddingBottom: 24,
-    backgroundColor: '#F5F7FA',
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
   logo: {
     fontSize: 64,
@@ -295,7 +297,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     paddingBottom: 40,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
   topBar: {
     width: '100%',
@@ -451,14 +453,14 @@ export const styles = StyleSheet.create({
   },
   mainShell: {
     flex: 1,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
   tabContent: {
     flexGrow: 1,
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 100,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
   bottomTabBar: {
     position: 'absolute',
@@ -468,7 +470,7 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingHorizontal: 16,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
     borderTopWidth: 2,
     borderColor: '#d2c5ac',
     borderTopLeftRadius: 20,
@@ -689,7 +691,7 @@ export const styles = StyleSheet.create({
   },
   providerModalCard: {
     width: '100%',
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     padding: 20,

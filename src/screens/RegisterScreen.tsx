@@ -15,6 +15,7 @@ import { RootStackParamList } from '@/src/navigation/types';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
 import Logo from '@/src/components/Logo';
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
@@ -174,7 +175,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
 const registerStyles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
     paddingHorizontal: 20,
     paddingTop: 0,
     paddingBottom: 24,
@@ -189,7 +190,7 @@ const registerStyles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: -20,
     paddingHorizontal: 20,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
   hero: {
     alignItems: 'center',

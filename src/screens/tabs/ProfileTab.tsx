@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { SunsparkResult } from '@/src/types/sunspark';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
@@ -270,7 +271,7 @@ const profileStyles = StyleSheet.create({
   avatar: {
     flex: 1,
     borderRadius: 50,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
@@ -289,7 +290,7 @@ const profileStyles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
     borderWidth: 2,
     borderColor: '#d2c5ac',
     alignItems: 'center',

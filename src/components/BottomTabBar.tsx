@@ -2,6 +2,8 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SvgXml } from 'react-native-svg';
 
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+
 export type MainTab = 'home' | 'providers' | 'profile';
 
 type Props = {
@@ -60,7 +62,7 @@ const tabStyles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#F5F7FA',
+    backgroundColor: APP_BACKGROUND_COLOR,
     borderTopWidth: 2,
     borderTopColor: '#D0D5DD',
   },

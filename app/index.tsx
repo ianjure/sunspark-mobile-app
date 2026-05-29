@@ -4,6 +4,7 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import EditBillScreen from '@/src/screens/EditBillScreen';
 import HomeOwnershipQuestionScreen from '@/src/screens/HomeOwnershipQuestionScreen';
@@ -28,6 +29,7 @@ export default function App() {
           initialRouteName="Loading"
           screenOptions={{
             headerShown: false,
+            contentStyle: { backgroundColor: APP_BACKGROUND_COLOR },
           }}
         >
           <Stack.Screen name="Loading" component={LoadingScreen} />

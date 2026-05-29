@@ -12,6 +12,7 @@ import {
 import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
 
@@ -160,7 +161,7 @@ export default function LocationScreen({ navigation }: Props) {
       <Text style={styles.logo}>☀️</Text>
       <Text style={styles.title}>Welcome to Sunspark</Text>
       <Text style={styles.subtitle}>
-        Let's start by getting your location so we can estimate your home's
+        Let&apos;s start by getting your location so we can estimate your home&apos;s
         solar potential.
       </Text>
 
@@ -308,7 +309,7 @@ const mapPickerStyles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
   header: {
     flexDirection: 'row',
@@ -317,7 +318,7 @@ const mapPickerStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 56,
     paddingBottom: 14,
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
     borderBottomWidth: 2,
     borderBottomColor: '#d2c5ac',
   },
@@ -353,7 +354,7 @@ const mapPickerStyles = StyleSheet.create({
     color: '#991b1b',
   },
   footer: {
-    backgroundColor: '#fff8f1',
+    backgroundColor: APP_BACKGROUND_COLOR,
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 36,

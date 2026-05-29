@@ -69,7 +69,7 @@ export default function HomeTab({ result }: Props) {
       <View style={styles.greetingSection}>
         <Text style={styles.greetingTitle}>Hello, {displayName}</Text>
         <Text style={styles.greetingSubtitle}>
-          Here's your solar readiness snapshot.
+          Here&apos;s your solar readiness snapshot.
         </Text>
       </View>
 
