@@ -8,6 +8,8 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import { FONT_INTER_BOLD } from '@/src/constants/fonts';
+
 type PrimaryButtonProps = {
   label: string;
   onPress: () => void;
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   label: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 14,
     fontWeight: '700',
     letterSpacing: 14 * 0.05,

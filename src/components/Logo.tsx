@@ -18,6 +18,10 @@ type Props = {
   height?: number;
 };
 
-export default function Logo({ width = 32, height = 32 }: Props) {
-  return <SvgXml xml={logoXml} width={width} height={height} />;
+const LOGO_ASPECT_RATIO = 929 / 213;
+
+export default function Logo({ width, height = 32 }: Props) {
+  const renderedWidth = width ?? height * LOGO_ASPECT_RATIO;
+
+  return <SvgXml xml={logoXml} width={renderedWidth} height={height} />;
 }

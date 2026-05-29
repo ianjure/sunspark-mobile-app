@@ -16,6 +16,12 @@ import { STORAGE_KEY } from '@/src/utils/storage';
 
 import Logo from '@/src/components/Logo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+import {
+  FONT_INTER_BLACK,
+  FONT_INTER_BOLD,
+  FONT_INTER_EXTRABOLD,
+  FONT_INTER_REGULAR,
+} from '@/src/constants/fonts';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
@@ -216,11 +222,13 @@ const registerStyles = StyleSheet.create({
     borderRadius: 999,
   },
   readyBadgeText: {
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 12,
     fontWeight: '800',
     color: '#177500',
   },
   title: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 24,
     fontWeight: '900',
     color: '#201b11',
@@ -229,6 +237,7 @@ const registerStyles = StyleSheet.create({
     lineHeight: 30,
   },
   subtitle: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
     color: '#4e4633',
     textAlign: 'center',
@@ -252,12 +261,14 @@ const registerStyles = StyleSheet.create({
     backgroundColor: '#f0ebe3',
   },
   inputLabel: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 12,
     fontWeight: '700',
     color: '#4e4633',
     marginBottom: 4,
   },
   input: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 16,
     color: '#201b11',
     padding: 0,
@@ -296,11 +307,13 @@ const registerStyles = StyleSheet.create({
     borderColor: '#765a00',
   },
   checkmark: {
+    fontFamily: FONT_INTER_BLACK,
     color: '#fff',
     fontSize: 13,
     fontWeight: '900',
   },
   consentText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 12,
     fontWeight: '700',
     color: '#4e4633',
@@ -316,17 +329,20 @@ const registerStyles = StyleSheet.create({
     borderBottomColor: '#d9a400',
   },
   ctaText: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 18,
     fontWeight: '900',
     color: '#201b11',
   },
   termsText: {
+    fontFamily: FONT_INTER_BOLD,
     textAlign: 'center',
     fontSize: 12,
     fontWeight: '700',
     color: '#807660',
   },
   termsLink: {
+    fontFamily: FONT_INTER_BOLD,
     color: '#765a00',
     textDecorationLine: 'underline',
   },

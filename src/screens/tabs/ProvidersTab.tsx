@@ -3,7 +3,6 @@ import {
   ActivityIndicator,
   Linking,
   Modal,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -23,7 +22,6 @@ export default function ProvidersTab({ result }: Props) {
   const [selectedProvider, setSelectedProvider] =
     useState<SolarDeveloper | null>(null);
   const [loading, setLoading] = useState(true);
-  const [matchLevel, setMatchLevel] = useState<string>('region');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const cityOrMunicipality = result.location?.city_or_municipality;
@@ -38,30 +36,31 @@ export default function ProvidersTab({ result }: Props) {
       setLoading(true);
       setErrorMessage(null);
 
-      if (cityOrMunicipality) {
-        const cityResult = await queryProvidersByCity(cityOrMunicipality);
+      let cityResult: SolarDeveloper[] = [];
+      let provinceResult: SolarDeveloper[] = [];
 
-        if (cityResult.length > 0) {
-          setProviders(cityResult);
-          setMatchLevel('city / municipality');
-          return;
-        }
+      if (cityOrMunicipality) {
+        cityResult = await queryProvidersByCity(cityOrMunicipality);
       }
 
       if (province) {
-        const provinceResult = await queryProvidersByProvince(province);
+        provinceResult = await queryProvidersByProvince(province);
+      }
 
-        if (provinceResult.length > 0) {
-          setProviders(provinceResult);
-          setMatchLevel('province');
-          return;
-        }
+      const cityProviderIds = new Set(cityResult.map((provider) => provider.id));
+      const provinceOnlyResult = provinceResult.filter(
+        (provider) => !cityProviderIds.has(provider.id),
+      );
+      const locationMatchedProviders = [...cityResult, ...provinceOnlyResult];
+
+      if (locationMatchedProviders.length > 0) {
+        setProviders(locationMatchedProviders);
+        return;
       }
 
       const fallbackResult = await queryFallbackProviders();
 
       setProviders(fallbackResult);
-      setMatchLevel('national fallback');
     } catch (error: any) {
       console.log('Fetch providers error:', error);
       setErrorMessage(error.message || 'Unable to fetch providers.');
@@ -127,37 +126,6 @@ export default function ProvidersTab({ result }: Props) {
 
   return (
     <>
-      <View style={styles.providerHeroCard}>
-        <Text style={styles.providerHeroIcon}>💡</Text>
-
-        <View style={{ flex: 1 }}>
-          <Text style={styles.providerHeroTitle}>
-            Solar developers near you
-          </Text>
-          <Text style={styles.providerHeroSubtitle}>
-            Showing providers based on your location. Match level: {matchLevel}.
-          </Text>
-        </View>
-      </View>
-
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.filterChipRow}
-      >
-        <View style={styles.activeFilterChip}>
-          <Text style={styles.activeFilterText}>All</Text>
-        </View>
-
-        <View style={styles.filterChip}>
-          <Text style={styles.filterText}>{cityOrMunicipality ?? 'City'}</Text>
-        </View>
-
-        <View style={styles.filterChip}>
-          <Text style={styles.filterText}>{province ?? 'Province'}</Text>
-        </View>
-      </ScrollView>
-
       {loading && (
         <View style={styles.loadingBox}>
           <ActivityIndicator />
@@ -207,18 +175,6 @@ export default function ProvidersTab({ result }: Props) {
           ))}
         </View>
       )}
-
-      <View style={styles.protectionCard}>
-        <Text style={styles.protectionIcon}>🛡️</Text>
-
-        <View style={{ flex: 1 }}>
-          <Text style={styles.protectionTitle}>Sunspark Protection</Text>
-          <Text style={styles.protectionText}>
-            Providers shown here come from your solar developer registry. Always
-            verify final pricing, scope, and accreditation before signing.
-          </Text>
-        </View>
-      </View>
 
       <Modal
         visible={selectedProvider !== null}

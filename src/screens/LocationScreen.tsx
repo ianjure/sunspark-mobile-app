@@ -13,6 +13,10 @@ import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+import {
+  FONT_INTER_BLACK,
+  FONT_INTER_BOLD,
+} from '@/src/constants/fonts';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
 
@@ -293,6 +297,7 @@ const locationStyles = StyleSheet.create({
     zIndex: 10,
   },
   closeButtonText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
     color: '#374151',
     fontWeight: '700',
@@ -301,6 +306,7 @@ const locationStyles = StyleSheet.create({
 
 const mapPickerStyles = StyleSheet.create({
   pinText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 15,
     fontWeight: '700',
     color: '#765a00',
@@ -323,12 +329,14 @@ const mapPickerStyles = StyleSheet.create({
     borderBottomColor: '#d2c5ac',
   },
   cancelText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
     fontWeight: '700',
     color: '#765a00',
     width: 60,
   },
   headerTitle: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 18,
     fontWeight: '900',
     color: '#201b11',
@@ -345,6 +353,7 @@ const mapPickerStyles = StyleSheet.create({
     borderBottomColor: '#fca5a5',
   },
   hintText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 14,
     fontWeight: '700',
     color: '#4e4633',
@@ -375,11 +384,13 @@ const mapPickerStyles = StyleSheet.create({
     borderBottomColor: '#d1d5db',
   },
   confirmButtonText: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 17,
     fontWeight: '900',
     color: '#201b11',
   },
   coordsText: {
+    fontFamily: FONT_INTER_BOLD,
     textAlign: 'center',
     fontSize: 13,
     fontWeight: '700',

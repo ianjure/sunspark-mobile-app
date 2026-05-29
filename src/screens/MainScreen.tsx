@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import AppTopBar from '@/src/components/AppTopBar';
 import BottomTabBar, { MainTab } from '@/src/components/BottomTabBar';
 import { RootStackParamList } from '@/src/navigation/types';
 import HomeTab from '@/src/screens/tabs/HomeTab';
@@ -26,6 +25,10 @@ export default function MainScreen({ navigation, route }: Props) {
   // Always call hooks at the top level, before any early returns
   const insets = useSafeAreaInsets();
   const TAB_BAR_HEIGHT = 85 + insets.bottom;
+  const TOP_CONTENT_PADDING =
+    activeTab === 'providers'
+      ? 16
+      : insets.top + (activeTab === 'home' ? 34 : 16);
 
   useEffect(() => {
     async function loadSavedResult() {
@@ -79,12 +82,28 @@ export default function MainScreen({ navigation, route }: Props) {
 
   return (
     <View style={styles.mainShell}>
-      <AppTopBar />
+      {activeTab === 'providers' && (
+        <View
+          style={[styles.providerTopBarSafeArea, { paddingTop: insets.top }]}
+        >
+          <View style={styles.providerTopBar}>
+            <Text style={styles.providerTopBarTitle}>
+              Solar developers near you
+            </Text>
+            <Text style={styles.providerTopBarSubtitle}>
+              Showing providers based on your location.
+            </Text>
+          </View>
+        </View>
+      )}
 
       <ScrollView
         contentContainerStyle={[
           styles.tabContent,
-          { paddingBottom: TAB_BAR_HEIGHT + 16 },
+          {
+            paddingTop: TOP_CONTENT_PADDING,
+            paddingBottom: TAB_BAR_HEIGHT + 16,
+          },
         ]}
       >
         {activeTab === 'home' && <HomeTab result={result} />}

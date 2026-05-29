@@ -6,6 +6,7 @@ import { SunsparkResult } from '@/src/types/sunspark';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
 import CircularProgress from '@/src/components/CircularProgress';
+import Logo from '@/src/components/Logo';
 
 type Props = {
   result: SunsparkResult;
@@ -66,6 +67,10 @@ export default function HomeTab({ result }: Props) {
 
   return (
     <>
+      <View style={styles.homeLogoRow}>
+        <Logo height={28} />
+      </View>
+
       <View style={styles.greetingSection}>
         <Text style={styles.greetingTitle}>Hello, {displayName}</Text>
         <Text style={styles.greetingSubtitle}>

@@ -1,5 +1,10 @@
-import { Inter_700Bold } from '@expo-google-fonts/inter';
-import { Nunito_700Bold, Nunito_900Black } from '@expo-google-fonts/nunito';
+import {
+  Inter_400Regular,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_800ExtraBold,
+  Inter_900Black,
+} from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,9 +18,11 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    Nunito_700Bold,
-    Nunito_900Black,
+    Inter_400Regular,
+    Inter_600SemiBold,
     Inter_700Bold,
+    Inter_800ExtraBold,
+    Inter_900Black,
   });
 
   useEffect(() => {

@@ -8,6 +8,8 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import { FONT_INTER_BOLD } from '@/src/constants/fonts';
+
 type TertiaryButtonProps = {
   label: string;
   onPress: () => void;
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    fontFamily: 'Inter_700Bold',
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 20,
     letterSpacing: 14 * 0.05,
     color: '#667085',

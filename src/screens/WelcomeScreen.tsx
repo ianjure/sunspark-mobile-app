@@ -6,6 +6,10 @@ import Logo from '@/src/components/Logo';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+import {
+  FONT_INTER_BLACK,
+  FONT_INTER_SEMIBOLD,
+} from '@/src/constants/fonts';
 import { RootStackParamList } from '@/src/navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -66,6 +70,7 @@ const welcomeStyles = StyleSheet.create({
     marginBottom: 8,
   },
   heroTitle: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 26,
     fontWeight: '900',
     color: '#201b11',
@@ -73,6 +78,7 @@ const welcomeStyles = StyleSheet.create({
     lineHeight: 34,
   },
   heroSubtitle: {
+    fontFamily: FONT_INTER_SEMIBOLD,
     fontSize: 15,
     fontWeight: '600',
     color: '#6b7280',

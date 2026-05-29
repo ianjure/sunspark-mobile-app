@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 
-import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
+import {
+  FONT_INTER_BLACK,
+  FONT_INTER_BOLD,
+  FONT_INTER_EXTRABOLD,
+  FONT_INTER_REGULAR,
+  FONT_INTER_SEMIBOLD,
+} from '@/src/constants/fonts';
 
 export const styles = StyleSheet.create({
   screen: {
@@ -22,23 +29,27 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
   },
   title: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 12,
     textAlign: 'center',
-    color: '#111827',
+    color: MAIN_TEXT_COLOR,
   },
   subtitle: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 16,
-    color: '#6b7280',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
     marginBottom: 24,
     lineHeight: 24,
   },
   text: {
+    fontFamily: FONT_INTER_REGULAR,
     marginTop: 8,
     fontSize: 16,
     textAlign: 'center',
+    color: MAIN_TEXT_COLOR,
   },
   centerContent: {
     alignItems: 'center',
@@ -52,30 +63,36 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   smallCardTitle: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 6,
+    color: MAIN_TEXT_COLOR,
   },
   smallText: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
-    color: '#6b7280',
+    color: MAIN_TEXT_COLOR,
     lineHeight: 20,
   },
   label: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
-    color: '#666',
+    color: MAIN_TEXT_COLOR,
     marginTop: 12,
   },
   value: {
+    fontFamily: FONT_INTER_SEMIBOLD,
     fontSize: 18,
     fontWeight: '600',
     marginTop: 4,
-    color: '#111827',
+    color: MAIN_TEXT_COLOR,
   },
   cardLabel: {
+    fontFamily: FONT_INTER_SEMIBOLD,
     fontSize: 15,
     fontWeight: '600',
-    color: '#854d0e',
+    color: MAIN_TEXT_COLOR,
   },
   heroCard: {
     width: '100%',
@@ -85,10 +102,11 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   heroValue: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 44,
     fontWeight: 'bold',
     marginTop: 8,
-    color: '#111827',
+    color: MAIN_TEXT_COLOR,
   },
   resultCard: {
     width: '100%',
@@ -98,13 +116,15 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   resultTitle: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#111827',
+    color: MAIN_TEXT_COLOR,
     marginBottom: 4,
   },
   error: {
-    color: 'red',
+    fontFamily: FONT_INTER_REGULAR,
+    color: MAIN_TEXT_COLOR,
     fontSize: 15,
     textAlign: 'center',
     marginBottom: 16,
@@ -126,6 +146,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   captureButtonText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
     fontWeight: 'bold',
     color: '#111827',
@@ -153,6 +174,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   primaryButtonText: {
+    fontFamily: FONT_INTER_BOLD,
     color: '#111827',
     fontSize: 16,
     fontWeight: 'bold',
@@ -165,6 +187,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   secondaryButtonText: {
+    fontFamily: FONT_INTER_BOLD,
     color: '#111827',
     fontSize: 16,
     fontWeight: 'bold',
@@ -179,6 +202,7 @@ export const styles = StyleSheet.create({
     marginBottom: 32,
   },
   resetButtonText: {
+    fontFamily: FONT_INTER_BOLD,
     color: '#991b1b',
     fontSize: 16,
     fontWeight: 'bold',
@@ -188,6 +212,7 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   input: {
+    fontFamily: FONT_INTER_REGULAR,
     width: '100%',
     borderWidth: 1,
     borderColor: '#d1d5db',
@@ -195,13 +220,14 @@ export const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     fontSize: 18,
-    color: '#111827',
+    color: MAIN_TEXT_COLOR,
     backgroundColor: '#fff',
     marginTop: 6,
   },
   helperText: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 13,
-    color: '#6b7280',
+    color: MAIN_TEXT_COLOR,
     lineHeight: 20,
     marginTop: 14,
   },
@@ -223,9 +249,10 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
   progressText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 13,
     fontWeight: '700',
-    color: '#6b7280',
+    color: MAIN_TEXT_COLOR,
   },
   progressTrack: {
     width: '100%',
@@ -248,16 +275,18 @@ export const styles = StyleSheet.create({
     marginBottom: 24,
   },
   questionTitle: {
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 28,
     lineHeight: 34,
     fontWeight: '800',
-    color: '#111827',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
   questionSubtitle: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 16,
     lineHeight: 24,
-    color: '#6b7280',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
     marginTop: 12,
   },
@@ -275,13 +304,15 @@ export const styles = StyleSheet.create({
     borderColor: '#e5e7eb',
   },
   optionLabel: {
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 20,
     fontWeight: '800',
-    color: '#111827',
+    color: MAIN_TEXT_COLOR,
   },
   optionDescription: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
-    color: '#6b7280',
+    color: MAIN_TEXT_COLOR,
     marginTop: 4,
   },
   secondaryButtonFull: {
@@ -299,61 +330,25 @@ export const styles = StyleSheet.create({
     paddingBottom: 40,
     backgroundColor: APP_BACKGROUND_COLOR,
   },
-  topBar: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-    marginBottom: 16,
-  },
-  brandRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  brandIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 999,
-    backgroundColor: '#ffc928',
-    borderWidth: 2,
-    borderColor: '#765a00',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  brandIconText: {
-    fontSize: 24,
-  },
-  brandText: {
-    fontSize: 24,
-    fontWeight: '900',
-    color: '#765a00',
-  },
-  notificationButton: {
-    width: 42,
-    height: 42,
-    borderRadius: 999,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fdf2e2',
-  },
-  notificationIcon: {
-    fontSize: 20,
-  },
   greetingSection: {
     marginBottom: 12,
   },
+  homeLogoRow: {
+    marginBottom: 24,
+    alignItems: 'flex-start',
+  },
   greetingTitle: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 26,
     lineHeight: 32,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
   },
   greetingSubtitle: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 15,
     lineHeight: 22,
-    color: '#4e4633',
+    color: MAIN_TEXT_COLOR,
     marginTop: 2,
   },
   circularProgressWrapper: {
@@ -379,14 +374,16 @@ export const styles = StyleSheet.create({
     gap: 16,
   },
   scoreValue: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 26,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
   },
   scoreMax: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 12,
     fontWeight: '700',
-    color: '#4e4633',
+    color: MAIN_TEXT_COLOR,
   },
   scoreContent: {
     flex: 1,
@@ -400,14 +397,16 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
   scoreBadgeText: {
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 12,
     fontWeight: '800',
-    color: '#177500',
+    color: MAIN_TEXT_COLOR,
   },
   scoreDescription: {
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 13,
     lineHeight: 19,
-    color: '#4e4633',
+    color: MAIN_TEXT_COLOR,
   },
   estimateGrid: {
     width: '100%',
@@ -432,23 +431,26 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   estimateLabel: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 12,
     fontWeight: '700',
-    color: '#4e4633',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
     marginBottom: 4,
   },
   estimateValue: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 18,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
   estimateSmallValue: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 13,
     lineHeight: 18,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
   mainShell: {
@@ -461,6 +463,29 @@ export const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 100,
     backgroundColor: APP_BACKGROUND_COLOR,
+  },
+  providerTopBarSafeArea: {
+    backgroundColor: APP_BACKGROUND_COLOR,
+    borderBottomWidth: 2,
+    borderBottomColor: '#D0D5DD',
+  },
+  providerTopBar: {
+    height: 120,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    gap: 4,
+  },
+  providerTopBarTitle: {
+    fontFamily: FONT_INTER_BOLD,
+    fontSize: 24,
+    fontWeight: '700',
+    color: MAIN_TEXT_COLOR,
+  },
+  providerTopBarSubtitle: {
+    fontFamily: FONT_INTER_REGULAR,
+    fontSize: 16,
+    fontWeight: '400',
+    color: MAIN_TEXT_COLOR,
   },
   bottomTabBar: {
     position: 'absolute',
@@ -503,68 +528,18 @@ export const styles = StyleSheet.create({
     fontSize: 22,
   },
   bottomTabText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 12,
     fontWeight: '700',
-    color: '#4e4633',
+    color: MAIN_TEXT_COLOR,
     marginTop: 2,
   },
   bottomTabActiveText: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 12,
     fontWeight: '900',
-    color: '#251a00',
+    color: MAIN_TEXT_COLOR,
     marginTop: 2,
-  },
-  providerHeroCard: {
-    width: '100%',
-    padding: 18,
-    borderRadius: 18,
-    backgroundColor: '#fdf2e2',
-    borderWidth: 2,
-    borderColor: '#d2c5ac',
-    flexDirection: 'row',
-    gap: 14,
-    alignItems: 'flex-start',
-    marginBottom: 18,
-  },
-  providerHeroIcon: {
-    fontSize: 36,
-  },
-  providerHeroTitle: {
-    fontSize: 24,
-    fontWeight: '900',
-    color: '#201b11',
-  },
-  providerHeroSubtitle: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: '#4e4633',
-    marginTop: 4,
-  },
-  filterChipRow: {
-    gap: 10,
-    paddingBottom: 18,
-  },
-  activeFilterChip: {
-    backgroundColor: '#765a00',
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    borderRadius: 999,
-  },
-  activeFilterText: {
-    color: '#ffffff',
-    fontWeight: '900',
-  },
-  filterChip: {
-    backgroundColor: '#ffffff',
-    borderWidth: 2,
-    borderColor: '#d2c5ac',
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    borderRadius: 999,
-  },
-  filterText: {
-    color: '#4e4633',
-    fontWeight: '800',
   },
   providerList: {
     gap: 16,
@@ -602,23 +577,27 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   providerName: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 22,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
   },
   providerLocation: {
-    color: '#4e4633',
+    fontFamily: FONT_INTER_REGULAR,
+    color: MAIN_TEXT_COLOR,
     fontSize: 13,
     marginTop: 4,
   },
   providerRating: {
-    color: '#201b11',
+    fontFamily: FONT_INTER_EXTRABOLD,
+    color: MAIN_TEXT_COLOR,
     fontSize: 14,
     fontWeight: '800',
     marginTop: 4,
   },
   providerReviews: {
-    color: '#807660',
+    fontFamily: FONT_INTER_BOLD,
+    color: MAIN_TEXT_COLOR,
     fontWeight: '700',
   },
   viewProfileButton: {
@@ -629,39 +608,16 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   viewProfileButtonText: {
+    fontFamily: FONT_INTER_BLACK,
     color: '#ffffff',
     fontSize: 15,
     fontWeight: '900',
   },
-  protectionCard: {
-    marginTop: 20,
-    backgroundColor: '#7de87b',
-    borderWidth: 2,
-    borderColor: '#006e1b',
-    borderRadius: 18,
-    padding: 18,
-    flexDirection: 'row',
-    gap: 14,
-    alignItems: 'center',
-  },
-  protectionIcon: {
-    fontSize: 32,
-  },
-  protectionTitle: {
-    fontSize: 16,
-    fontWeight: '900',
-    color: '#006819',
-  },
-  protectionText: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: '#006819',
-    marginTop: 2,
-  },
   profileLinkText: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 14,
     lineHeight: 20,
-    color: '#765a00',
+    color: MAIN_TEXT_COLOR,
     fontWeight: '700',
     marginTop: 4,
   },
@@ -673,6 +629,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   providerSecondaryButtonText: {
+    fontFamily: FONT_INTER_BLACK,
     color: '#ffffff',
     fontSize: 15,
     fontWeight: '900',
@@ -718,9 +675,10 @@ export const styles = StyleSheet.create({
     fontSize: 36,
   },
   providerModalTitle: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 26,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
   },
   providerModalSection: {
     backgroundColor: '#ffffff',
@@ -743,6 +701,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalCloseButtonText: {
+    fontFamily: FONT_INTER_BLACK,
     color: '#ffffff',
     fontSize: 15,
     fontWeight: '900',

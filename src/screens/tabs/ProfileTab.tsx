@@ -1,6 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
+import {
+  FONT_INTER_BLACK,
+  FONT_INTER_BOLD,
+  FONT_INTER_EXTRABOLD,
+  FONT_INTER_REGULAR,
+} from '@/src/constants/fonts';
 import { SunsparkResult } from '@/src/types/sunspark';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
@@ -278,9 +284,10 @@ const profileStyles = StyleSheet.create({
     borderColor: '#d2c5ac',
   },
   avatarInitials: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 34,
     fontWeight: '900',
-    color: '#765a00',
+    color: MAIN_TEXT_COLOR,
     letterSpacing: 1,
   },
   solarBadge: {
@@ -300,9 +307,10 @@ const profileStyles = StyleSheet.create({
     fontSize: 16,
   },
   heroName: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 22,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
     marginBottom: 6,
     textAlign: 'center',
   },
@@ -314,14 +322,16 @@ const profileStyles = StyleSheet.create({
     marginBottom: 8,
   },
   heroBadgeText: {
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 12,
     fontWeight: '800',
-    color: '#177500',
+    color: MAIN_TEXT_COLOR,
   },
   heroLocation: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 13,
     fontWeight: '700',
-    color: '#807660',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
 
@@ -345,15 +355,17 @@ const profileStyles = StyleSheet.create({
     borderColor: '#d9a400',
   },
   statValue: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 18,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
     marginBottom: 2,
   },
   statLabel: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 11,
     fontWeight: '700',
-    color: '#4e4633',
+    color: MAIN_TEXT_COLOR,
   },
 
   /* ── Section Card ── */
@@ -377,9 +389,10 @@ const profileStyles = StyleSheet.create({
     fontSize: 18,
   },
   sectionTitle: {
+    fontFamily: FONT_INTER_BLACK,
     fontSize: 15,
     fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
     letterSpacing: 0.3,
   },
   sectionDivider: {
@@ -399,23 +412,26 @@ const profileStyles = StyleSheet.create({
     gap: 12,
   },
   infoLabel: {
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 13,
     fontWeight: '700',
-    color: '#807660',
+    color: MAIN_TEXT_COLOR,
     flex: 1,
   },
   infoValue: {
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 13,
     fontWeight: '800',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
     flex: 1.2,
     textAlign: 'right',
   },
   infoValueAccent: {
-    color: '#765a00',
+    color: MAIN_TEXT_COLOR,
   },
   linkText: {
-    color: '#765a00',
+    fontFamily: FONT_INTER_REGULAR,
+    color: MAIN_TEXT_COLOR,
     fontSize: 11,
     textDecorationLine: 'underline',
   },
@@ -438,6 +454,7 @@ const profileStyles = StyleSheet.create({
     fontSize: 16,
   },
   resetButtonText: {
+    fontFamily: FONT_INTER_EXTRABOLD,
     color: '#991b1b',
     fontSize: 15,
     fontWeight: '800',
