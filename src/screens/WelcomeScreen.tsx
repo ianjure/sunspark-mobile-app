@@ -5,11 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Logo from '@/src/components/Logo';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
-import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
-import {
-  FONT_INTER_BLACK,
-  FONT_INTER_SEMIBOLD,
-} from '@/src/constants/fonts';
+import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
+import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { RootStackParamList } from '@/src/navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -19,18 +16,14 @@ export default function WelcomeScreen({ navigation }: Props) {
     <SafeAreaView style={welcomeStyles.screen} edges={['top', 'bottom']}>
       {/* Top Bar with Logo */}
       <View style={welcomeStyles.topBar}>
-        <Logo width={150} height={25} />
+        <Logo height={34} />
       </View>
 
       {/* Hero Section */}
       <View style={welcomeStyles.heroSection}>
-        <Text style={welcomeStyles.heroEmoji}>☀️</Text>
-        <Text style={welcomeStyles.heroTitle}>
-          Find out how much you can save with solar energy
-        </Text>
+        <Text style={welcomeStyles.heroTitle}>Welcome to Sunspark!</Text>
         <Text style={welcomeStyles.heroSubtitle}>
-          Snap your electric bill, answer a few quick questions, and get a
-          personalized solar savings estimate in minutes.
+          Your simple way to explore solar and save more.
         </Text>
       </View>
 
@@ -54,35 +47,32 @@ const welcomeStyles = StyleSheet.create({
     backgroundColor: APP_BACKGROUND_COLOR,
   },
   topBar: {
-    paddingTop: 56,
-    paddingHorizontal: 20,
+    paddingTop: 40,
     alignItems: 'center',
   },
   heroSection: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 32,
-    gap: 16,
+    gap: 10,
   },
   heroEmoji: {
     fontSize: 80,
     marginBottom: 8,
   },
   heroTitle: {
-    fontFamily: FONT_INTER_BLACK,
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 26,
-    fontWeight: '900',
-    color: '#201b11',
+    color: MAIN_TEXT_COLOR,
     textAlign: 'center',
     lineHeight: 34,
   },
   heroSubtitle: {
-    fontFamily: FONT_INTER_SEMIBOLD,
+    fontFamily: FONT_INTER_REGULAR,
     fontSize: 15,
-    fontWeight: '600',
     color: '#6b7280',
     textAlign: 'center',
     lineHeight: 22,
+    paddingHorizontal: 70,
   },
 });
