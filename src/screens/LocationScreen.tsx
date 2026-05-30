@@ -12,11 +12,10 @@ import {
 import MapView, { MapPressEvent, Marker, Region } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import PrimaryButton from '@/src/components/PrimaryButton';
+import SecondaryButton from '@/src/components/SecondaryButton';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
-import {
-  FONT_INTER_BLACK,
-  FONT_INTER_BOLD,
-} from '@/src/constants/fonts';
+import { FONT_INTER_BLACK, FONT_INTER_BOLD } from '@/src/constants/fonts';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
 
@@ -153,7 +152,7 @@ export default function LocationScreen({ navigation }: Props) {
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+    <SafeAreaView style={locationStyles.screen} edges={['top', 'bottom']}>
       {/* X Button */}
       <TouchableOpacity
         style={locationStyles.closeButton}
@@ -162,39 +161,37 @@ export default function LocationScreen({ navigation }: Props) {
         <Text style={locationStyles.closeButtonText}>✕</Text>
       </TouchableOpacity>
 
-      <Text style={styles.logo}>☀️</Text>
-      <Text style={styles.title}>Welcome to Sunspark</Text>
-      <Text style={styles.subtitle}>
-        Let&apos;s start by getting your location so we can estimate your home&apos;s
-        solar potential.
-      </Text>
+      {/* Hero Section */}
+      <View style={locationStyles.heroSection}>
+        <Text style={locationStyles.heroEmoji}>📍</Text>
+        <Text style={locationStyles.heroTitle}>Where is your home?</Text>
+        <Text style={locationStyles.heroSubtitle}>
+          We need your location to estimate your home&apos;s solar potential and
+          find nearby providers.
+        </Text>
 
-      {locationErrorMsg && <Text style={styles.error}>{locationErrorMsg}</Text>}
+        {locationErrorMsg && (
+          <Text style={styles.error}>{locationErrorMsg}</Text>
+        )}
 
-      <TouchableOpacity
-        style={styles.primaryButton}
+        {locationLoading && <ActivityIndicator style={{ marginTop: 8 }} />}
+      </View>
+
+      {/* Buttons */}
+      <PrimaryButton
+        label="USE MY CURRENT LOCATION"
         onPress={enableLocation}
         disabled={locationLoading}
-      >
-        <Text style={styles.primaryButtonText}>
-          {locationLoading ? 'Getting Location...' : 'Enable Location'}
-        </Text>
-      </TouchableOpacity>
-
-      {locationLoading && <ActivityIndicator style={{ marginTop: 16 }} />}
-
-      <TouchableOpacity
+      />
+      <View style={{ height: 16 }} />
+      <SecondaryButton
+        label="PIN MY HOUSE ON THE MAP"
         onPress={() => {
           setPinnedCoords(null);
           setPinErrorMsg(null);
           setMapModalVisible(true);
         }}
-        style={{ marginTop: 20 }}
-      >
-        <Text style={mapPickerStyles.pinText}>
-          Or pin your location on the map
-        </Text>
-      </TouchableOpacity>
+      />
 
       {/* Map Picker Modal */}
       <Modal
@@ -284,6 +281,10 @@ export default function LocationScreen({ navigation }: Props) {
 }
 
 const locationStyles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: APP_BACKGROUND_COLOR,
+  },
   closeButton: {
     position: 'absolute',
     top: 56,
@@ -302,17 +303,36 @@ const locationStyles = StyleSheet.create({
     color: '#374151',
     fontWeight: '700',
   },
+  heroSection: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 32,
+    gap: 16,
+  },
+  heroEmoji: {
+    fontSize: 80,
+    marginBottom: 8,
+  },
+  heroTitle: {
+    fontFamily: FONT_INTER_BLACK,
+    fontSize: 26,
+    fontWeight: '900',
+    color: '#201b11',
+    textAlign: 'center',
+    lineHeight: 34,
+  },
+  heroSubtitle: {
+    fontFamily: FONT_INTER_BOLD,
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#6b7280',
+    textAlign: 'center',
+    lineHeight: 22,
+  },
 });
 
 const mapPickerStyles = StyleSheet.create({
-  pinText: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#765a00',
-    textDecorationLine: 'underline',
-    textAlign: 'center',
-  },
   modalContainer: {
     flex: 1,
     backgroundColor: APP_BACKGROUND_COLOR,
