@@ -87,10 +87,11 @@ export default function LocationScreen({ navigation }: Props) {
         onPress={enableLocation}
         disabled={locationLoading}
       />
-      <View style={{ height: 16 }} />
+      <View style={{ height: 10 }} />
       <SecondaryButton
         label="PIN MY HOUSE ON THE MAP"
         onPress={openMapPicker}
+        style={locationStyles.lastButton}
       />
 
       <LocationMapPickerBottomSheet
@@ -132,5 +133,8 @@ const locationStyles = StyleSheet.create({
     color: '#6b7280',
     textAlign: 'center',
     lineHeight: 22,
+  },
+  lastButton: {
+    marginBottom: 20,
   },
 });

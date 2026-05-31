@@ -1,12 +1,5 @@
-import React, { useRef } from 'react';
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, Pressable, StyleSheet, ViewStyle } from 'react-native';
 
 import { FONT_INTER_BOLD } from '@/src/constants/fonts';
 
@@ -24,9 +17,54 @@ export default function SecondaryButton({
   style,
 }: SecondaryButtonProps) {
   const translateY = useRef(new Animated.Value(0)).current;
-  const shadowOpacity = useRef(new Animated.Value(1)).current;
+  const shadowOpacity = useRef(new Animated.Value(disabled ? 0 : 1)).current;
+  const enabledOpacity = useRef(new Animated.Value(disabled ? 0 : 1)).current;
+  const disabledOpacity = useRef(new Animated.Value(disabled ? 1 : 0)).current;
+  const buttonColor = useRef(new Animated.Value(disabled ? 0 : 1)).current;
+  const borderColor = useRef(new Animated.Value(disabled ? 0 : 1)).current;
+
+  useEffect(() => {
+    // Native driver — transform and opacity only
+    Animated.parallel([
+      Animated.timing(enabledOpacity, {
+        toValue: disabled ? 0 : 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(disabledOpacity, {
+        toValue: disabled ? 1 : 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shadowOpacity, {
+        toValue: disabled ? 0 : 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateY, {
+        toValue: disabled ? 4 : 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    // JS driver — backgroundColor and borderColor only
+    Animated.parallel([
+      Animated.timing(buttonColor, {
+        toValue: disabled ? 0 : 1,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+      Animated.timing(borderColor, {
+        toValue: disabled ? 0 : 1,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  }, [disabled]);
 
   function handlePressIn() {
+    if (disabled) return;
     Animated.parallel([
       Animated.timing(translateY, {
         toValue: 4,
@@ -42,6 +80,7 @@ export default function SecondaryButton({
   }
 
   function handlePressOut() {
+    if (disabled) return;
     Animated.parallel([
       Animated.timing(translateY, {
         toValue: 0,
@@ -56,39 +95,64 @@ export default function SecondaryButton({
     ]).start();
   }
 
-  if (disabled) {
-    return (
-      <View style={[styles.wrapper, style]}>
-        <View style={[styles.button, styles.disabledButton]}>
-          <Text style={[styles.label, styles.disabledLabel]}>{label}</Text>
-        </View>
-      </View>
-    );
-  }
+  const animatedButtonColor = buttonColor.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['#F5F7FA', '#F5F7FA'], // background stays the same
+  });
+
+  const animatedBorderColor = borderColor.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['#D0D5DD', '#D0D5DD'], // border stays the same
+  });
 
   return (
-    <View style={[styles.wrapper, style]}>
-      {/* Static shadow layer */}
+    <Animated.View style={[styles.wrapper, style]}>
+      {/* Shadow layer */}
       <Animated.View style={[styles.shadow, { opacity: shadowOpacity }]} />
 
-      {/* Button layer */}
       <Pressable
-        onPress={onPress}
+        onPress={disabled ? undefined : onPress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
-        <Animated.View style={[styles.button, { transform: [{ translateY }] }]}>
-          <Text style={styles.label}>{label}</Text>
+        {/* Outer: native-driven translateY only */}
+        <Animated.View style={{ transform: [{ translateY }] }}>
+          {/* Inner: JS-driven backgroundColor and borderColor only */}
+          <Animated.View
+            style={[
+              styles.button,
+              {
+                backgroundColor: animatedButtonColor,
+                borderColor: animatedBorderColor,
+              },
+            ]}
+          >
+            {/* Enabled label */}
+            <Animated.Text style={[styles.label, { opacity: enabledOpacity }]}>
+              {label}
+            </Animated.Text>
+            {/* Disabled label */}
+            <Animated.Text
+              style={[
+                styles.label,
+                styles.disabledLabel,
+                styles.labelOverlay,
+                { opacity: disabledOpacity },
+              ]}
+            >
+              {label}
+            </Animated.Text>
+          </Animated.View>
         </Animated.View>
       </Pressable>
-    </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   wrapper: {
     marginHorizontal: 20,
-    marginBottom: 4,
+    marginBottom: 8,
   },
   shadow: {
     position: 'absolute',
@@ -102,9 +166,7 @@ const styles = StyleSheet.create({
   button: {
     height: 55,
     borderRadius: 12,
-    backgroundColor: '#F5F7FA',
     borderWidth: 2,
-    borderColor: '#D0D5DD',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 16,
@@ -116,11 +178,10 @@ const styles = StyleSheet.create({
     letterSpacing: 14 * 0.05,
     color: '#1E88E5',
   },
-  disabledButton: {
-    backgroundColor: '#F5F7FA',
-    borderColor: '#D0D5DD',
-  },
   disabledLabel: {
     color: '#667085',
+  },
+  labelOverlay: {
+    position: 'absolute',
   },
 });

@@ -42,7 +42,8 @@ const SHEET_TOP_OFFSET = 100;
 const SHEET_TOP_RADIUS = 20;
 const SHEET_HANDLE_HEIGHT = 24;
 const INSTRUCTION_HEIGHT = 105;
-const MAP_BUTTON_GAP = 18;
+const MAP_BUTTON_GAP = 20;
+const BOTTOM_PADDING = 20;
 
 function isInsidePhilippines(lat: number, lon: number): boolean {
   return (
@@ -149,7 +150,6 @@ const LocationMapPickerBottomSheet = forwardRef<
 
   function confirmPinnedLocation() {
     if (!pinnedCoords) return;
-
     onConfirm(pinnedCoords);
   }
 
@@ -203,7 +203,12 @@ const LocationMapPickerBottomSheet = forwardRef<
           </MapView>
         </View>
 
-        <View style={mapPickerStyles.footer}>
+        <View
+          style={[
+            mapPickerStyles.footer,
+            { paddingBottom: insets.bottom + BOTTOM_PADDING },
+          ]}
+        >
           <PrimaryButton
             label="CONFIRM LOCATION"
             onPress={confirmPinnedLocation}
@@ -266,6 +271,5 @@ const mapPickerStyles = StyleSheet.create({
   },
   footer: {
     paddingTop: MAP_BUTTON_GAP,
-    paddingBottom: 4,
   },
 });

@@ -32,10 +32,11 @@ export default function WelcomeScreen({ navigation }: Props) {
         label="GET STARTED"
         onPress={() => navigation.replace('Location')}
       />
-      <View style={{ height: 16 }} />
+      <View style={{ height: 10 }} />
       <SecondaryButton
         label="I ALREADY HAVE AN ACCOUNT"
         onPress={() => navigation.replace('Main')}
+        style={welcomeStyles.lastButton}
       />
     </SafeAreaView>
   );
@@ -74,5 +75,8 @@ const welcomeStyles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 22,
     paddingHorizontal: 70,
+  },
+  lastButton: {
+    marginBottom: 20,
   },
 });
