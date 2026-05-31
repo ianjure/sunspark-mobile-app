@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import BackArrowButton from '@/src/components/BackArrowButton';
 import { API_URL } from '@/src/constants/api';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
@@ -97,6 +98,8 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
       navigation.replace('EditBill', {
         result: data,
+        latitude,
+        longitude,
       });
     } catch (error: any) {
       console.log('Analyze bill error:', error);
@@ -111,6 +114,8 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
+      <BackArrowButton onPress={() => navigation.replace('Location')} />
+
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Scan Your Electric Bill</Text>
         <Text style={styles.subtitle}>

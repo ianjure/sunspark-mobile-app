@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import BackArrowButton from '@/src/components/BackArrowButton';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
@@ -20,7 +21,7 @@ import { SunsparkResult } from '@/src/types/sunspark';
 type Props = NativeStackScreenProps<RootStackParamList, 'EditBill'>;
 
 export default function EditBillScreen({ navigation, route }: Props) {
-  const originalResult = route.params.result;
+  const { result: originalResult, latitude, longitude } = route.params;
 
   const [monthlyBill, setMonthlyBill] = useState(
     originalResult.monthly_bill?.toString() ?? '',
@@ -112,13 +113,10 @@ export default function EditBillScreen({ navigation, route }: Props) {
         target_kwh_offset: roundNumber(targetKwhOffset, 2),
         recommended_system_size_kwp: roundNumber(recommendedSystemSizeKwp, 2),
         estimated_monthly_solar_kwh: roundNumber(estimatedMonthlySolarKwh, 2),
-
-        // Kept for compatibility with existing UI.
         estimated_monthly_production_kwh: roundNumber(
           estimatedMonthlySolarKwh,
           2,
         ),
-
         estimated_monthly_savings: roundNumber(estimatedMonthlySavings, 2),
         estimated_annual_savings: roundNumber(estimatedAnnualSavings, 2),
         estimated_new_bill: roundNumber(estimatedNewBill, 2),
@@ -173,6 +171,10 @@ export default function EditBillScreen({ navigation, route }: Props) {
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
+      <BackArrowButton
+        onPress={() => navigation.replace('ScanBill', { latitude, longitude })}
+      />
+
       <KeyboardAvoidingView
         style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}

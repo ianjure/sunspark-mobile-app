@@ -2,15 +2,10 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
 import { useRef, useState } from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import CloseButton from '@/src/components/CloseButton';
 import LocationMapPickerBottomSheet from '@/src/components/LocationMapPickerBottomSheet';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
@@ -70,12 +65,7 @@ export default function LocationScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={locationStyles.screen} edges={['top', 'bottom']}>
-      <TouchableOpacity
-        style={locationStyles.closeButton}
-        onPress={() => navigation.replace('Welcome')}
-      >
-        <Text style={locationStyles.closeButtonText}>✕</Text>
-      </TouchableOpacity>
+      <CloseButton onPress={() => navigation.replace('Welcome')} />
 
       <View style={locationStyles.heroSection}>
         <Text style={locationStyles.heroEmoji}>📍</Text>
@@ -115,24 +105,6 @@ const locationStyles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: APP_BACKGROUND_COLOR,
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 56,
-    left: 20,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#e5e7eb',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 10,
-  },
-  closeButtonText: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 16,
-    color: '#374151',
-    fontWeight: '700',
   },
   heroSection: {
     flex: 1,

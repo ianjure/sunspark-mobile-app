@@ -14,6 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '@/src/navigation/types';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
+import BackArrowButton from '@/src/components/BackArrowButton';
 import Logo from '@/src/components/Logo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import {
@@ -64,6 +65,10 @@ export default function RegisterScreen({ navigation, route }: Props) {
 
   return (
     <SafeAreaView style={registerStyles.screen} edges={['top', 'bottom']}>
+      <BackArrowButton
+        onPress={() => navigation.replace('TimelineQuestion', { result })}
+      />
+
       {/* Hero */}
       <View style={registerStyles.hero}>
         <View style={registerStyles.mascotContainer}>

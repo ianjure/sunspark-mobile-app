@@ -1,6 +1,7 @@
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import BackArrowButton from '@/src/components/BackArrowButton';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { styles } from '@/src/styles/styles';
 
@@ -35,6 +36,8 @@ export default function QuestionScreenLayout({
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
+      {onBack && <BackArrowButton onPress={onBack} />}
+
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.progressHeader}>
           <Text style={styles.progressText}>
@@ -71,12 +74,6 @@ export default function QuestionScreenLayout({
             </TouchableOpacity>
           ))}
         </View>
-
-        {onBack && (
-          <TouchableOpacity style={styles.secondaryButtonFull} onPress={onBack}>
-            <Text style={styles.secondaryButtonText}>Back</Text>
-          </TouchableOpacity>
-        )}
       </ScrollView>
     </SafeAreaView>
   );
