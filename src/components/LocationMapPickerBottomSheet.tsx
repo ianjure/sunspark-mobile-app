@@ -193,12 +193,7 @@ const LocationMapPickerBottomSheet = forwardRef<
             pitchEnabled={false}
           >
             {pinnedCoords && (
-              <Marker
-                coordinate={pinnedCoords}
-                title="Your Home"
-                description="This location will be used for your solar estimate."
-                pinColor="#ffc928"
-              />
+              <Marker coordinate={pinnedCoords} pinColor="#ffc928" />
             )}
           </MapView>
         </View>
