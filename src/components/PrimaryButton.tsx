@@ -23,6 +23,10 @@ export default function PrimaryButton({
   const buttonColor = useRef(new Animated.Value(disabled ? 0 : 1)).current;
 
   useEffect(() => {
+    // Stop any in-progress press animation before transitioning to disabled state
+    translateY.stopAnimation();
+    shadowOpacity.stopAnimation();
+
     // Native driver — transform and opacity only
     Animated.parallel([
       Animated.timing(enabledOpacity, {
