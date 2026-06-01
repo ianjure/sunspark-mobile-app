@@ -197,7 +197,7 @@ const registerStyles = StyleSheet.create({
   progressBarWrapper: {
     flex: 1,
     marginLeft: 20,
-    paddingTop: 26,
+    paddingTop: 25,
     justifyContent: 'center',
     paddingRight: 20, // restore the 20px right margin since we cancelled paddingHorizontal
   },
