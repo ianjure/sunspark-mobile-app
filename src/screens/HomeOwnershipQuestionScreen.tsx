@@ -28,9 +28,7 @@ export default function HomeOwnershipQuestionScreen({
 
   return (
     <QuestionScreenLayout
-      currentStep={1}
-      totalSteps={5}
-      progress={20}
+      onboardingStep={3}
       title="Do you own the house?"
       subtitle="This helps us recommend the right financing and installation options."
       options={[

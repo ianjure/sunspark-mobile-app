@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CloseButton from '@/src/components/CloseButton';
 import LocationMapPickerBottomSheet from '@/src/components/LocationMapPickerBottomSheet';
+import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
@@ -65,7 +66,19 @@ export default function LocationScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={locationStyles.screen} edges={['top', 'bottom']}>
-      <CloseButton onPress={() => navigation.replace('Welcome')} />
+      <View style={{ flexDirection: 'row', marginRight: 20 }}>
+        <CloseButton onPress={() => navigation.replace('Welcome')} />
+        <View
+          style={{
+            flex: 1,
+            marginLeft: 20,
+            paddingTop: 25,
+            justifyContent: 'center',
+          }}
+        >
+          <OnboardingProgressBar step={1} />
+        </View>
+      </View>
 
       <View style={locationStyles.heroSection}>
         <Text style={locationStyles.heroEmoji}>📍</Text>

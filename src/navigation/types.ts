@@ -10,8 +10,8 @@ export type RootStackParamList = {
   };
   EditBill: {
     result: SunsparkResult;
-    latitude: number;
-    longitude: number;
+    latitude?: number;
+    longitude?: number;
   };
   HomeOwnershipQuestion: {
     result: SunsparkResult;

@@ -1,7 +1,16 @@
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackArrowButton from '@/src/components/BackArrowButton';
+import OnboardingProgressBar, {
+  OnboardingStep,
+} from '@/src/components/OnboardingProgressBar';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { styles } from '@/src/styles/styles';
 
@@ -11,9 +20,7 @@ type QuestionOption = {
 };
 
 type Props = {
-  progress: number;
-  currentStep: number;
-  totalSteps: number;
+  onboardingStep: OnboardingStep;
   title: string;
   subtitle?: string;
   options: QuestionOption[];
@@ -22,9 +29,7 @@ type Props = {
 };
 
 export default function QuestionScreenLayout({
-  progress,
-  currentStep,
-  totalSteps,
+  onboardingStep,
   title,
   subtitle,
   options,
@@ -36,23 +41,16 @@ export default function QuestionScreenLayout({
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
-      {onBack && <BackArrowButton onPress={onBack} />}
+      <View style={questionLayoutStyles.header}>
+        {onBack && <BackArrowButton onPress={onBack} />}
+        <View style={questionLayoutStyles.progressBarWrapper}>
+          <OnboardingProgressBar step={onboardingStep} />
+        </View>
+      </View>
 
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.progressHeader}>
-          <Text style={styles.progressText}>
-            Question {currentStep} of {totalSteps}
-          </Text>
-          <Text style={styles.progressText}>{progress}% Complete</Text>
-        </View>
-
-        <View style={styles.progressTrack}>
-          <View style={[styles.progressFill, { width: `${progress}%` }]} />
-        </View>
-
         <View style={styles.questionCard}>
           <Text style={styles.questionTitle}>{title}</Text>
-
           {subtitle && <Text style={styles.questionSubtitle}>{subtitle}</Text>}
         </View>
 
@@ -78,3 +76,16 @@ export default function QuestionScreenLayout({
     </SafeAreaView>
   );
 }
+
+const questionLayoutStyles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    marginRight: 20,
+  },
+  progressBarWrapper: {
+    flex: 1,
+    marginLeft: 20,
+    paddingTop: 26,
+    justifyContent: 'center',
+  },
+});

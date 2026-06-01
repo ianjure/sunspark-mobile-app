@@ -22,9 +22,7 @@ export default function RoofSpaceQuestionScreen({ navigation, route }: Props) {
 
   return (
     <QuestionScreenLayout
-      currentStep={3}
-      totalSteps={5}
-      progress={60}
+      onboardingStep={5}
       title="How much usable roof space do you have?"
       subtitle="Roof space helps estimate possible system size."
       options={[

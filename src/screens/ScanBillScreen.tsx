@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackArrowButton from '@/src/components/BackArrowButton';
+import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import { API_URL } from '@/src/constants/api';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
@@ -114,7 +115,19 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
-      <BackArrowButton onPress={() => navigation.replace('Location')} />
+      <View style={{ flexDirection: 'row', marginRight: 20 }}>
+        <BackArrowButton onPress={() => navigation.replace('Location')} />
+        <View
+          style={{
+            flex: 1,
+            marginLeft: 20,
+            paddingTop: 25,
+            justifyContent: 'center',
+          }}
+        >
+          <OnboardingProgressBar step={2} />
+        </View>
+      </View>
 
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>Scan Your Electric Bill</Text>

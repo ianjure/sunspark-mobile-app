@@ -15,7 +15,7 @@ import { RootStackParamList } from '@/src/navigation/types';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
 import BackArrowButton from '@/src/components/BackArrowButton';
-import Logo from '@/src/components/Logo';
+import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import {
   FONT_INTER_BLACK,
@@ -65,19 +65,17 @@ export default function RegisterScreen({ navigation, route }: Props) {
 
   return (
     <SafeAreaView style={registerStyles.screen} edges={['top', 'bottom']}>
-      <BackArrowButton
-        onPress={() => navigation.replace('TimelineQuestion', { result })}
-      />
+      <View style={registerStyles.progressHeader}>
+        <BackArrowButton
+          onPress={() => navigation.replace('TimelineQuestion', { result })}
+        />
+        <View style={registerStyles.progressBarWrapper}>
+          <OnboardingProgressBar step={8} />
+        </View>
+      </View>
 
       {/* Hero */}
       <View style={registerStyles.hero}>
-        <View style={registerStyles.mascotContainer}>
-          <Logo width={100} height={200} />
-          <View style={registerStyles.readyBadge}>
-            <Text style={registerStyles.readyBadgeText}>Ready! ☀️</Text>
-          </View>
-        </View>
-
         <Text style={registerStyles.title}>Your solar assessment is ready</Text>
         <Text style={registerStyles.subtitle}>
           Create your free account to save your report and view trusted
@@ -191,17 +189,17 @@ const registerStyles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 24,
   },
-  header: {
+  progressHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    paddingVertical: 12,
-    borderBottomWidth: 2,
-    borderBottomColor: '#d2c5ac',
-    marginBottom: 20,
-    marginHorizontal: -20,
-    paddingHorizontal: 20,
-    backgroundColor: APP_BACKGROUND_COLOR,
+    marginHorizontal: -20, // cancel out the screen's paddingHorizontal: 20 on the right side
+    marginRight: 0, // net right edge lands at 20px from screen edge
+  },
+  progressBarWrapper: {
+    flex: 1,
+    marginLeft: 20,
+    paddingTop: 26,
+    justifyContent: 'center',
+    paddingRight: 20, // restore the 20px right margin since we cancelled paddingHorizontal
   },
   hero: {
     alignItems: 'center',

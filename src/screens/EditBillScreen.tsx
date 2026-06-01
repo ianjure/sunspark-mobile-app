@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackArrowButton from '@/src/components/BackArrowButton';
+import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
@@ -171,9 +172,26 @@ export default function EditBillScreen({ navigation, route }: Props) {
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
-      <BackArrowButton
-        onPress={() => navigation.replace('ScanBill', { latitude, longitude })}
-      />
+      <View style={{ flexDirection: 'row', marginRight: 20 }}>
+        <BackArrowButton
+          onPress={() =>
+            navigation.replace('ScanBill', {
+              latitude: latitude ?? 0,
+              longitude: longitude ?? 0,
+            })
+          }
+        />
+        <View
+          style={{
+            flex: 1,
+            marginLeft: 20,
+            paddingTop: 25,
+            justifyContent: 'center',
+          }}
+        >
+          <OnboardingProgressBar step={2} />
+        </View>
+      </View>
 
       <KeyboardAvoidingView
         style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}

@@ -22,9 +22,7 @@ export default function SunlightQuestionScreen({ navigation, route }: Props) {
 
   return (
     <QuestionScreenLayout
-      currentStep={2}
-      totalSteps={5}
-      progress={40}
+      onboardingStep={4}
       title="How much sunlight does your roof get?"
       subtitle="More sunlight usually means better solar performance."
       options={[

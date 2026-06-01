@@ -22,9 +22,7 @@ export default function TimelineQuestionScreen({ navigation, route }: Props) {
 
   return (
     <QuestionScreenLayout
-      currentStep={5}
-      totalSteps={5}
-      progress={100}
+      onboardingStep={7}
       title="When are you thinking of installing solar?"
       subtitle="No pressure. This helps us personalize your next step."
       options={[
