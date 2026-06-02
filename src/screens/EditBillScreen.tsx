@@ -4,7 +4,6 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -14,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackArrowButton from '@/src/components/BackArrowButton';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
+import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
@@ -197,56 +197,57 @@ export default function EditBillScreen({ navigation, route }: Props) {
         style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.title}>Review Bill Details</Text>
-          <Text style={styles.subtitle}>
-            Check the values we found from your bill. You can edit them before
-            we create your Sunspark assessment.
+        <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 25 }}>
+          <TextCombo
+            title="Review bill details"
+            subtitle={
+              'Check the values we found from your bill.\nYou can edit them before we create\nyour solar assessment.'
+            }
+          />
+        </View>
+
+        <View style={styles.resultCard}>
+          <Text style={styles.resultTitle}>Bill Summary</Text>
+
+          <Text style={styles.label}>Monthly Bill</Text>
+          <TextInput
+            style={styles.input}
+            value={monthlyBill}
+            onChangeText={setMonthlyBill}
+            keyboardType="decimal-pad"
+            placeholder="Example: 3500"
+          />
+
+          <Text style={styles.label}>Monthly kWh Usage</Text>
+          <TextInput
+            style={styles.input}
+            value={kwhUsage}
+            onChangeText={setKwhUsage}
+            keyboardType="decimal-pad"
+            placeholder="Example: 420"
+          />
+
+          <Text style={styles.label}>Effective Rate per kWh</Text>
+          <TextInput
+            style={styles.input}
+            value={effectiveRatePerKwh}
+            onChangeText={setEffectiveRatePerKwh}
+            keyboardType="decimal-pad"
+            placeholder="Leave blank to compute automatically"
+          />
+
+          <Text style={styles.helperText}>
+            Tip: Effective rate is usually monthly bill divided by monthly kWh
+            usage. You can leave this blank and Sunspark will compute it.
           </Text>
+        </View>
 
-          <View style={styles.resultCard}>
-            <Text style={styles.resultTitle}>Bill Summary</Text>
-
-            <Text style={styles.label}>Monthly Bill</Text>
-            <TextInput
-              style={styles.input}
-              value={monthlyBill}
-              onChangeText={setMonthlyBill}
-              keyboardType="decimal-pad"
-              placeholder="Example: 3500"
-            />
-
-            <Text style={styles.label}>Monthly kWh Usage</Text>
-            <TextInput
-              style={styles.input}
-              value={kwhUsage}
-              onChangeText={setKwhUsage}
-              keyboardType="decimal-pad"
-              placeholder="Example: 420"
-            />
-
-            <Text style={styles.label}>Effective Rate per kWh</Text>
-            <TextInput
-              style={styles.input}
-              value={effectiveRatePerKwh}
-              onChangeText={setEffectiveRatePerKwh}
-              keyboardType="decimal-pad"
-              placeholder="Leave blank to compute automatically"
-            />
-
-            <Text style={styles.helperText}>
-              Tip: Effective rate is usually monthly bill divided by monthly kWh
-              usage. You can leave this blank and Sunspark will compute it.
-            </Text>
-          </View>
-
-          <TouchableOpacity
-            style={styles.primaryButtonFull}
-            onPress={continueToMain}
-          >
-            <Text style={styles.primaryButtonText}>Continue to Assessment</Text>
-          </TouchableOpacity>
-        </ScrollView>
+        <TouchableOpacity
+          style={styles.primaryButtonFull}
+          onPress={continueToMain}
+        >
+          <Text style={styles.primaryButtonText}>Continue to Assessment</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

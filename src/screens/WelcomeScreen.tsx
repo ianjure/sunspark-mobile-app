@@ -1,10 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Logo from '@/src/components/Logo';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
+import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { RootStackParamList } from '@/src/navigation/types';
@@ -21,10 +22,10 @@ export default function WelcomeScreen({ navigation }: Props) {
 
       {/* Hero Section */}
       <View style={welcomeStyles.heroSection}>
-        <Text style={welcomeStyles.heroTitle}>Welcome to Sunspark!</Text>
-        <Text style={welcomeStyles.heroSubtitle}>
-          Your simple way to explore solar and save more.
-        </Text>
+        <TextCombo
+          title="Welcome to Sunspark!"
+          subtitle={'Your simple way to explore solar\nand save more.'}
+        />
       </View>
 
       {/* Bottom Button Area */}
@@ -77,6 +78,6 @@ const welcomeStyles = StyleSheet.create({
     paddingHorizontal: 70,
   },
   lastButton: {
-    marginBottom: 20,
+    marginBottom: 22,
   },
 });

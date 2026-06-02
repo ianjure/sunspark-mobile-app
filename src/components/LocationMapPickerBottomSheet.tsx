@@ -41,9 +41,9 @@ const MAX_LONGITUDE_DELTA = 12;
 const SHEET_TOP_OFFSET = 100;
 const SHEET_TOP_RADIUS = 20;
 const SHEET_HANDLE_HEIGHT = 24;
-const INSTRUCTION_HEIGHT = 70;
+const INSTRUCTION_HEIGHT = 50;
 const MAP_BUTTON_GAP = 18;
-const BOTTOM_PADDING = 14;
+const BOTTOM_PADDING = 16;
 
 function isInsidePhilippines(lat: number, lon: number): boolean {
   return (
@@ -239,7 +239,7 @@ const mapPickerStyles = StyleSheet.create({
     width: 44,
     height: 5,
     borderRadius: 3,
-    backgroundColor: '#A39A89',
+    backgroundColor: '#667085',
   },
   instructionSection: {
     height: INSTRUCTION_HEIGHT,
@@ -253,6 +253,7 @@ const mapPickerStyles = StyleSheet.create({
     fontWeight: '700',
     color: '#17202A',
     textAlign: 'center',
+    paddingBottom: 10,
   },
   mapFrame: {
     flex: 1,

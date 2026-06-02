@@ -10,6 +10,7 @@ import LocationMapPickerBottomSheet from '@/src/components/LocationMapPickerBott
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
+import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { FONT_INTER_BLACK, FONT_INTER_BOLD } from '@/src/constants/fonts';
 import { RootStackParamList } from '@/src/navigation/types';
@@ -81,12 +82,12 @@ export default function LocationScreen({ navigation }: Props) {
       </View>
 
       <View style={locationStyles.heroSection}>
-        <Text style={locationStyles.heroEmoji}>📍</Text>
-        <Text style={locationStyles.heroTitle}>Where is your home?</Text>
-        <Text style={locationStyles.heroSubtitle}>
-          We need your location to estimate your home&apos;s solar potential and
-          find nearby providers.
-        </Text>
+        <TextCombo
+          title="Where is your home?"
+          subtitle={
+            "We need your location to estimate your home's solar potential and find nearby providers."
+          }
+        />
 
         {locationErrorMsg && (
           <Text style={styles.error}>{locationErrorMsg}</Text>
@@ -98,7 +99,8 @@ export default function LocationScreen({ navigation }: Props) {
       <PrimaryButton
         label="USE MY CURRENT LOCATION"
         onPress={enableLocation}
-        disabled={locationLoading}
+        loading={locationLoading}
+        disabled={false}
       />
       <View style={{ height: 10 }} />
       <SecondaryButton
@@ -148,6 +150,6 @@ const locationStyles = StyleSheet.create({
     lineHeight: 22,
   },
   lastButton: {
-    marginBottom: 20,
+    marginBottom: 22,
   },
 });

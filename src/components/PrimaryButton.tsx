@@ -7,6 +7,7 @@ type PrimaryButtonProps = {
   label: string;
   onPress: () => void;
   disabled?: boolean;
+  loading?: boolean;
   style?: ViewStyle;
 };
 
@@ -14,6 +15,7 @@ export default function PrimaryButton({
   label,
   onPress,
   disabled = false,
+  loading = false,
   style,
 }: PrimaryButtonProps) {
   const translateY = useRef(new Animated.Value(0)).current;
@@ -26,6 +28,10 @@ export default function PrimaryButton({
     // Stop any in-progress press animation before transitioning to disabled state
     translateY.stopAnimation();
     shadowOpacity.stopAnimation();
+
+    // loading: sink + no shadow, but keep enabled colors
+    // disabled: sink + no shadow + grey colors
+    const shouldSink = disabled || loading;
 
     // Native driver — transform and opacity only
     Animated.parallel([
@@ -40,24 +46,24 @@ export default function PrimaryButton({
         useNativeDriver: true,
       }),
       Animated.timing(shadowOpacity, {
-        toValue: disabled ? 0 : 1,
+        toValue: shouldSink ? 0 : 1,
         duration: 200,
         useNativeDriver: true,
       }),
       Animated.timing(translateY, {
-        toValue: disabled ? 4 : 0,
+        toValue: shouldSink ? 4 : 0,
         duration: 200,
         useNativeDriver: true,
       }),
     ]).start();
 
-    // JS driver — backgroundColor only
+    // Only animate color when truly disabled, not during loading
     Animated.timing(buttonColor, {
       toValue: disabled ? 0 : 1,
       duration: 200,
       useNativeDriver: false,
     }).start();
-  }, [disabled]);
+  }, [disabled, loading]);
 
   function handlePressIn() {
     if (disabled) return;

@@ -8,6 +8,7 @@ import BackArrowButton from '@/src/components/BackArrowButton';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
+import TextCombo from '@/src/components/TextCombo';
 import { API_URL } from '@/src/constants/api';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
@@ -16,16 +17,10 @@ import { SunsparkResult } from '@/src/types/sunspark';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ScanBill'>;
 
-const TITLE_TOP = 30;
-const TITLE_FONT_SIZE = 24;
-const TITLE_LINE_HEIGHT = TITLE_FONT_SIZE * 1.3;
-const SUBTITLE_GAP = 14;
-const SUBTITLE_TOP = TITLE_TOP + TITLE_LINE_HEIGHT + SUBTITLE_GAP;
-const SUBTITLE_FONT_SIZE = 14;
-const SUBTITLE_LINE_HEIGHT = SUBTITLE_FONT_SIZE * 1.5;
-const SUBTITLE_LINES = 2;
-const SUBTITLE_HEIGHT = SUBTITLE_LINE_HEIGHT * SUBTITLE_LINES;
-const FRAME_TOP = SUBTITLE_TOP + SUBTITLE_HEIGHT + 30;
+// Header: title (24 * 1.3 = 31.2) + gap (14) + subtitle (14 * 1.5 * 2 lines = 42) = 87.2
+const HEADER_TOP = 25;
+const HEADER_HEIGHT = 24 * 1.3 + 14 + 14 * 1.5 * 2;
+const FRAME_TOP = HEADER_TOP + HEADER_HEIGHT + 20;
 
 export default function ScanBillScreen({ navigation, route }: Props) {
   const cameraRef = useRef<CameraView>(null);
@@ -134,53 +129,22 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       </View>
 
       {/* ── Body ── */}
-      <View style={{ flex: 1 }}>
-        {/* Title */}
-        <Text
-          style={[
-            styles.title,
-            {
-              position: 'absolute',
-              top: TITLE_TOP,
-              left: 20,
-              right: 20,
-              fontSize: TITLE_FONT_SIZE,
-              lineHeight: TITLE_LINE_HEIGHT,
-            },
-          ]}
-        >
-          Scan your electric bill
-        </Text>
+      <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 25 }}>
+        <TextCombo
+          title="Scan your electric bill"
+          subtitle={
+            'Take a clear photo of your latest electric bill\nto estimate your solar savings.'
+          }
+        />
 
-        {/* Subtitle */}
-        <Text
-          style={[
-            styles.subtitle,
-            {
-              position: 'absolute',
-              top: SUBTITLE_TOP,
-              left: 20,
-              right: 20,
-              marginTop: 0,
-              fontSize: SUBTITLE_FONT_SIZE,
-              lineHeight: SUBTITLE_LINE_HEIGHT,
-            },
-          ]}
-        >
-          Take a clear photo of your latest electric bill so Sunspark can
-          estimate your solar savings.
-        </Text>
-
-        {/* ── Photo / Camera frame — fixed, never resizes ── */}
+        {/* ── Photo / Camera frame — 20px below header ── */}
         <View
           style={{
-            position: 'absolute',
-            top: FRAME_TOP,
-            left: 20,
-            right: 20,
-            bottom: 20,
-            borderRadius: 20,
-            borderWidth: 2,
+            flex: 1,
+            marginTop: 20,
+            marginBottom: 20,
+            borderRadius: 10,
+            borderWidth: 4,
             borderColor: '#D0D5DD',
             overflow: 'hidden',
           }}
@@ -223,18 +187,19 @@ export default function ScanBillScreen({ navigation, route }: Props) {
         )}
       </View>
 
-      {/* ── Pinned buttons — mirrors Location screen pattern ── */}
+      {/* ── Pinned buttons ── */}
       <PrimaryButton
         label={getPrimaryLabel()}
         onPress={handlePrimaryPress}
-        disabled={isTakingPhoto || isUploading}
+        loading={isTakingPhoto || isUploading}
+        disabled={false}
       />
       <View style={{ height: 10 }} />
       <SecondaryButton
         label="RETAKE PHOTO"
         onPress={retakePhoto}
         disabled={isUploading || !photoUri}
-        style={{ marginBottom: 20, opacity: photoUri ? 1 : 0 }}
+        style={{ marginBottom: 22, opacity: photoUri ? 1 : 0 }}
       />
     </SafeAreaView>
   );
