@@ -6,13 +6,13 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CloseButton from '@/src/components/CloseButton';
+import LocationIllustration from '@/src/components/LocationIllustration';
 import LocationMapPickerBottomSheet from '@/src/components/LocationMapPickerBottomSheet';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
-import { FONT_INTER_BLACK, FONT_INTER_BOLD } from '@/src/constants/fonts';
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
 
@@ -81,14 +81,21 @@ export default function LocationScreen({ navigation }: Props) {
         </View>
       </View>
 
-      <View style={locationStyles.heroSection}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 20,
+        }}
+      >
+        <LocationIllustration height={280} />
         <TextCombo
           title="Where is your home?"
           subtitle={
-            "We need your location to estimate your home's solar potential and find nearby providers."
+            "We need your location to estimate your home's\nsolar potential and find nearby providers."
           }
         />
-
         {locationErrorMsg && (
           <Text style={styles.error}>{locationErrorMsg}</Text>
         )}
@@ -121,33 +128,6 @@ const locationStyles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: APP_BACKGROUND_COLOR,
-  },
-  heroSection: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 32,
-    gap: 16,
-  },
-  heroEmoji: {
-    fontSize: 80,
-    marginBottom: 8,
-  },
-  heroTitle: {
-    fontFamily: FONT_INTER_BLACK,
-    fontSize: 26,
-    fontWeight: '900',
-    color: '#201b11',
-    textAlign: 'center',
-    lineHeight: 34,
-  },
-  heroSubtitle: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#6b7280',
-    textAlign: 'center',
-    lineHeight: 22,
   },
   lastButton: {
     marginBottom: 22,

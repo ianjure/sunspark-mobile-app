@@ -24,6 +24,12 @@ export default function PrimaryButton({
   const disabledOpacity = useRef(new Animated.Value(disabled ? 1 : 0)).current;
   const buttonColor = useRef(new Animated.Value(disabled ? 0 : 1)).current;
 
+  // Ref so press handlers always see the latest loading value
+  const loadingRef = useRef(loading);
+  useEffect(() => {
+    loadingRef.current = loading;
+  }, [loading]);
+
   useEffect(() => {
     // Stop any in-progress press animation before transitioning to disabled state
     translateY.stopAnimation();
@@ -83,6 +89,8 @@ export default function PrimaryButton({
 
   function handlePressOut() {
     if (disabled) return;
+    // Stay sunk if loading kicked off when the finger lifted
+    if (loadingRef.current) return;
     Animated.parallel([
       Animated.timing(translateY, {
         toValue: 0,

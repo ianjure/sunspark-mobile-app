@@ -6,8 +6,8 @@ import Logo from '@/src/components/Logo';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import TextCombo from '@/src/components/TextCombo';
-import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
-import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
+import WelcomeIllustration from '@/src/components/WelcomeIllustration';
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -15,20 +15,25 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 export default function WelcomeScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={welcomeStyles.screen} edges={['top', 'bottom']}>
-      {/* Top Bar with Logo */}
-      <View style={welcomeStyles.topBar}>
+      <View style={{ paddingTop: 30, alignItems: 'center' }}>
         <Logo height={34} />
       </View>
 
-      {/* Hero Section */}
-      <View style={welcomeStyles.heroSection}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 20,
+        }}
+      >
+        <WelcomeIllustration height={280} />
         <TextCombo
           title="Welcome to Sunspark!"
           subtitle={'Your simple way to explore solar\nand save more.'}
         />
       </View>
 
-      {/* Bottom Button Area */}
       <PrimaryButton
         label="GET STARTED"
         onPress={() => navigation.replace('Location')}
@@ -47,35 +52,6 @@ const welcomeStyles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: APP_BACKGROUND_COLOR,
-  },
-  topBar: {
-    paddingTop: 40,
-    alignItems: 'center',
-  },
-  heroSection: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-  },
-  heroEmoji: {
-    fontSize: 80,
-    marginBottom: 8,
-  },
-  heroTitle: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 26,
-    color: MAIN_TEXT_COLOR,
-    textAlign: 'center',
-    lineHeight: 34,
-  },
-  heroSubtitle: {
-    fontFamily: FONT_INTER_REGULAR,
-    fontSize: 15,
-    color: '#6b7280',
-    textAlign: 'center',
-    lineHeight: 22,
-    paddingHorizontal: 70,
   },
   lastButton: {
     marginBottom: 22,
