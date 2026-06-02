@@ -33,7 +33,7 @@ export default function WelcomeScreen({ navigation }: Props) {
         label="GET STARTED"
         onPress={() => navigation.replace('Location')}
       />
-      <View style={{ height: 10 }} />
+      <View style={{ height: 15 }} />
       <SecondaryButton
         label="I ALREADY HAVE AN ACCOUNT"
         onPress={() => navigation.replace('Main')}

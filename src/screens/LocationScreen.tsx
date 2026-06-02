@@ -102,7 +102,7 @@ export default function LocationScreen({ navigation }: Props) {
         loading={locationLoading}
         disabled={false}
       />
-      <View style={{ height: 10 }} />
+      <View style={{ height: 15 }} />
       <SecondaryButton
         label="PIN MY HOUSE ON THE MAP"
         onPress={openMapPicker}

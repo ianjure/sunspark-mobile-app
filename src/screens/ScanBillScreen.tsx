@@ -194,7 +194,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
         loading={isTakingPhoto || isUploading}
         disabled={false}
       />
-      <View style={{ height: 10 }} />
+      <View style={{ height: 15 }} />
       <SecondaryButton
         label="RETAKE PHOTO"
         onPress={retakePhoto}

@@ -43,7 +43,7 @@ const SHEET_TOP_RADIUS = 20;
 const SHEET_HANDLE_HEIGHT = 24;
 const INSTRUCTION_HEIGHT = 50;
 const MAP_BUTTON_GAP = 18;
-const BOTTOM_PADDING = 16;
+const BOTTOM_PADDING = 22;
 
 function isInsidePhilippines(lat: number, lon: number): boolean {
   return (
