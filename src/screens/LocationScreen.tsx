@@ -2,19 +2,20 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
 import { useRef, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CloseButton from '@/src/components/CloseButton';
+import LoadingOverlay from '@/src/components/LoadingOverlay';
 import LocationIllustration from '@/src/components/LocationIllustration';
 import LocationMapPickerBottomSheet from '@/src/components/LocationMapPickerBottomSheet';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import TextCombo from '@/src/components/TextCombo';
+import Toast from '@/src/components/Toast';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
-import { styles } from '@/src/styles/styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Location'>;
 
@@ -24,7 +25,7 @@ type Coordinates = {
 };
 
 export default function LocationScreen({ navigation }: Props) {
-  const [locationErrorMsg, setLocationErrorMsg] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [locationLoading, setLocationLoading] = useState(false);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -35,15 +36,29 @@ export default function LocationScreen({ navigation }: Props) {
   async function enableLocation() {
     try {
       setLocationLoading(true);
-      setLocationErrorMsg(null);
+      setErrorMsg(null);
 
       const { status } = await Location.requestForegroundPermissionsAsync();
-
       if (status !== 'granted') {
-        setLocationErrorMsg('Permission to access location was denied.');
+        setErrorMsg('Permission to access location was denied.');
         return;
       }
 
+      // Use last known position instantly if available
+      const lastKnown = await Location.getLastKnownPositionAsync({
+        maxAge: 5 * 60 * 1000, // accept positions up to 5 minutes old
+        requiredAccuracy: 500, // within 500 meters is good enough
+      });
+
+      if (lastKnown) {
+        navigation.replace('ScanBill', {
+          latitude: lastKnown.coords.latitude,
+          longitude: lastKnown.coords.longitude,
+        });
+        return;
+      }
+
+      // No recent fix — fall back to full acquisition
       const currentLocation = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Balanced,
       });
@@ -54,7 +69,7 @@ export default function LocationScreen({ navigation }: Props) {
       });
     } catch (error) {
       console.log('Location error:', error);
-      setLocationErrorMsg('Unable to get your current location.');
+      setErrorMsg('Unable to get your current location.');
     } finally {
       setLocationLoading(false);
     }
@@ -70,6 +85,12 @@ export default function LocationScreen({ navigation }: Props) {
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
+      <Toast message={errorMsg} onDismiss={() => setErrorMsg(null)} />
+      <LoadingOverlay
+        visible={locationLoading}
+        message="Getting your location..."
+      />
+
       <View style={{ flexDirection: 'row', marginRight: 20 }}>
         <CloseButton onPress={() => navigation.replace('Welcome')} />
         <View
@@ -99,11 +120,6 @@ export default function LocationScreen({ navigation }: Props) {
             "We need your location to estimate your home's\nsolar potential and find nearby providers."
           }
         />
-        {locationErrorMsg && (
-          <Text style={styles.error}>{locationErrorMsg}</Text>
-        )}
-
-        {locationLoading && <ActivityIndicator style={{ marginTop: 8 }} />}
       </View>
 
       <PrimaryButton

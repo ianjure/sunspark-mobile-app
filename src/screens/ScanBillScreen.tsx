@@ -1,26 +1,22 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import BackArrowButton from '@/src/components/BackArrowButton';
+import LoadingOverlay from '@/src/components/LoadingOverlay';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import TextCombo from '@/src/components/TextCombo';
+import Toast from '@/src/components/Toast';
 import { API_URL } from '@/src/constants/api';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
-import { styles } from '@/src/styles/styles';
 import { SunsparkResult } from '@/src/types/sunspark';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ScanBill'>;
-
-// Header: title (24 * 1.3 = 31.2) + gap (14) + subtitle (14 * 1.5 * 2 lines = 42) = 87.2
-const HEADER_TOP = 25;
-const HEADER_HEIGHT = 24 * 1.3 + 14 + 14 * 1.5 * 2;
-const FRAME_TOP = HEADER_TOP + HEADER_HEIGHT + 20;
 
 export default function ScanBillScreen({ navigation, route }: Props) {
   const cameraRef = useRef<CameraView>(null);
@@ -31,7 +27,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
   const [photoUri, setPhotoUri] = useState<string | null>(null);
   const [isTakingPhoto, setIsTakingPhoto] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [apiErrorMsg, setApiErrorMsg] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function handlePrimaryPress() {
     if (!cameraPermission?.granted) {
@@ -49,7 +45,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
     if (!cameraRef.current || isTakingPhoto) return;
     try {
       setIsTakingPhoto(true);
-      setApiErrorMsg(null);
+      setErrorMsg(null);
       const photo = await cameraRef.current.takePictureAsync({ quality: 0.8 });
       setPhotoUri(photo.uri);
     } catch (error) {
@@ -61,14 +57,14 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
   function retakePhoto() {
     setPhotoUri(null);
-    setApiErrorMsg(null);
+    setErrorMsg(null);
   }
 
   async function analyzeBill() {
     if (!photoUri) return;
     try {
       setIsUploading(true);
-      setApiErrorMsg(null);
+      setErrorMsg(null);
 
       const formData = new FormData();
       formData.append('file', {
@@ -96,7 +92,7 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       navigation.replace('EditBill', { result: data, latitude, longitude });
     } catch (error: any) {
       console.log('Analyze bill error:', error);
-      setApiErrorMsg(error.message || 'Something went wrong.');
+      setErrorMsg(error.message || 'Something went wrong.');
     } finally {
       setIsUploading(false);
     }
@@ -113,6 +109,12 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
+      <Toast message={errorMsg} onDismiss={() => setErrorMsg(null)} />
+      <LoadingOverlay
+        visible={isUploading}
+        message="Reading your bill data..."
+      />
+
       <View style={{ flexDirection: 'row', marginRight: 20 }}>
         <BackArrowButton onPress={() => navigation.replace('Location')} />
         <View
@@ -158,29 +160,6 @@ export default function ScanBillScreen({ navigation, route }: Props) {
             )
           )}
         </View>
-
-        {isUploading && (
-          <View
-            style={[
-              styles.loadingBox,
-              { position: 'absolute', alignSelf: 'center', bottom: 160 },
-            ]}
-          >
-            <ActivityIndicator />
-            <Text style={styles.text}>Reading your bill data...</Text>
-          </View>
-        )}
-
-        {apiErrorMsg && (
-          <Text
-            style={[
-              styles.error,
-              { position: 'absolute', bottom: 160, alignSelf: 'center' },
-            ]}
-          >
-            {apiErrorMsg}
-          </Text>
-        )}
       </View>
 
       <PrimaryButton
