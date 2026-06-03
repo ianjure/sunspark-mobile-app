@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   BackHandler,
+  Keyboard,
   Pressable,
   StyleSheet,
   Text,
@@ -41,16 +42,23 @@ export default function ModalInputField({
   useEffect(() => {
     if (!isSheetOpen) return;
 
-    const subscription = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => {
-        inputRef.current?.blur();
-        bottomSheetRef.current?.dismiss();
-        return true;
-      },
-    );
+    // On Android, the first back press closes the keyboard without triggering
+    // BackHandler. We listen for keyboard hide and dismiss the sheet then,
+    // so the user doesn't need a second back press to close the modal.
+    const keyboardSub = Keyboard.addListener('keyboardDidHide', () => {
+      bottomSheetRef.current?.dismiss();
+    });
 
-    return () => subscription.remove();
+    const backSub = BackHandler.addEventListener('hardwareBackPress', () => {
+      inputRef.current?.blur();
+      bottomSheetRef.current?.dismiss();
+      return true;
+    });
+
+    return () => {
+      keyboardSub.remove();
+      backSub.remove();
+    };
   }, [isSheetOpen]);
 
   const handleOpen = useCallback(() => {
