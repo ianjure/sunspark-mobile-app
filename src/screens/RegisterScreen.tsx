@@ -1,55 +1,30 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { RootStackParamList } from '@/src/navigation/types';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
 import BackArrowButton from '@/src/components/BackArrowButton';
+import ModalInputField from '@/src/components/ModalInputField';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
+import PrimaryButton from '@/src/components/PrimaryButton';
+import RegisterIllustration from '@/src/components/RegisterIllustration';
+import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
-import {
-  FONT_INTER_BLACK,
-  FONT_INTER_BOLD,
-  FONT_INTER_EXTRABOLD,
-  FONT_INTER_REGULAR,
-} from '@/src/constants/fonts';
+import { FONT_INTER_BOLD } from '@/src/constants/fonts';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 export default function RegisterScreen({ navigation, route }: Props) {
   const { result } = route.params;
-
   const [fullName, setFullName] = useState('Juan dela Cruz');
-  const [email, setEmail] = useState('jcruz@example.com');
-  const [password, setPassword] = useState('1234juan');
-  const [showPassword, setShowPassword] = useState(false);
-  const [consent, setConsent] = useState(false);
 
   async function handleSubmit() {
     if (!fullName.trim()) {
       Alert.alert('Missing name', 'Please enter your full name.');
-      return;
-    }
-    if (!email.trim() || !email.includes('@')) {
-      Alert.alert('Invalid email', 'Please enter a valid email address.');
-      return;
-    }
-    if (password.length < 8) {
-      Alert.alert('Weak password', 'Password must be at least 8 characters.');
-      return;
-    }
-    if (!consent) {
-      Alert.alert('Consent required', 'Please agree to the terms to continue.');
       return;
     }
 
@@ -59,294 +34,89 @@ export default function RegisterScreen({ navigation, route }: Props) {
     };
 
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(finalResult));
-
     navigation.replace('Main', { result: finalResult });
   }
 
   return (
-    <SafeAreaView style={registerStyles.screen} edges={['top', 'bottom']}>
-      <View style={registerStyles.progressHeader}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
+      edges={['top', 'bottom']}
+    >
+      <View style={{ flexDirection: 'row', marginRight: 20 }}>
         <BackArrowButton
           onPress={() => navigation.replace('TimelineQuestion', { result })}
         />
-        <View style={registerStyles.progressBarWrapper}>
+        <View
+          style={{
+            flex: 1,
+            marginLeft: 20,
+            paddingTop: 25,
+            justifyContent: 'center',
+          }}
+        >
           <OnboardingProgressBar step={8} />
         </View>
       </View>
 
-      {/* Hero */}
-      <View style={registerStyles.hero}>
-        <Text style={registerStyles.title}>Your solar assessment is ready</Text>
-        <Text style={registerStyles.subtitle}>
-          Create your free account to save your report and view trusted
-          providers near you.
-        </Text>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 20,
+        }}
+      >
+        <RegisterIllustration height={280} />
+        <TextCombo
+          title="You're almost there!"
+          subtitle={
+            'Create your free account to save your report\nand view trusted providers near you.'
+          }
+        />
       </View>
 
-      {/* Form */}
-      <View style={registerStyles.form}>
-        {/* Full Name */}
-        <View style={registerStyles.inputCard}>
-          <Text style={registerStyles.inputLabel}>Full Name</Text>
-          <TextInput
-            style={registerStyles.input}
-            value={fullName}
-            onChangeText={setFullName}
-            placeholder="Juan dela Cruz"
-            placeholderTextColor="#807660"
-            autoCapitalize="words"
-          />
-        </View>
+      <ModalInputField
+        title="What is your full name?"
+        value={fullName}
+        onChangeText={setFullName}
+        keyboardType="default"
+        placeholder="Example: Juan dela Cruz"
+      />
 
-        {/* Email */}
-        <View
-          style={[registerStyles.inputCard, registerStyles.inputCardDisabled]}
-        >
-          <Text style={registerStyles.inputLabel}>Email Address</Text>
-          <TextInput
-            style={[registerStyles.input, registerStyles.inputDisabled]}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="juan@example.com"
-            placeholderTextColor="#807660"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            editable={false}
-          />
-        </View>
-
-        {/* Password */}
-        <View
-          style={[registerStyles.inputCard, registerStyles.inputCardDisabled]}
-        >
-          <Text style={registerStyles.inputLabel}>Create Password</Text>
-          <View style={registerStyles.passwordRow}>
-            <TextInput
-              style={[
-                registerStyles.input,
-                registerStyles.inputDisabled,
-                { flex: 1 },
-              ]}
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Min. 8 characters"
-              placeholderTextColor="#807660"
-              secureTextEntry={!showPassword}
-              autoCapitalize="none"
-              editable={false}
-            />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              <Text style={registerStyles.eyeIcon}>
-                {showPassword ? '🙈' : '👁️'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Consent */}
-        <TouchableOpacity
-          style={registerStyles.consentRow}
-          onPress={() => setConsent(!consent)}
-          activeOpacity={0.7}
-        >
-          <View
-            style={[
-              registerStyles.checkbox,
-              consent && registerStyles.checkboxChecked,
-            ]}
-          >
-            {consent && <Text style={registerStyles.checkmark}>✓</Text>}
-          </View>
-          <Text style={registerStyles.consentText}>
-            I agree to receive my solar assessment and helpful energy-saving
-            tips from Sunspark.
-          </Text>
-        </TouchableOpacity>
-
-        {/* CTA */}
-        <TouchableOpacity
-          style={registerStyles.ctaButton}
-          onPress={handleSubmit}
-        >
-          <Text style={registerStyles.ctaText}>View My Solar Assessment →</Text>
-        </TouchableOpacity>
-
-        <Text style={registerStyles.termsText}>
-          By signing up, you agree to our{' '}
-          <Text style={registerStyles.termsLink}>Terms of Service</Text> and{' '}
-          <Text style={registerStyles.termsLink}>Privacy Policy</Text>.
+      <View style={{ height: 15 }} />
+      <PrimaryButton label="CONTINUE" onPress={handleSubmit} />
+      <View style={{ height: 15 }} />
+      <View
+        style={{
+          height: 55,
+          marginBottom: 22,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text style={styles.termsText}>
+          {'By signing up, you agree to our \n'}
+          <Text style={styles.termsLink}>Terms of Service</Text>
+          {' and '}
+          <Text style={styles.termsLink}>Privacy Policy</Text>
+          {'.'}
         </Text>
       </View>
     </SafeAreaView>
   );
 }
 
-const registerStyles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: APP_BACKGROUND_COLOR,
-    paddingHorizontal: 20,
-    paddingTop: 0,
-    paddingBottom: 24,
-  },
-  progressHeader: {
-    flexDirection: 'row',
-    marginHorizontal: -20, // cancel out the screen's paddingHorizontal: 20 on the right side
-    marginRight: 0, // net right edge lands at 20px from screen edge
-  },
-  progressBarWrapper: {
-    flex: 1,
-    marginLeft: 20,
-    paddingTop: 25,
-    justifyContent: 'center',
-    paddingRight: 20, // restore the 20px right margin since we cancelled paddingHorizontal
-  },
-  hero: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  mascotContainer: {
-    position: 'relative',
-    width: 110,
-    height: 110,
-    marginBottom: 10,
-  },
-  mascot: {
-    width: 110,
-    height: 110,
-  },
-  readyBadge: {
-    position: 'absolute',
-    top: -8,
-    right: -14,
-    backgroundColor: '#8efc6e',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 999,
-  },
-  readyBadgeText: {
-    fontFamily: FONT_INTER_EXTRABOLD,
-    fontSize: 12,
-    fontWeight: '800',
-    color: '#177500',
-  },
-  title: {
-    fontFamily: FONT_INTER_BLACK,
-    fontSize: 24,
-    fontWeight: '900',
-    color: '#201b11',
-    textAlign: 'center',
-    marginBottom: 6,
-    lineHeight: 30,
-  },
-  subtitle: {
-    fontFamily: FONT_INTER_REGULAR,
-    fontSize: 14,
-    color: '#4e4633',
-    textAlign: 'center',
-    lineHeight: 20,
-    paddingHorizontal: 8,
-  },
-  form: {
-    flex: 1,
-    gap: 12,
-  },
-  inputCard: {
-    backgroundColor: '#ffffff',
-    borderWidth: 2,
-    borderColor: '#d2c5ac',
-    borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingTop: 10,
-    paddingBottom: 12,
-  },
-  inputCardDisabled: {
-    backgroundColor: '#f0ebe3',
-  },
-  inputLabel: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#4e4633',
-    marginBottom: 4,
-  },
-  input: {
-    fontFamily: FONT_INTER_REGULAR,
-    fontSize: 16,
-    color: '#201b11',
-    padding: 0,
-  },
-  inputDisabled: {
-    color: '#807660',
-  },
-  passwordRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  eyeIcon: {
-    fontSize: 18,
-    paddingLeft: 8,
-  },
-  consentRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 12,
-    paddingHorizontal: 4,
-  },
-  checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: '#807660',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 1,
-    flexShrink: 0,
-  },
-  checkboxChecked: {
-    backgroundColor: '#765a00',
-    borderColor: '#765a00',
-  },
-  checkmark: {
-    fontFamily: FONT_INTER_BLACK,
-    color: '#fff',
-    fontSize: 13,
-    fontWeight: '900',
-  },
-  consentText: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#4e4633',
-    lineHeight: 18,
-    flex: 1,
-  },
-  ctaButton: {
-    backgroundColor: '#ffc928',
-    paddingVertical: 18,
-    borderRadius: 16,
-    alignItems: 'center',
-    borderBottomWidth: 4,
-    borderBottomColor: '#d9a400',
-  },
-  ctaText: {
-    fontFamily: FONT_INTER_BLACK,
-    fontSize: 18,
-    fontWeight: '900',
-    color: '#201b11',
-  },
+const styles = StyleSheet.create({
   termsText: {
     fontFamily: FONT_INTER_BOLD,
     textAlign: 'center',
     fontSize: 12,
     fontWeight: '700',
-    color: '#807660',
+    color: '#667085',
   },
   termsLink: {
     fontFamily: FONT_INTER_BOLD,
-    color: '#765a00',
+    color: '#667085',
     textDecorationLine: 'underline',
   },
 });

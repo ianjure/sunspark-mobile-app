@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
 import { useRef, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CloseButton from '@/src/components/CloseButton';
@@ -66,7 +66,10 @@ export default function LocationScreen({ navigation }: Props) {
   }
 
   return (
-    <SafeAreaView style={locationStyles.screen} edges={['top', 'bottom']}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
+      edges={['top', 'bottom']}
+    >
       <View style={{ flexDirection: 'row', marginRight: 20 }}>
         <CloseButton onPress={() => navigation.replace('Welcome')} />
         <View
@@ -113,7 +116,7 @@ export default function LocationScreen({ navigation }: Props) {
       <SecondaryButton
         label="PIN MY HOUSE ON THE MAP"
         onPress={openMapPicker}
-        style={locationStyles.lastButton}
+        style={{ marginBottom: 22 }}
       />
 
       <LocationMapPickerBottomSheet
@@ -123,13 +126,3 @@ export default function LocationScreen({ navigation }: Props) {
     </SafeAreaView>
   );
 }
-
-const locationStyles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: APP_BACKGROUND_COLOR,
-  },
-  lastButton: {
-    marginBottom: 22,
-  },
-});

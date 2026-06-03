@@ -113,7 +113,6 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
-      {/* ── Top bar ── */}
       <View style={{ flexDirection: 'row', marginRight: 20 }}>
         <BackArrowButton onPress={() => navigation.replace('Location')} />
         <View
@@ -128,7 +127,6 @@ export default function ScanBillScreen({ navigation, route }: Props) {
         </View>
       </View>
 
-      {/* ── Body ── */}
       <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 25 }}>
         <TextCombo
           title="Scan your electric bill"
@@ -137,7 +135,6 @@ export default function ScanBillScreen({ navigation, route }: Props) {
           }
         />
 
-        {/* ── Photo / Camera frame — 20px below header ── */}
         <View
           style={{
             flex: 1,
@@ -162,7 +159,6 @@ export default function ScanBillScreen({ navigation, route }: Props) {
           )}
         </View>
 
-        {/* Loading / Error */}
         {isUploading && (
           <View
             style={[
@@ -187,7 +183,6 @@ export default function ScanBillScreen({ navigation, route }: Props) {
         )}
       </View>
 
-      {/* ── Pinned buttons ── */}
       <PrimaryButton
         label={getPrimaryLabel()}
         onPress={handlePrimaryPress}

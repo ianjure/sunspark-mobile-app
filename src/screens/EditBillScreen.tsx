@@ -150,7 +150,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
               usage. You can leave this blank and Sunspark will compute it.
             </Text>
           </View>
-          <View style={{ height: 20 }} />
+          <View style={{ height: 30 }} />
           <PrimaryButton label="CONTINUE" onPress={continueToMain} />
         </View>
       </KeyboardAvoidingView>
