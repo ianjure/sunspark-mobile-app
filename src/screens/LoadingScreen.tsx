@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
@@ -33,8 +33,7 @@ export default function LoadingScreen({ navigation }: Props) {
 
   return (
     <View style={styles.screen}>
-      <Logo width={42} height={42} />
-      <ActivityIndicator style={{ marginTop: 16 }} />
+      <Logo height={34} />
     </View>
   );
 }
