@@ -2,11 +2,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Logo from '@/src/components/Logo';
+import Logo from '@/src/components/icons/Logo';
+import WelcomeIllustration from '@/src/components/illustrations/WelcomeIllustration';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import TextCombo from '@/src/components/TextCombo';
-import WelcomeIllustration from '@/src/components/WelcomeIllustration';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 

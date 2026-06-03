@@ -7,11 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '@/src/navigation/types';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
-import BackArrowButton from '@/src/components/BackArrowButton';
+import BackArrowButton from '@/src/components/icons/BackArrowButton';
+import RegisterIllustration from '@/src/components/illustrations/RegisterIllustration';
 import ModalInputField from '@/src/components/ModalInputField';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
-import RegisterIllustration from '@/src/components/RegisterIllustration';
 import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { FONT_INTER_BOLD } from '@/src/constants/fonts';

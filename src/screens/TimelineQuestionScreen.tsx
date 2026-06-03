@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import TimelineQuestionIcon from '@/src/components/icons/TimelineQuestionIcon';
 import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
 import { RootStackParamList } from '@/src/navigation/types';
 
@@ -23,8 +24,9 @@ export default function TimelineQuestionScreen({ navigation, route }: Props) {
   return (
     <QuestionScreenLayout
       onboardingStep={7}
-      title="When are you thinking of installing solar?"
-      subtitle="No pressure. This helps us personalize your next step."
+      title={'When are you thinking\nof installing solar?'}
+      subtitle={'No pressure. This helps us\npersonalize your next step.'}
+      icon={<TimelineQuestionIcon height={100} />}
       options={[
         { label: 'As soon as possible' },
         { label: 'Within 3 months' },

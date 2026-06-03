@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import HomeOwnershipQuestionIcon from '@/src/components/icons/HomeOwnershipQuestionIcon';
 import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
 import { RootStackParamList } from '@/src/navigation/types';
 
@@ -30,7 +31,10 @@ export default function HomeOwnershipQuestionScreen({
     <QuestionScreenLayout
       onboardingStep={3}
       title="Do you own the house?"
-      subtitle="This helps us recommend the right financing and installation options."
+      subtitle={
+        'This helps us recommend the right\nfinancing and installation options.'
+      }
+      icon={<HomeOwnershipQuestionIcon height={100} />}
       options={[
         { label: 'Yes, I own it' },
         { label: 'Family-owned' },

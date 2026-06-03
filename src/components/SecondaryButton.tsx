@@ -152,7 +152,6 @@ export default function SecondaryButton({
 const styles = StyleSheet.create({
   wrapper: {
     marginHorizontal: 20,
-    marginBottom: 8,
   },
   shadow: {
     position: 'absolute',

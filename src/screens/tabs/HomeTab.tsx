@@ -6,7 +6,7 @@ import { SunsparkResult } from '@/src/types/sunspark';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
 import CircularProgress from '@/src/components/CircularProgress';
-import Logo from '@/src/components/Logo';
+import Logo from '@/src/components/icons/Logo';
 
 type Props = {
   result: SunsparkResult;

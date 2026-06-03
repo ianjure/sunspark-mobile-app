@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import SunlightQuestionIcon from '@/src/components/icons/SunlightQuestionIcon';
 import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
 import { RootStackParamList } from '@/src/navigation/types';
 
@@ -23,8 +24,9 @@ export default function SunlightQuestionScreen({ navigation, route }: Props) {
   return (
     <QuestionScreenLayout
       onboardingStep={4}
-      title="How much sunlight does your roof get?"
-      subtitle="More sunlight usually means better solar performance."
+      title={'How much sunlight\ndoes your roof get?'}
+      subtitle={'More sunlight usually means\nbetter solar performance.'}
+      icon={<SunlightQuestionIcon height={100} />}
       options={[
         { label: 'Mostly sunny' },
         { label: 'Partially shaded' },

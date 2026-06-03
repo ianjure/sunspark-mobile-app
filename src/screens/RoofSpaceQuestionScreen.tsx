@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import RoofSpaceQuestionIcon from '@/src/components/icons/RoofSpaceQuestionIcon';
 import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
 import { RootStackParamList } from '@/src/navigation/types';
 
@@ -23,13 +24,14 @@ export default function RoofSpaceQuestionScreen({ navigation, route }: Props) {
   return (
     <QuestionScreenLayout
       onboardingStep={5}
-      title="How much usable roof space do you have?"
-      subtitle="Roof space helps estimate possible system size."
+      title={'How much usable roof\nspace do you have?'}
+      subtitle={'Roof space helps estimate\npossible system size.'}
+      icon={<RoofSpaceQuestionIcon height={100} />}
       options={[
-        { label: 'Large', description: 'Enough for 15+ panels' },
-        { label: 'Medium', description: 'Enough for 8-12 panels' },
-        { label: 'Small', description: 'Enough for 4-6 panels' },
-        { label: 'Not sure', description: 'I need help measuring' },
+        { label: 'Large' },
+        { label: 'Medium' },
+        { label: 'Small' },
+        { label: 'Not sure' },
       ]}
       onSelect={handleSelect}
       onBack={() => navigation.replace('SunlightQuestion', { result })}

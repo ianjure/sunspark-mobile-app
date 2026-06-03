@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { Image, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import BackArrowButton from '@/src/components/BackArrowButton';
+import BackArrowButton from '@/src/components/icons/BackArrowButton';
 import LoadingOverlay from '@/src/components/LoadingOverlay';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';

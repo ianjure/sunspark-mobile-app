@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import BackArrowButton from '@/src/components/BackArrowButton';
+import BackArrowButton from '@/src/components/icons/BackArrowButton';
 import InputField from '@/src/components/InputField';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';

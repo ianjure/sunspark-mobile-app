@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import PaymentQuestionIcon from '@/src/components/icons/PaymentQuestionIcon';
 import QuestionScreenLayout from '@/src/components/QuestionScreenLayout';
 import { RootStackParamList } from '@/src/navigation/types';
 
@@ -23,8 +24,9 @@ export default function PaymentQuestionScreen({ navigation, route }: Props) {
   return (
     <QuestionScreenLayout
       onboardingStep={6}
-      title="How would you prefer to pay for solar?"
-      subtitle="This helps match you with the right providers."
+      title={'How would you prefer\nto pay for solar?'}
+      subtitle={'This helps match you with\nthe right providers.'}
+      icon={<PaymentQuestionIcon height={100} />}
       options={[
         { label: 'Cash' },
         { label: 'Installment or financing' },

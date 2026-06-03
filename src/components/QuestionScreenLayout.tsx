@@ -1,18 +1,13 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import BackArrowButton from '@/src/components/BackArrowButton';
+import BackArrowButton from '@/src/components/icons/BackArrowButton';
 import OnboardingProgressBar, {
   OnboardingStep,
 } from '@/src/components/OnboardingProgressBar';
+import TertiaryButton from '@/src/components/TertiaryButton';
+import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
-import { styles } from '@/src/styles/styles';
 
 type QuestionOption = {
   label: string;
@@ -23,6 +18,7 @@ type Props = {
   onboardingStep: OnboardingStep;
   title: string;
   subtitle?: string;
+  icon?: React.ReactNode;
   options: QuestionOption[];
   onSelect: (value: string) => void;
   onBack?: () => void;
@@ -32,6 +28,7 @@ export default function QuestionScreenLayout({
   onboardingStep,
   title,
   subtitle,
+  icon,
   options,
   onSelect,
   onBack,
@@ -41,51 +38,58 @@ export default function QuestionScreenLayout({
       style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
       edges={['top', 'bottom']}
     >
-      <View style={questionLayoutStyles.header}>
+      {/* Top bar */}
+      <View style={{ flexDirection: 'row', marginRight: 20 }}>
         {onBack && <BackArrowButton onPress={onBack} />}
-        <View style={questionLayoutStyles.progressBarWrapper}>
+        <View
+          style={{
+            flex: 1,
+            marginLeft: 20,
+            paddingTop: 25,
+            justifyContent: 'center',
+          }}
+        >
           <OnboardingProgressBar step={onboardingStep} />
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.questionCard}>
-          <Text style={styles.questionTitle}>{title}</Text>
-          {subtitle && <Text style={styles.questionSubtitle}>{subtitle}</Text>}
-        </View>
+      {/* Center icon + TextCombo in the remaining space above the buttons */}
+      <View style={questionLayoutStyles.textComboWrapper}>
+        {icon}
+        <TextCombo title={title} subtitle={subtitle ?? ''} />
+      </View>
 
-        <View style={styles.optionList}>
-          {options.map((option) => (
-            <TouchableOpacity
-              key={option.label}
-              style={styles.optionButton}
-              onPress={() => onSelect(option.label)}
-            >
-              <View>
-                <Text style={styles.optionLabel}>{option.label}</Text>
-                {option.description && (
-                  <Text style={styles.optionDescription}>
-                    {option.description}
-                  </Text>
-                )}
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+      {/* Buttons anchored to the bottom */}
+      <View style={questionLayoutStyles.optionList}>
+        {options.map((option, index) => (
+          <TertiaryButton
+            key={option.label}
+            label={option.label}
+            onPress={() => onSelect(option.label)}
+            style={
+              index === options.length - 1
+                ? questionLayoutStyles.lastOption
+                : undefined
+            }
+          />
+        ))}
+      </View>
     </SafeAreaView>
   );
 }
 
 const questionLayoutStyles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    marginRight: 20,
-  },
-  progressBarWrapper: {
+  textComboWrapper: {
     flex: 1,
-    marginLeft: 20,
-    paddingTop: 25,
     justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
+    paddingHorizontal: 20,
+  },
+  optionList: {
+    gap: 10,
+  },
+  lastOption: {
+    marginBottom: 22,
   },
 });

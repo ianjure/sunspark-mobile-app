@@ -7,7 +7,7 @@ import { RootStackParamList } from '@/src/navigation/types';
 import { styles } from '@/src/styles/styles';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
-import Logo from '@/src/components/Logo';
+import Logo from '@/src/components/icons/Logo';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Loading'>;
 

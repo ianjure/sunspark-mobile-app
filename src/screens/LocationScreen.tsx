@@ -5,9 +5,9 @@ import { useRef, useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import CloseButton from '@/src/components/CloseButton';
+import CloseButton from '@/src/components/icons/CloseButton';
+import LocationIllustration from '@/src/components/illustrations/LocationIllustration';
 import LoadingOverlay from '@/src/components/LoadingOverlay';
-import LocationIllustration from '@/src/components/LocationIllustration';
 import LocationMapPickerBottomSheet from '@/src/components/LocationMapPickerBottomSheet';
 import OnboardingProgressBar from '@/src/components/OnboardingProgressBar';
 import PrimaryButton from '@/src/components/PrimaryButton';
