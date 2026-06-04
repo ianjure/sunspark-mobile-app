@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  Linking,
-  Modal,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+
+import ProviderCard from '@/src/components/ProviderCard';
+import ProviderProfileBottomSheet from '@/src/components/ProviderProfileBottomSheet';
+import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
+import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { supabase } from '@/src/lib/supabase';
-import { styles } from '@/src/styles/styles';
 import { SolarDeveloper } from '@/src/types/provider';
 import { SunsparkResult } from '@/src/types/sunspark';
 
@@ -23,6 +21,8 @@ export default function ProvidersTab({ result }: Props) {
     useState<SolarDeveloper | null>(null);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const profileSheetRef = useRef<BottomSheetModal>(null);
 
   const cityOrMunicipality = result.location?.city_or_municipality;
   const province = result.location?.province;
@@ -47,7 +47,9 @@ export default function ProvidersTab({ result }: Props) {
         provinceResult = await queryProvidersByProvince(province);
       }
 
-      const cityProviderIds = new Set(cityResult.map((provider) => provider.id));
+      const cityProviderIds = new Set(
+        cityResult.map((provider) => provider.id),
+      );
       const provinceOnlyResult = provinceResult.filter(
         (provider) => !cityProviderIds.has(provider.id),
       );
@@ -104,198 +106,93 @@ export default function ProvidersTab({ result }: Props) {
     return data ?? [];
   }
 
-  function openEmail(email: string | null) {
-    if (!email || email === 'N/A') return;
-
-    const firstEmail = email.split('/')[0].trim();
-
-    Linking.openURL(`mailto:${firstEmail}`);
+  function handleViewProfile(provider: SolarDeveloper) {
+    setSelectedProvider(provider);
+    profileSheetRef.current?.present();
   }
 
-  function callProvider(phone: string | null) {
-    if (!phone || phone === 'N/A') return;
-
-    const firstPhone = phone.split('/')[0].trim();
-
-    Linking.openURL(`tel:${firstPhone}`);
-  }
-
-  function closeModal() {
+  const handleClose = useCallback(() => {
+    profileSheetRef.current?.dismiss();
     setSelectedProvider(null);
-  }
+  }, []);
 
   return (
     <>
       {loading && (
-        <View style={styles.loadingBox}>
+        <View>
           <ActivityIndicator />
-          <Text style={styles.text}>Finding solar developers...</Text>
+          <Text
+            style={{
+              fontFamily: FONT_INTER_REGULAR,
+              marginTop: 8,
+              fontSize: 16,
+              textAlign: 'center',
+              color: MAIN_TEXT_COLOR,
+            }}
+          >
+            Finding solar developers...
+          </Text>
         </View>
       )}
 
       {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
 
       {!loading && providers.length === 0 && (
-        <View style={styles.resultCard}>
-          <Text style={styles.resultTitle}>No providers found</Text>
-          <Text style={styles.smallText}>
-            We could not find a matching provider yet. Try again later.
+        <View>
+          <Text style={styles.emptyTitle}>No providers found</Text>
+          <Text style={styles.emptyText}>
+            {'We could not find a matching provider yet.\nTry again later.'}
           </Text>
         </View>
       )}
 
       {!loading && providers.length > 0 && (
-        <View style={styles.providerList}>
+        <View style={styles.cardList}>
           {providers.map((provider) => (
-            <View key={provider.id} style={styles.providerCard}>
-              <View style={styles.providerHeaderRow}>
-                <View style={styles.providerLogo}>
-                  <Text style={styles.providerLogoText}>☀️</Text>
-                </View>
-
-                <View style={{ flex: 1 }}>
-                  <View style={styles.providerNameRow}>
-                    <Text style={styles.providerName}>{provider.name}</Text>
-                  </View>
-
-                  <Text style={styles.providerLocation}>
-                    📍 {provider.city_municipality ?? 'Unknown city'}
-                    {provider.province ? `, ${provider.province}` : ''}
-                  </Text>
-                </View>
-              </View>
-
-              <TouchableOpacity
-                style={styles.viewProfileButtonFull}
-                onPress={() => setSelectedProvider(provider)}
-              >
-                <Text style={styles.viewProfileButtonText}>View Profile</Text>
-              </TouchableOpacity>
-            </View>
+            <ProviderCard
+              key={provider.id}
+              provider={provider}
+              onViewProfile={handleViewProfile}
+            />
           ))}
         </View>
       )}
 
-      <Modal
-        visible={selectedProvider !== null}
-        transparent
-        animationType="slide"
-        onRequestClose={closeModal}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.providerModalCard}>
-            <View style={styles.providerModalHeader}>
-              <View style={styles.providerLogoLarge}>
-                <Text style={styles.providerLogoTextLarge}>☀️</Text>
-              </View>
-
-              <View style={{ flex: 1 }}>
-                <Text style={styles.providerModalTitle}>
-                  {selectedProvider?.name}
-                </Text>
-
-                <Text style={styles.providerLocation}>
-                  📍 {selectedProvider?.city_municipality ?? 'Unknown city'}
-                  {selectedProvider?.province
-                    ? `, ${selectedProvider.province}`
-                    : ''}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.providerModalSection}>
-              <Text style={styles.label}>Complete Address</Text>
-              <Text style={styles.value}>
-                {selectedProvider?.address ?? 'No address available'}
-              </Text>
-
-              <Text style={styles.label}>Contact Number</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: 4,
-                }}
-              >
-                <Text style={[styles.value, { flex: 1, marginTop: 0 }]}>
-                  {selectedProvider?.contact_number ?? 'Not available'}
-                </Text>
-                {selectedProvider?.contact_number &&
-                  selectedProvider.contact_number !== 'N/A' && (
-                    <TouchableOpacity
-                      onPress={() =>
-                        callProvider(selectedProvider?.contact_number ?? null)
-                      }
-                      style={{
-                        marginLeft: 8,
-                        padding: 7,
-                        backgroundColor: '#1f7108',
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Text style={{ fontSize: 17 }}>📞</Text>
-                    </TouchableOpacity>
-                  )}
-              </View>
-
-              <Text style={[styles.label, { marginTop: 12 }]}>
-                Email Address
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: 4,
-                }}
-              >
-                <Text
-                  style={[
-                    styles.value,
-                    { flex: 1, marginTop: 0, fontSize: 14 },
-                  ]}
-                >
-                  {selectedProvider?.email ?? 'Not available'}
-                </Text>
-                {selectedProvider?.email &&
-                  selectedProvider.email !== 'N/A' && (
-                    <TouchableOpacity
-                      onPress={() => openEmail(selectedProvider?.email ?? null)}
-                      style={{
-                        marginLeft: 8,
-                        padding: 7,
-                        backgroundColor: '#765a00',
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Text style={{ fontSize: 17 }}>✉️</Text>
-                    </TouchableOpacity>
-                  )}
-              </View>
-
-              <Text style={styles.label}>Region</Text>
-              <Text style={styles.value}>
-                {selectedProvider?.region ?? 'Not available'}
-              </Text>
-            </View>
-
-            <TouchableOpacity
-              style={[styles.viewProfileButtonFull, { marginBottom: 10 }]}
-              onPress={() => {}}
-            >
-              <Text style={styles.viewProfileButtonText}>Request a Quote</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.modalCloseButton}
-              onPress={closeModal}
-            >
-              <Text style={styles.modalCloseButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      <ProviderProfileBottomSheet
+        ref={profileSheetRef}
+        provider={selectedProvider}
+        onClose={handleClose}
+      />
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  cardList: {
+    gap: 20,
+  },
+  error: {
+    fontFamily: FONT_INTER_REGULAR,
+    color: MAIN_TEXT_COLOR,
+    fontSize: 15,
+    textAlign: 'center',
+    marginBottom: 16,
+    marginTop: 8,
+  },
+  emptyTitle: {
+    fontFamily: FONT_INTER_BOLD,
+    fontSize: 18,
+    fontWeight: '700',
+    color: MAIN_TEXT_COLOR,
+    marginTop: 20,
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  emptyText: {
+    fontFamily: FONT_INTER_REGULAR,
+    fontSize: 14,
+    color: MAIN_TEXT_COLOR,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+});

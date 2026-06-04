@@ -1,8 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
+import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 
 import BottomTabBar, { MainTab } from '@/src/components/BottomTabBar';
 import { RootStackParamList } from '@/src/navigation/types';
@@ -27,7 +36,7 @@ export default function MainScreen({ navigation, route }: Props) {
   const TAB_BAR_HEIGHT = 85 + insets.bottom;
   const TOP_CONTENT_PADDING =
     activeTab === 'providers'
-      ? 16
+      ? 20
       : insets.top + (activeTab === 'home' ? 34 : 16);
 
   useEffect(() => {
@@ -81,16 +90,19 @@ export default function MainScreen({ navigation, route }: Props) {
   }
 
   return (
-    <View style={styles.mainShell}>
+    <View style={screenStyles.mainShell}>
       {activeTab === 'providers' && (
         <View
-          style={[styles.providerTopBarSafeArea, { paddingTop: insets.top }]}
+          style={[
+            screenStyles.providerTopBarSafeArea,
+            { paddingTop: insets.top },
+          ]}
         >
-          <View style={styles.providerTopBar}>
-            <Text style={styles.providerTopBarTitle}>
+          <View style={screenStyles.providerTopBar}>
+            <Text style={screenStyles.providerTopBarTitle}>
               Solar developers near you
             </Text>
-            <Text style={styles.providerTopBarSubtitle}>
+            <Text style={screenStyles.providerTopBarSubtitle}>
               Showing providers based on your location.
             </Text>
           </View>
@@ -99,7 +111,7 @@ export default function MainScreen({ navigation, route }: Props) {
 
       <ScrollView
         contentContainerStyle={[
-          styles.tabContent,
+          screenStyles.tabContent,
           {
             paddingTop: TOP_CONTENT_PADDING,
             paddingBottom: TAB_BAR_HEIGHT + 16,
@@ -117,3 +129,37 @@ export default function MainScreen({ navigation, route }: Props) {
     </View>
   );
 }
+
+const screenStyles = StyleSheet.create({
+  mainShell: {
+    flex: 1,
+    backgroundColor: APP_BACKGROUND_COLOR,
+  },
+  tabContent: {
+    flexGrow: 1,
+    backgroundColor: APP_BACKGROUND_COLOR,
+  },
+  providerTopBarSafeArea: {
+    backgroundColor: APP_BACKGROUND_COLOR,
+    borderBottomWidth: 2,
+    borderBottomColor: '#D0D5DD',
+  },
+  providerTopBar: {
+    height: 120,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    gap: 4,
+  },
+  providerTopBarTitle: {
+    fontFamily: FONT_INTER_BOLD,
+    fontSize: 24,
+    fontWeight: '700',
+    color: MAIN_TEXT_COLOR,
+  },
+  providerTopBarSubtitle: {
+    fontFamily: FONT_INTER_REGULAR,
+    fontSize: 16,
+    fontWeight: '400',
+    color: MAIN_TEXT_COLOR,
+  },
+});

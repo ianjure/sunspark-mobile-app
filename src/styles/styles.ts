@@ -453,40 +453,7 @@ export const styles = StyleSheet.create({
     color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
-  mainShell: {
-    flex: 1,
-    backgroundColor: APP_BACKGROUND_COLOR,
-  },
-  tabContent: {
-    flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 100,
-    backgroundColor: APP_BACKGROUND_COLOR,
-  },
-  providerTopBarSafeArea: {
-    backgroundColor: APP_BACKGROUND_COLOR,
-    borderBottomWidth: 2,
-    borderBottomColor: '#D0D5DD',
-  },
-  providerTopBar: {
-    height: 120,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    gap: 4,
-  },
-  providerTopBarTitle: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 24,
-    fontWeight: '700',
-    color: MAIN_TEXT_COLOR,
-  },
-  providerTopBarSubtitle: {
-    fontFamily: FONT_INTER_REGULAR,
-    fontSize: 16,
-    fontWeight: '400',
-    color: MAIN_TEXT_COLOR,
-  },
+
   bottomTabBar: {
     position: 'absolute',
     left: 0,
