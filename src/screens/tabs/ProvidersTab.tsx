@@ -1,10 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-
 import ProviderCard from '@/src/components/ProviderCard';
-import ProviderProfileBottomSheet from '@/src/components/ProviderProfileBottomSheet';
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { supabase } from '@/src/lib/supabase';
@@ -13,16 +10,13 @@ import { SunsparkResult } from '@/src/types/sunspark';
 
 type Props = {
   result: SunsparkResult;
+  onViewProfile: (provider: SolarDeveloper) => void;
 };
 
-export default function ProvidersTab({ result }: Props) {
+export default function ProvidersTab({ result, onViewProfile }: Props) {
   const [providers, setProviders] = useState<SolarDeveloper[]>([]);
-  const [selectedProvider, setSelectedProvider] =
-    useState<SolarDeveloper | null>(null);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const profileSheetRef = useRef<BottomSheetModal>(null);
 
   const cityOrMunicipality = result.location?.city_or_municipality;
   const province = result.location?.province;
@@ -61,7 +55,6 @@ export default function ProvidersTab({ result }: Props) {
       }
 
       const fallbackResult = await queryFallbackProviders();
-
       setProviders(fallbackResult);
     } catch (error: any) {
       console.log('Fetch providers error:', error);
@@ -79,7 +72,6 @@ export default function ProvidersTab({ result }: Props) {
       .limit(20);
 
     if (error) throw error;
-
     return data ?? [];
   }
 
@@ -91,7 +83,6 @@ export default function ProvidersTab({ result }: Props) {
       .limit(20);
 
     if (error) throw error;
-
     return data ?? [];
   }
 
@@ -102,19 +93,8 @@ export default function ProvidersTab({ result }: Props) {
       .limit(20);
 
     if (error) throw error;
-
     return data ?? [];
   }
-
-  function handleViewProfile(provider: SolarDeveloper) {
-    setSelectedProvider(provider);
-    profileSheetRef.current?.present();
-  }
-
-  const handleClose = useCallback(() => {
-    profileSheetRef.current?.dismiss();
-    setSelectedProvider(null);
-  }, []);
 
   return (
     <>
@@ -152,17 +132,11 @@ export default function ProvidersTab({ result }: Props) {
             <ProviderCard
               key={provider.id}
               provider={provider}
-              onViewProfile={handleViewProfile}
+              onViewProfile={onViewProfile}
             />
           ))}
         </View>
       )}
-
-      <ProviderProfileBottomSheet
-        ref={profileSheetRef}
-        provider={selectedProvider}
-        onClose={handleClose}
-      />
     </>
   );
 }

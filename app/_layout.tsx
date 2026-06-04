@@ -12,7 +12,6 @@ import * as SystemUI from 'expo-system-ui';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 
@@ -39,14 +38,12 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <BottomSheetModalProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: { backgroundColor: APP_BACKGROUND_COLOR },
-            }}
-          />
-        </BottomSheetModalProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: APP_BACKGROUND_COLOR },
+          }}
+        />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

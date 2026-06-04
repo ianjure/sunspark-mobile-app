@@ -1,6 +1,7 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -14,11 +15,13 @@ import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 
 import BottomTabBar, { MainTab } from '@/src/components/BottomTabBar';
+import ProviderProfileBottomSheet from '@/src/components/ProviderProfileBottomSheet';
 import { RootStackParamList } from '@/src/navigation/types';
 import HomeTab from '@/src/screens/tabs/HomeTab';
 import ProfileTab from '@/src/screens/tabs/ProfileTab';
 import ProvidersTab from '@/src/screens/tabs/ProvidersTab';
 import { styles } from '@/src/styles/styles';
+import { SolarDeveloper } from '@/src/types/provider';
 import { SunsparkResult } from '@/src/types/sunspark';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
@@ -31,13 +34,15 @@ export default function MainScreen({ navigation, route }: Props) {
   );
   const [loading, setLoading] = useState(route.params?.result ? false : true);
 
-  // Always call hooks at the top level, before any early returns
+  const [selectedProvider, setSelectedProvider] =
+    useState<SolarDeveloper | null>(null);
+  const profileSheetRef = useRef<BottomSheetModal>(null);
+  const clearProviderTimeout = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+
   const insets = useSafeAreaInsets();
   const TAB_BAR_HEIGHT = 85 + insets.bottom;
-  const TOP_CONTENT_PADDING =
-    activeTab === 'providers'
-      ? 20
-      : insets.top + (activeTab === 'home' ? 34 : 16);
 
   useEffect(() => {
     async function loadSavedResult() {
@@ -63,6 +68,14 @@ export default function MainScreen({ navigation, route }: Props) {
     loadSavedResult();
   }, [navigation, route.params?.result]);
 
+  useEffect(() => {
+    return () => {
+      if (clearProviderTimeout.current) {
+        clearTimeout(clearProviderTimeout.current);
+      }
+    };
+  }, []);
+
   async function resetApp() {
     try {
       await AsyncStorage.removeItem(STORAGE_KEY);
@@ -71,6 +84,27 @@ export default function MainScreen({ navigation, route }: Props) {
       console.log('Reset app error:', error);
     }
   }
+
+  function handleViewProfile(provider: SolarDeveloper) {
+    if (clearProviderTimeout.current) {
+      clearTimeout(clearProviderTimeout.current);
+      clearProviderTimeout.current = null;
+    }
+    setSelectedProvider(provider);
+    profileSheetRef.current?.present();
+  }
+
+  // Called by the CLOSE button — dismisses the sheet, which then triggers onDismiss
+  const handleClosePressed = useCallback(() => {
+    profileSheetRef.current?.dismiss();
+  }, []);
+
+  // Called by the sheet after its closing animation finishes — safe to clear state here
+  const handleSheetDismiss = useCallback(() => {
+    clearProviderTimeout.current = setTimeout(() => {
+      setSelectedProvider(null);
+    }, 300);
+  }, []);
 
   if (loading) {
     return (
@@ -91,41 +125,65 @@ export default function MainScreen({ navigation, route }: Props) {
 
   return (
     <View style={screenStyles.mainShell}>
-      {activeTab === 'providers' && (
-        <View
-          style={[
-            screenStyles.providerTopBarSafeArea,
-            { paddingTop: insets.top },
-          ]}
-        >
-          <View style={screenStyles.providerTopBar}>
-            <Text style={screenStyles.providerTopBarTitle}>
-              Solar developers near you
-            </Text>
-            <Text style={screenStyles.providerTopBarSubtitle}>
-              Showing providers based on your location.
-            </Text>
-          </View>
-        </View>
-      )}
-
-      <ScrollView
-        contentContainerStyle={[
-          screenStyles.tabContent,
-          {
-            paddingTop: TOP_CONTENT_PADDING,
-            paddingBottom: TAB_BAR_HEIGHT + 16,
-          },
+      {/* Providers top bar */}
+      <View
+        style={[
+          screenStyles.providerTopBarSafeArea,
+          { paddingTop: insets.top },
+          activeTab !== 'providers' && screenStyles.hidden,
         ]}
       >
-        {activeTab === 'home' && <HomeTab result={result} />}
-        {activeTab === 'providers' && <ProvidersTab result={result} />}
-        {activeTab === 'profile' && (
-          <ProfileTab result={result} resetApp={resetApp} />
-        )}
+        <View style={screenStyles.providerTopBar}>
+          <Text style={screenStyles.providerTopBarTitle}>
+            Solar developers near you
+          </Text>
+          <Text style={screenStyles.providerTopBarSubtitle}>
+            Showing providers based on your location.
+          </Text>
+        </View>
+      </View>
+
+      {/* Home tab */}
+      <ScrollView
+        style={activeTab !== 'home' && screenStyles.hidden}
+        contentContainerStyle={[
+          screenStyles.tabContent,
+          { paddingTop: insets.top + 34, paddingBottom: TAB_BAR_HEIGHT + 16 },
+        ]}
+      >
+        <HomeTab result={result} />
+      </ScrollView>
+
+      {/* Providers tab */}
+      <ScrollView
+        style={activeTab !== 'providers' && screenStyles.hidden}
+        contentContainerStyle={[
+          screenStyles.tabContent,
+          { paddingTop: 20, paddingBottom: TAB_BAR_HEIGHT + 16 },
+        ]}
+      >
+        <ProvidersTab result={result} onViewProfile={handleViewProfile} />
+      </ScrollView>
+
+      {/* Profile tab */}
+      <ScrollView
+        style={activeTab !== 'profile' && screenStyles.hidden}
+        contentContainerStyle={[
+          screenStyles.tabContent,
+          { paddingTop: insets.top + 16, paddingBottom: TAB_BAR_HEIGHT + 16 },
+        ]}
+      >
+        <ProfileTab result={result} resetApp={resetApp} />
       </ScrollView>
 
       <BottomTabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      <ProviderProfileBottomSheet
+        ref={profileSheetRef}
+        provider={selectedProvider}
+        onClosePressed={handleClosePressed}
+        onDismiss={handleSheetDismiss}
+      />
     </View>
   );
 }
@@ -134,6 +192,9 @@ const screenStyles = StyleSheet.create({
   mainShell: {
     flex: 1,
     backgroundColor: APP_BACKGROUND_COLOR,
+  },
+  hidden: {
+    display: 'none',
   },
   tabContent: {
     flexGrow: 1,

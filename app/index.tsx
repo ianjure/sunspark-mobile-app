@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import {
   NavigationContainer,
   NavigationIndependentTree,
@@ -25,41 +26,43 @@ export default function App() {
   return (
     <NavigationIndependentTree>
       <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Loading"
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: APP_BACKGROUND_COLOR },
-          }}
-        >
-          <Stack.Screen name="Loading" component={LoadingScreen} />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Location" component={LocationScreen} />
-          <Stack.Screen name="ScanBill" component={ScanBillScreen} />
-          <Stack.Screen name="EditBill" component={EditBillScreen} />
-          <Stack.Screen
-            name="HomeOwnershipQuestion"
-            component={HomeOwnershipQuestionScreen}
-          />
-          <Stack.Screen
-            name="SunlightQuestion"
-            component={SunlightQuestionScreen}
-          />
-          <Stack.Screen
-            name="RoofSpaceQuestion"
-            component={RoofSpaceQuestionScreen}
-          />
-          <Stack.Screen
-            name="PaymentQuestion"
-            component={PaymentQuestionScreen}
-          />
-          <Stack.Screen
-            name="TimelineQuestion"
-            component={TimelineQuestionScreen}
-          />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Main" component={MainScreen} />
-        </Stack.Navigator>
+        <BottomSheetModalProvider>
+          <Stack.Navigator
+            initialRouteName="Loading"
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: APP_BACKGROUND_COLOR },
+            }}
+          >
+            <Stack.Screen name="Loading" component={LoadingScreen} />
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Location" component={LocationScreen} />
+            <Stack.Screen name="ScanBill" component={ScanBillScreen} />
+            <Stack.Screen name="EditBill" component={EditBillScreen} />
+            <Stack.Screen
+              name="HomeOwnershipQuestion"
+              component={HomeOwnershipQuestionScreen}
+            />
+            <Stack.Screen
+              name="SunlightQuestion"
+              component={SunlightQuestionScreen}
+            />
+            <Stack.Screen
+              name="RoofSpaceQuestion"
+              component={RoofSpaceQuestionScreen}
+            />
+            <Stack.Screen
+              name="PaymentQuestion"
+              component={PaymentQuestionScreen}
+            />
+            <Stack.Screen
+              name="TimelineQuestion"
+              component={TimelineQuestionScreen}
+            />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Main" component={MainScreen} />
+          </Stack.Navigator>
+        </BottomSheetModalProvider>
       </NavigationContainer>
     </NavigationIndependentTree>
   );

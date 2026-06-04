@@ -27,17 +27,22 @@ import { SolarDeveloper } from '@/src/types/provider';
 
 type Props = {
   provider: SolarDeveloper | null;
-  onClose: () => void;
+  onClosePressed: () => void;
+  onDismiss: () => void;
 };
 
 const SHEET_TOP_RADIUS = 20;
+const BUTTON_GAP = 15;
 const BOTTOM_PADDING = 22;
 
 const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
-  function ProviderProfileBottomSheet({ provider, onClose }, ref) {
+  function ProviderProfileBottomSheet(
+    { provider, onClosePressed, onDismiss },
+    ref,
+  ) {
     const insets = useSafeAreaInsets();
 
-    const snapPoints = useMemo(() => ['85%'], []);
+    const snapPoints = useMemo(() => ['84%'], []);
 
     const renderBackdrop = useCallback(
       (props: BottomSheetBackdropProps) => (
@@ -52,7 +57,6 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
       [],
     );
 
-    // No handle — render an empty zero-height component
     const renderHandle = useCallback(() => <View style={{ height: 0 }} />, []);
 
     function openEmail(email: string | null) {
@@ -87,13 +91,10 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
         backdropComponent={renderBackdrop}
         handleComponent={renderHandle}
         backgroundStyle={styles.sheetBackground}
-        onDismiss={onClose}
+        onDismiss={onDismiss}
       >
         <BottomSheetScrollView
-          contentContainerStyle={[
-            styles.contentContainer,
-            { paddingBottom: insets.bottom + BOTTOM_PADDING },
-          ]}
+          contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
         >
           {/* Header */}
@@ -101,7 +102,6 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
             <View style={styles.avatar}>
               <Text style={styles.avatarText}>{initials}</Text>
             </View>
-
             <View style={styles.headerInfo}>
               <Text style={styles.providerName} numberOfLines={2}>
                 {provider?.name}
@@ -113,6 +113,8 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
               ) : null}
             </View>
           </View>
+
+          <View style={{ height: 25 }} />
 
           {/* Details section */}
           <View style={styles.section}>
@@ -143,12 +145,7 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
               Email Address
             </Text>
             <View style={styles.fieldRow}>
-              <Text
-                style={[
-                  styles.fieldValue,
-                  { flex: 1, marginTop: 0, fontSize: 14 },
-                ]}
-              >
+              <Text style={[styles.fieldValue, { flex: 1, marginTop: 0 }]}>
                 {provider?.email ?? 'Not available'}
               </Text>
               {provider?.email && provider.email !== 'N/A' && (
@@ -166,20 +163,27 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
               {provider?.region ?? 'Not available'}
             </Text>
           </View>
+        </BottomSheetScrollView>
 
-          {/* Actions */}
+        {/* Footer pinned outside the scroll — mirrors LocationMapPickerBottomSheet */}
+        <View
+          style={[
+            styles.footer,
+            { paddingBottom: insets.bottom + BOTTOM_PADDING },
+          ]}
+        >
           <PrimaryButton
             label="REQUEST A QUOTE"
             onPress={() => {}}
-            style={styles.quoteButton}
+            style={styles.footerButton}
           />
-
+          <View style={{ height: BUTTON_GAP }} />
           <SecondaryButton
             label="CLOSE"
-            onPress={onClose}
-            style={styles.closeButton}
+            onPress={onClosePressed}
+            style={styles.footerButton}
           />
-        </BottomSheetScrollView>
+        </View>
       </BottomSheetModal>
     );
   },
@@ -194,11 +198,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: SHEET_TOP_RADIUS,
   },
   contentContainer: {
-    padding: 20,
-    gap: 16,
+    paddingTop: 20,
+    paddingHorizontal: 20,
   },
-
-  // Header
   header: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -237,24 +239,22 @@ const styles = StyleSheet.create({
     color: MAIN_TEXT_COLOR,
     marginTop: 5,
   },
-
-  // Details
   section: {
     backgroundColor: '#ffffff',
     borderWidth: 2,
-    borderColor: '#d2c5ac',
+    borderColor: '#D0D5DD',
     borderRadius: 18,
     padding: 16,
   },
   fieldLabel: {
     fontFamily: FONT_INTER_REGULAR,
-    fontSize: 14,
+    fontSize: 15,
     color: MAIN_TEXT_COLOR,
     marginTop: 12,
   },
   fieldValue: {
     fontFamily: FONT_INTER_SEMIBOLD,
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '600',
     marginTop: 4,
     color: MAIN_TEXT_COLOR,
@@ -268,21 +268,20 @@ const styles = StyleSheet.create({
   callButton: {
     marginLeft: 8,
     padding: 7,
-    backgroundColor: '#1f7108',
+    backgroundColor: '#D0D5DD',
     borderRadius: 10,
   },
   emailButton: {
     marginLeft: 8,
     padding: 7,
-    backgroundColor: '#765a00',
+    backgroundColor: '#D0D5DD',
     borderRadius: 10,
   },
-
-  // Buttons
-  quoteButton: {
-    marginHorizontal: 0,
+  footer: {
+    paddingTop: 10,
+    backgroundColor: APP_BACKGROUND_COLOR,
   },
-  closeButton: {
-    marginHorizontal: 0,
+  footerButton: {
+    marginHorizontal: 20,
   },
 });

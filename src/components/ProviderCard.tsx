@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
-    paddingTop: 2,
   },
   companyName: {
     fontFamily: FONT_INTER_BOLD,
