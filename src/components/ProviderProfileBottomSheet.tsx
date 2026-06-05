@@ -268,13 +268,13 @@ const styles = StyleSheet.create({
   callButton: {
     marginLeft: 8,
     padding: 7,
-    backgroundColor: '#D0D5DD',
+    backgroundColor: '#1E88E5',
     borderRadius: 10,
   },
   emailButton: {
     marginLeft: 8,
     padding: 7,
-    backgroundColor: '#D0D5DD',
+    backgroundColor: '#1E88E5',
     borderRadius: 10,
   },
   footer: {

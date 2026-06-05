@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { SvgXml } from 'react-native-svg';
+
+const RecommendedSizeIconXml = `<svg width="42" height="50" viewBox="0 0 42 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M28.4624 0.267124C24.4366 0.0345996 17.5664 -0.205595 10.7929 0.291546C8.54082 0.456852 6.59635 1.91806 5.79526 4.03125C2.37978 13.0409 0.752707 21.3514 0.0595065 25.7543C-0.375367 28.5164 1.6248 30.9792 4.37585 31.1688C6.72675 31.3308 10.1795 31.4985 14.211 31.4765C13.7815 34.979 13.3339 39.6515 12.8896 44.6777C12.4916 49.1804 17.8859 51.8872 21.0966 48.434C29.3394 39.5691 36.8957 29.7108 41.0398 24.0925C43.3195 21.0018 41.3117 16.6784 37.419 16.5768C35.6245 16.5299 33.4236 16.503 30.8337 16.5255C31.5997 13.1719 32.2922 9.52987 32.9288 6.01367C33.4458 3.15799 31.4079 0.437241 28.4624 0.267124Z" fill="#FFC928"/>
+</svg>`;
+
+type Props = {
+  width?: number;
+  height?: number;
+};
+
+const ASPECT_RATIO = 42 / 50;
+
+export default function RecommendedSizeIcon({ width, height = 50 }: Props) {
+  const renderedWidth = width ?? height * ASPECT_RATIO;
+
+  return (
+    <SvgXml
+      xml={RecommendedSizeIconXml}
+      width={renderedWidth}
+      height={height}
+    />
+  );
+}

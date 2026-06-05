@@ -16,7 +16,11 @@ import {
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
 import ScoreCard from '@/src/components/ScoreCard';
+import InstallationCostIcon from '@/src/components/icons/InstallationCostIcon';
 import Logo from '@/src/components/icons/Logo';
+import MonthlySavingsIcon from '@/src/components/icons/MonthlySavingsIcon';
+import PaybackIcon from '@/src/components/icons/PaybackIcon';
+import RecommendedSizeIcon from '@/src/components/icons/RecommendedSizeIcon';
 
 type Props = {
   result: SunsparkResult;
@@ -69,6 +73,7 @@ export default function HomeTab({ result }: Props) {
 
       <View style={styles.estimateGrid}>
         <View style={styles.estimateMiniCard}>
+          <RecommendedSizeIcon height={50} />
           <Text style={styles.estimateValue}>
             {result.estimate?.recommended_system_size_kwp ?? 'N/A'} kWp
           </Text>
@@ -76,6 +81,7 @@ export default function HomeTab({ result }: Props) {
         </View>
 
         <View style={styles.estimateMiniCard}>
+          <MonthlySavingsIcon height={50} />
           <Text style={styles.estimateValue}>
             {formatCurrency(result.estimate?.estimated_monthly_savings)}
           </Text>
@@ -83,11 +89,13 @@ export default function HomeTab({ result }: Props) {
         </View>
 
         <View style={styles.estimateMiniCard}>
+          <InstallationCostIcon height={50} />
           <Text style={styles.estimateSmallValue}>{estimatedInstallCost}</Text>
           <Text style={styles.estimateLabel}>INSTALL COST</Text>
         </View>
 
         <View style={styles.estimateMiniCard}>
+          <PaybackIcon height={50} />
           <Text style={styles.estimateValue}>{paybackYears}</Text>
           <Text style={styles.estimateLabel}>PAYBACK</Text>
         </View>
