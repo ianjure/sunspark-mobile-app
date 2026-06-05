@@ -2,12 +2,7 @@ import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
-import {
-  FONT_INTER_BLACK,
-  FONT_INTER_BOLD,
-  FONT_INTER_REGULAR,
-  FONT_NUNITO_BOLD,
-} from '@/src/constants/fonts';
+import { FONT_INTER_BLACK, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { SunsparkResult } from '@/src/types/sunspark';
 import {
   calculateReadinessScore,
@@ -15,12 +10,13 @@ import {
 } from '@/src/utils/calculateReadinessScore';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
-import ScoreCard from '@/src/components/ScoreCard';
+import EstimateMiniCard from '@/src/components/EstimateMiniCard';
 import InstallationCostIcon from '@/src/components/icons/InstallationCostIcon';
 import Logo from '@/src/components/icons/Logo';
 import MonthlySavingsIcon from '@/src/components/icons/MonthlySavingsIcon';
 import PaybackIcon from '@/src/components/icons/PaybackIcon';
 import RecommendedSizeIcon from '@/src/components/icons/RecommendedSizeIcon';
+import ScoreCard from '@/src/components/ScoreCard';
 
 type Props = {
   result: SunsparkResult;
@@ -72,33 +68,31 @@ export default function HomeTab({ result }: Props) {
       <ScoreCard score={readinessScore} label={readinessLabel} />
 
       <View style={styles.estimateGrid}>
-        <View style={styles.estimateMiniCard}>
-          <RecommendedSizeIcon height={50} />
-          <Text style={styles.estimateValue}>
-            {result.estimate?.recommended_system_size_kwp ?? 'N/A'} kWp
-          </Text>
-          <Text style={styles.estimateLabel}>RECOMMENDED SIZE</Text>
-        </View>
-
-        <View style={styles.estimateMiniCard}>
-          <MonthlySavingsIcon height={50} />
-          <Text style={styles.estimateValue}>
-            {formatCurrency(result.estimate?.estimated_monthly_savings)}
-          </Text>
-          <Text style={styles.estimateLabel}>MONTHLY SAVINGS</Text>
-        </View>
-
-        <View style={styles.estimateMiniCard}>
-          <InstallationCostIcon height={50} />
-          <Text style={styles.estimateSmallValue}>{estimatedInstallCost}</Text>
-          <Text style={styles.estimateLabel}>INSTALL COST</Text>
-        </View>
-
-        <View style={styles.estimateMiniCard}>
-          <PaybackIcon height={50} />
-          <Text style={styles.estimateValue}>{paybackYears}</Text>
-          <Text style={styles.estimateLabel}>PAYBACK</Text>
-        </View>
+        <EstimateMiniCard
+          icon={<RecommendedSizeIcon height={40} />}
+          value={`${result.estimate?.recommended_system_size_kwp ?? 'N/A'} kWp`}
+          label="RECOMMENDED SIZE"
+          tooltip="The ideal solar panel system size for your home based on your energy usage and roof space."
+        />
+        <EstimateMiniCard
+          icon={<MonthlySavingsIcon height={40} />}
+          value={formatCurrency(result.estimate?.estimated_monthly_savings)}
+          label="MONTHLY SAVINGS"
+          tooltip="Estimated reduction in your monthly electricity bill after switching to solar."
+        />
+        <EstimateMiniCard
+          icon={<InstallationCostIcon height={40} />}
+          value={estimatedInstallCost}
+          label="INSTALL COST"
+          tooltip="Approximate total cost to purchase and install the recommended solar system."
+          smallValue
+        />
+        <EstimateMiniCard
+          icon={<PaybackIcon height={40} />}
+          value={paybackYears}
+          label="PAYBACK"
+          tooltip="How long it takes for your monthly savings to fully cover the installation cost."
+        />
       </View>
     </>
   );
@@ -108,7 +102,6 @@ function formatPeso(value: number | null | undefined) {
   if (value === null || value === undefined) {
     return 'Not available';
   }
-
   return `₱${Math.round(value).toLocaleString()}`;
 }
 
@@ -137,42 +130,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   estimateGrid: {
-    width: '100%',
     marginHorizontal: 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
-  },
-  estimateMiniCard: {
-    width: '48%',
-    minHeight: 120,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#D0D5DD',
-    borderRadius: 20,
-    padding: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  estimateLabel: {
-    fontFamily: FONT_NUNITO_BOLD,
-    fontSize: 10,
-    fontWeight: '700',
-    color: '#667085',
-    textAlign: 'center',
-  },
-  estimateValue: {
-    fontFamily: FONT_INTER_BOLD,
-    fontSize: 25,
-    fontWeight: '900',
-    color: MAIN_TEXT_COLOR,
-    textAlign: 'center',
-  },
-  estimateSmallValue: {
-    fontFamily: FONT_INTER_BLACK,
-    fontSize: 25,
-    fontWeight: '900',
-    color: MAIN_TEXT_COLOR,
-    textAlign: 'center',
+    gap: 12,
   },
 });
