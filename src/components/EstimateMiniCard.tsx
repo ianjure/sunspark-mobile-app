@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cardBack: {
-    backgroundColor: '#17202A',
-    borderColor: '#17202A',
+    backgroundColor: '#667085',
+    borderColor: '#667085',
   },
   tooltipWrapper: {
     position: 'absolute',
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
   },
   backBody: {
     fontFamily: FONT_INTER_REGULAR,
-    fontSize: 11,
-    lineHeight: 16,
+    fontSize: 12,
+    lineHeight: 14,
     color: '#FFFFFF',
     textAlign: 'center',
     paddingHorizontal: 4,

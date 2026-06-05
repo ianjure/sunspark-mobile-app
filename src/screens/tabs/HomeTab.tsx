@@ -83,7 +83,7 @@ export default function HomeTab({ result }: Props) {
         <EstimateMiniCard
           icon={<InstallationCostIcon height={40} />}
           value={estimatedInstallCost}
-          label="INSTALL COST"
+          label="INSTALLATION COST"
           tooltip="Approximate total cost to purchase and install the recommended solar system."
           smallValue
         />

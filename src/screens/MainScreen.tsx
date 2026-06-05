@@ -130,7 +130,7 @@ export default function MainScreen({ navigation, route }: Props) {
         style={activeTab !== 'home' && screenStyles.hidden}
         contentContainerStyle={[
           screenStyles.tabContent,
-          { paddingTop: insets.top + 30, paddingBottom: TAB_BAR_HEIGHT + 16 },
+          { paddingTop: insets.top + 30, paddingBottom: TAB_BAR_HEIGHT },
         ]}
       >
         <HomeTab result={result} />
@@ -159,7 +159,7 @@ export default function MainScreen({ navigation, route }: Props) {
         style={activeTab !== 'providers' && screenStyles.hidden}
         contentContainerStyle={[
           screenStyles.tabContent,
-          { paddingTop: 20, paddingBottom: TAB_BAR_HEIGHT + 16 },
+          { paddingTop: 20, paddingBottom: TAB_BAR_HEIGHT + 20 },
         ]}
       >
         <ProvidersTab result={result} onViewProfile={handleViewProfile} />
@@ -170,7 +170,7 @@ export default function MainScreen({ navigation, route }: Props) {
         style={activeTab !== 'profile' && screenStyles.hidden}
         contentContainerStyle={[
           screenStyles.tabContent,
-          { paddingTop: insets.top + 16, paddingBottom: TAB_BAR_HEIGHT + 16 },
+          { paddingTop: insets.top + 16, paddingBottom: TAB_BAR_HEIGHT },
         ]}
       >
         <ProfileTab result={result} resetApp={resetApp} />

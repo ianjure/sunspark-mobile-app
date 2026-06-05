@@ -9,6 +9,8 @@ type PrimaryButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   style?: ViewStyle;
+  color?: string;
+  shadowColor?: string;
 };
 
 export default function PrimaryButton({
@@ -17,6 +19,8 @@ export default function PrimaryButton({
   disabled = false,
   loading = false,
   style,
+  color = '#FFC928',
+  shadowColor = '#E5A900',
 }: PrimaryButtonProps) {
   const translateY = useRef(new Animated.Value(0)).current;
   const shadowOpacity = useRef(new Animated.Value(disabled ? 0 : 1)).current;
@@ -24,22 +28,17 @@ export default function PrimaryButton({
   const disabledOpacity = useRef(new Animated.Value(disabled ? 1 : 0)).current;
   const buttonColor = useRef(new Animated.Value(disabled ? 0 : 1)).current;
 
-  // Ref so press handlers always see the latest loading value
   const loadingRef = useRef(loading);
   useEffect(() => {
     loadingRef.current = loading;
   }, [loading]);
 
   useEffect(() => {
-    // Stop any in-progress press animation before transitioning to disabled state
     translateY.stopAnimation();
     shadowOpacity.stopAnimation();
 
-    // loading: sink + no shadow, but keep enabled colors
-    // disabled: sink + no shadow + grey colors
     const shouldSink = disabled || loading;
 
-    // Native driver — transform and opacity only
     Animated.parallel([
       Animated.timing(enabledOpacity, {
         toValue: disabled ? 0 : 1,
@@ -63,7 +62,6 @@ export default function PrimaryButton({
       }),
     ]).start();
 
-    // Only animate color when truly disabled, not during loading
     Animated.timing(buttonColor, {
       toValue: disabled ? 0 : 1,
       duration: 200,
@@ -89,7 +87,6 @@ export default function PrimaryButton({
 
   function handlePressOut() {
     if (disabled) return;
-    // Stay sunk if loading kicked off when the finger lifted
     if (loadingRef.current) return;
     Animated.parallel([
       Animated.timing(translateY, {
@@ -107,30 +104,31 @@ export default function PrimaryButton({
 
   const animatedButtonColor = buttonColor.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#D0D5DD', '#FFC928'],
+    outputRange: ['#D0D5DD', color],
   });
 
   return (
     <Animated.View style={[styles.wrapper, style]}>
       {/* Shadow layer */}
-      <Animated.View style={[styles.shadow, { opacity: shadowOpacity }]} />
+      <Animated.View
+        style={[
+          styles.shadow,
+          { opacity: shadowOpacity, backgroundColor: shadowColor },
+        ]}
+      />
 
       <Pressable
         onPress={disabled ? undefined : onPress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
-        {/* Outer: native-driven translateY only */}
         <Animated.View style={{ transform: [{ translateY }] }}>
-          {/* Inner: JS-driven backgroundColor only */}
           <Animated.View
             style={[styles.button, { backgroundColor: animatedButtonColor }]}
           >
-            {/* Enabled label */}
             <Animated.Text style={[styles.label, { opacity: enabledOpacity }]}>
               {label}
             </Animated.Text>
-            {/* Disabled label */}
             <Animated.Text
               style={[
                 styles.label,
@@ -159,7 +157,6 @@ const styles = StyleSheet.create({
     right: 0,
     height: 55,
     borderRadius: 12,
-    backgroundColor: '#E5A900',
   },
   button: {
     height: 55,

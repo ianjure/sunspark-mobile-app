@@ -5,13 +5,7 @@ import {
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import { forwardRef, useCallback, useMemo } from 'react';
-import {
-  Linking,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Linking, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import PrimaryButton from '@/src/components/PrimaryButton';
@@ -114,7 +108,7 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
             </View>
           </View>
 
-          <View style={{ height: 25 }} />
+          <View style={{ height: 20 }} />
 
           {/* Details section */}
           <View style={styles.section}>
@@ -123,42 +117,23 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
               {provider?.address ?? 'No address available'}
             </Text>
 
-            <Text style={styles.fieldLabel}>Contact Number</Text>
-            <View style={styles.fieldRow}>
-              <Text style={[styles.fieldValue, { flex: 1, marginTop: 0 }]}>
-                {provider?.contact_number ?? 'Not available'}
-              </Text>
-              {provider?.contact_number &&
-                provider.contact_number !== 'N/A' && (
-                  <TouchableOpacity
-                    onPress={() =>
-                      callProvider(provider.contact_number ?? null)
-                    }
-                    style={styles.callButton}
-                  >
-                    <Text style={{ fontSize: 17 }}>📞</Text>
-                  </TouchableOpacity>
-                )}
-            </View>
+            <Text style={[styles.fieldLabel, styles.fieldLabelSpaced]}>
+              Contact Number
+            </Text>
+            <Text style={styles.fieldValue}>
+              {provider?.contact_number ?? 'Not available'}
+            </Text>
 
-            <Text style={[styles.fieldLabel, { marginTop: 12 }]}>
+            <Text style={[styles.fieldLabel, styles.fieldLabelSpaced]}>
               Email Address
             </Text>
-            <View style={styles.fieldRow}>
-              <Text style={[styles.fieldValue, { flex: 1, marginTop: 0 }]}>
-                {provider?.email ?? 'Not available'}
-              </Text>
-              {provider?.email && provider.email !== 'N/A' && (
-                <TouchableOpacity
-                  onPress={() => openEmail(provider.email ?? null)}
-                  style={styles.emailButton}
-                >
-                  <Text style={{ fontSize: 17 }}>✉️</Text>
-                </TouchableOpacity>
-              )}
-            </View>
+            <Text style={styles.fieldValue}>
+              {provider?.email ?? 'Not available'}
+            </Text>
 
-            <Text style={styles.fieldLabel}>Region</Text>
+            <Text style={[styles.fieldLabel, styles.fieldLabelSpaced]}>
+              Region
+            </Text>
             <Text style={styles.fieldValue}>
               {provider?.region ?? 'Not available'}
             </Text>
@@ -175,6 +150,8 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
           <PrimaryButton
             label="REQUEST A QUOTE"
             onPress={() => {}}
+            color="#1E88E5"
+            shadowColor="#156CC4"
             style={styles.footerButton}
           />
           <View style={{ height: BUTTON_GAP }} />
@@ -240,42 +217,25 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   section: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FFFFFF',
     borderWidth: 2,
     borderColor: '#D0D5DD',
-    borderRadius: 18,
-    padding: 16,
+    borderRadius: 20,
+    padding: 15,
   },
   fieldLabel: {
     fontFamily: FONT_INTER_REGULAR,
-    fontSize: 15,
+    fontSize: 12,
     color: MAIN_TEXT_COLOR,
-    marginTop: 12,
   },
   fieldValue: {
     fontFamily: FONT_INTER_SEMIBOLD,
     fontSize: 15,
     fontWeight: '600',
-    marginTop: 4,
     color: MAIN_TEXT_COLOR,
   },
-  fieldRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 4,
-  },
-  callButton: {
-    marginLeft: 8,
-    padding: 7,
-    backgroundColor: '#1E88E5',
-    borderRadius: 10,
-  },
-  emailButton: {
-    marginLeft: 8,
-    padding: 7,
-    backgroundColor: '#1E88E5',
-    borderRadius: 10,
+  fieldLabelSpaced: {
+    marginTop: 15,
   },
   footer: {
     paddingTop: 10,
