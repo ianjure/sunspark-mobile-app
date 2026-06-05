@@ -1,7 +1,9 @@
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-import { styles } from '@/src/styles/styles';
+import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
+import { FONT_INTER_BLACK, FONT_INTER_BOLD } from '@/src/constants/fonts';
+import { getScoreColor } from '@/src/utils/getScoreColor';
 
 type Props = {
   score: number;
@@ -21,6 +23,8 @@ export default function CircularProgress({
   const progressOffset =
     circumference - (normalizedScore / 100) * circumference;
 
+  const progressColor = getScoreColor(normalizedScore);
+
   return (
     <View
       style={[
@@ -32,8 +36,9 @@ export default function CircularProgress({
       ]}
     >
       <Svg width={size} height={size}>
+        {/* Track */}
         <Circle
-          stroke="#ebe1d1"
+          stroke="#D0D5DD"
           fill="transparent"
           cx={size / 2}
           cy={size / 2}
@@ -41,8 +46,9 @@ export default function CircularProgress({
           strokeWidth={strokeWidth}
         />
 
+        {/* Progress arc */}
         <Circle
-          stroke="#006e1b"
+          stroke={progressColor}
           fill="transparent"
           cx={size / 2}
           cy={size / 2}
@@ -51,9 +57,7 @@ export default function CircularProgress({
           strokeDasharray={circumference}
           strokeDashoffset={progressOffset}
           strokeLinecap="round"
-          rotation="-90"
-          originX={size / 2}
-          originY={size / 2}
+          transform={`rotate(-90, ${size / 2}, ${size / 2})`}
         />
       </Svg>
 
@@ -64,3 +68,28 @@ export default function CircularProgress({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  circularProgressWrapper: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  circularProgressTextWrapper: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scoreValue: {
+    fontFamily: FONT_INTER_BLACK,
+    fontSize: 35,
+    fontWeight: '900',
+    color: MAIN_TEXT_COLOR,
+  },
+  scoreMax: {
+    fontFamily: FONT_INTER_BOLD,
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#667085',
+  },
+});

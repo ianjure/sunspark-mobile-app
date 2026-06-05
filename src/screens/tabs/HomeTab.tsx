@@ -1,11 +1,21 @@
 import { useMemo } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { styles } from '@/src/styles/styles';
+import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
+import {
+  FONT_INTER_BLACK,
+  FONT_INTER_BOLD,
+  FONT_INTER_REGULAR,
+  FONT_NUNITO_BOLD,
+} from '@/src/constants/fonts';
 import { SunsparkResult } from '@/src/types/sunspark';
+import {
+  calculateReadinessScore,
+  getReadinessLabel,
+} from '@/src/utils/calculateReadinessScore';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
-import CircularProgress from '@/src/components/CircularProgress';
+import ScoreCard from '@/src/components/ScoreCard';
 import Logo from '@/src/components/icons/Logo';
 
 type Props = {
@@ -17,47 +27,24 @@ function getFirstName(fullName: string) {
 }
 
 export default function HomeTab({ result }: Props) {
-  const readinessScore = useMemo(() => {
-    let score = 60;
-
-    const coverage = result.estimate?.coverage_percentage ?? 0;
-    const pvoutDaily = result.solar?.pvout_daily ?? 0;
-    const roofSpace = result.assessment_answers?.roof_space;
-    const sunlight = result.assessment_answers?.sunlight;
-
-    if (coverage >= 70) score += 10;
-    if (pvoutDaily >= 4) score += 10;
-
-    if (sunlight === 'Mostly sunny') score += 10;
-    if (sunlight === 'Partially shaded') score += 5;
-    if (sunlight === 'Heavily shaded') score -= 5;
-
-    if (roofSpace === 'Large') score += 10;
-    if (roofSpace === 'Medium') score += 5;
-    if (roofSpace === 'Small') score -= 5;
-
-    return Math.max(0, Math.min(100, score));
-  }, [result]);
-
-  const readinessLabel = useMemo(() => {
-    if (readinessScore >= 80) return 'Great fit for solar';
-    if (readinessScore >= 60) return 'Good fit for solar';
-    return 'Needs more review';
-  }, [readinessScore]);
+  const readinessScore = useMemo(
+    () => calculateReadinessScore(result),
+    [result],
+  );
+  const readinessLabel = useMemo(
+    () => getReadinessLabel(readinessScore),
+    [readinessScore],
+  );
 
   const estimatedInstallCost = useMemo(() => {
     const cost = result.estimate?.estimated_install_cost;
-
     if (!cost) return 'Not available';
-
     return formatPeso(cost);
   }, [result]);
 
   const paybackYears = useMemo(() => {
     const years = result.estimate?.payback_years;
-
     if (!years) return 'Not available';
-
     return `${years} years`;
   }, [result]);
 
@@ -74,52 +61,35 @@ export default function HomeTab({ result }: Props) {
       <View style={styles.greetingSection}>
         <Text style={styles.greetingTitle}>Hello, {displayName}</Text>
         <Text style={styles.greetingSubtitle}>
-          Here&apos;s your solar readiness snapshot.
+          Here's your solar readiness snapshot.
         </Text>
       </View>
 
-      <View style={styles.scoreCard}>
-        <CircularProgress score={readinessScore} />
-
-        <View style={styles.scoreContent}>
-          <View style={styles.scoreBadge}>
-            <Text style={styles.scoreBadgeText}>✓ {readinessLabel}</Text>
-          </View>
-
-          <Text style={styles.scoreDescription}>
-            Your bill, location, roof answers, and solar resource data were used
-            to create this first estimate.
-          </Text>
-        </View>
-      </View>
+      <ScoreCard score={readinessScore} label={readinessLabel} />
 
       <View style={styles.estimateGrid}>
         <View style={styles.estimateMiniCard}>
-          <Text style={styles.estimateIcon}>⚡</Text>
-          <Text style={styles.estimateLabel}>Recommended size</Text>
           <Text style={styles.estimateValue}>
             {result.estimate?.recommended_system_size_kwp ?? 'N/A'} kWp
           </Text>
+          <Text style={styles.estimateLabel}>RECOMMENDED SIZE</Text>
         </View>
 
         <View style={styles.estimateMiniCard}>
-          <Text style={styles.estimateIcon}>💰</Text>
-          <Text style={styles.estimateLabel}>Monthly savings</Text>
           <Text style={styles.estimateValue}>
             {formatCurrency(result.estimate?.estimated_monthly_savings)}
           </Text>
+          <Text style={styles.estimateLabel}>MONTHLY SAVINGS</Text>
         </View>
 
         <View style={styles.estimateMiniCard}>
-          <Text style={styles.estimateIcon}>🏷️</Text>
-          <Text style={styles.estimateLabel}>Install cost</Text>
           <Text style={styles.estimateSmallValue}>{estimatedInstallCost}</Text>
+          <Text style={styles.estimateLabel}>INSTALL COST</Text>
         </View>
 
         <View style={styles.estimateMiniCard}>
-          <Text style={styles.estimateIcon}>📅</Text>
-          <Text style={styles.estimateLabel}>Payback</Text>
           <Text style={styles.estimateValue}>{paybackYears}</Text>
+          <Text style={styles.estimateLabel}>PAYBACK</Text>
         </View>
       </View>
     </>
@@ -133,3 +103,68 @@ function formatPeso(value: number | null | undefined) {
 
   return `₱${Math.round(value).toLocaleString()}`;
 }
+
+const styles = StyleSheet.create({
+  homeLogoRow: {
+    marginBottom: 30,
+    alignItems: 'flex-start',
+    marginHorizontal: 20,
+  },
+  greetingSection: {
+    marginBottom: 15,
+    marginHorizontal: 20,
+  },
+  greetingTitle: {
+    fontFamily: FONT_INTER_BLACK,
+    fontSize: 30,
+    lineHeight: 32,
+    fontWeight: '900',
+    color: MAIN_TEXT_COLOR,
+  },
+  greetingSubtitle: {
+    fontFamily: FONT_INTER_REGULAR,
+    fontSize: 16,
+    lineHeight: 22,
+    color: MAIN_TEXT_COLOR,
+    marginTop: 5,
+  },
+  estimateGrid: {
+    width: '100%',
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  estimateMiniCard: {
+    width: '48%',
+    minHeight: 120,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#D0D5DD',
+    borderRadius: 20,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  estimateLabel: {
+    fontFamily: FONT_NUNITO_BOLD,
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#667085',
+    textAlign: 'center',
+  },
+  estimateValue: {
+    fontFamily: FONT_INTER_BOLD,
+    fontSize: 25,
+    fontWeight: '900',
+    color: MAIN_TEXT_COLOR,
+    textAlign: 'center',
+  },
+  estimateSmallValue: {
+    fontFamily: FONT_INTER_BLACK,
+    fontSize: 25,
+    fontWeight: '900',
+    color: MAIN_TEXT_COLOR,
+    textAlign: 'center',
+  },
+});

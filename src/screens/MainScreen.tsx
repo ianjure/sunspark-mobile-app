@@ -125,6 +125,17 @@ export default function MainScreen({ navigation, route }: Props) {
 
   return (
     <View style={screenStyles.mainShell}>
+      {/* Home tab */}
+      <ScrollView
+        style={activeTab !== 'home' && screenStyles.hidden}
+        contentContainerStyle={[
+          screenStyles.tabContent,
+          { paddingTop: insets.top + 30, paddingBottom: TAB_BAR_HEIGHT + 16 },
+        ]}
+      >
+        <HomeTab result={result} />
+      </ScrollView>
+
       {/* Providers top bar */}
       <View
         style={[
@@ -142,17 +153,6 @@ export default function MainScreen({ navigation, route }: Props) {
           </Text>
         </View>
       </View>
-
-      {/* Home tab */}
-      <ScrollView
-        style={activeTab !== 'home' && screenStyles.hidden}
-        contentContainerStyle={[
-          screenStyles.tabContent,
-          { paddingTop: insets.top + 34, paddingBottom: TAB_BAR_HEIGHT + 16 },
-        ]}
-      >
-        <HomeTab result={result} />
-      </ScrollView>
 
       {/* Providers tab */}
       <ScrollView
