@@ -2,13 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
@@ -108,8 +102,16 @@ export default function MainScreen({ navigation, route }: Props) {
   if (loading) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator />
-        <Text style={styles.loadingText}>Loading assessment...</Text>
+        <Text
+          style={{
+            fontFamily: FONT_INTER_REGULAR,
+            fontSize: 16,
+            textAlign: 'center',
+            color: MAIN_TEXT_COLOR,
+          }}
+        >
+          Loading assessment...
+        </Text>
       </View>
     );
   }
@@ -200,12 +202,6 @@ const styles = StyleSheet.create({
   },
   hidden: {
     display: 'none',
-  },
-  loadingText: {
-    fontFamily: FONT_INTER_REGULAR,
-    fontSize: 16,
-    textAlign: 'center',
-    color: MAIN_TEXT_COLOR,
   },
   emptyText: {
     fontFamily: FONT_INTER_REGULAR,

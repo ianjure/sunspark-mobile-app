@@ -78,7 +78,7 @@ export default function TimelineQuestionScreen({ navigation, route }: Props) {
       <Toast message={errorMsg} onDismiss={() => setErrorMsg(null)} />
       <LoadingOverlay
         visible={isRecomputing}
-        message="Finalizing your solar estimate..."
+        message="Finalizing your solar report..."
       />
       <QuestionScreenLayout
         onboardingStep={7}

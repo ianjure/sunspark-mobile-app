@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import ProviderCard from '@/src/components/ProviderCard';
 import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
@@ -105,8 +105,17 @@ export default function ProvidersTab({ result, onViewProfile }: Props) {
     <>
       {loading && (
         <View>
-          <ActivityIndicator />
-          <Text style={styles.loadingText}>Finding solar developers...</Text>
+          <Text
+            style={{
+              fontFamily: FONT_INTER_REGULAR,
+              marginTop: 10,
+              fontSize: 16,
+              textAlign: 'center',
+              color: MAIN_TEXT_COLOR,
+            }}
+          >
+            Finding solar developers...
+          </Text>
         </View>
       )}
 
@@ -139,13 +148,6 @@ export default function ProvidersTab({ result, onViewProfile }: Props) {
 const styles = StyleSheet.create({
   cardList: {
     gap: 15,
-  },
-  loadingText: {
-    fontFamily: FONT_INTER_REGULAR,
-    marginTop: 8,
-    fontSize: 16,
-    textAlign: 'center',
-    color: MAIN_TEXT_COLOR,
   },
   error: {
     fontFamily: FONT_INTER_REGULAR,
