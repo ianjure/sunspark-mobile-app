@@ -73,17 +73,14 @@ export default function ProfileTab({ result, resetApp }: Props) {
           </View>
         </View>
         <Text style={styles.heroName}>{displayName}</Text>
-        <Text style={styles.heroLocation}>
-          {result.location?.city_or_municipality ?? 'Unknown'},{' '}
-          {result.location?.province ?? 'Philippines'}
-        </Text>
+        <Text style={styles.heroType}>{result.customer_type ?? 'Unknown'}</Text>
       </View>
 
       {/* Unified Card */}
       <View style={styles.unifiedCard}>
         <SectionBlock title="⚡ Solar Estimate">
           <InfoRow
-            label="Recommended System Size"
+            label="Recommended Size"
             value={`${result.estimate?.recommended_system_size_kwp ?? 'N/A'} kWp`}
           />
           <InfoRow
@@ -110,12 +107,12 @@ export default function ProfileTab({ result, resetApp }: Props) {
 
         <SectionBlock title="🧾 Bill Summary">
           <InfoRow
-            label="Monthly Bill"
-            value={formatCurrency(result.monthly_bill)}
+            label="Average Monthly Bill"
+            value={formatCurrency(result.avg_monthly_bill)}
           />
           <InfoRow
-            label="Monthly kWh Usage"
-            value={`${result.kwh_usage ?? 'Not found'} kWh`}
+            label="Average Monthly kWh"
+            value={`${result.avg_monthly_kwh ?? 'Not found'} kWh`}
           />
           <InfoRow
             label="Effective Rate per kWh"
@@ -126,7 +123,7 @@ export default function ProfileTab({ result, resetApp }: Props) {
         <SectionBlock title="🌤️ Solar Resource">
           <InfoRow
             label="PV Output Daily"
-            value={`${result.solar?.pvout_daily ?? 'N/A'} kWh/kWp/day`}
+            value={`${result.solar?.pvout_daily?.toFixed(3) ?? 'N/A'} kWh/kWp/day`}
           />
           <InfoRow
             label="Optimal Tilt Angle"
@@ -134,7 +131,7 @@ export default function ProfileTab({ result, resetApp }: Props) {
           />
           <InfoRow
             label="Coordinates"
-            value={`${result.solar?.lat ?? '—'}, ${result.solar?.lon ?? '—'}`}
+            value={`${result.solar?.lat.toFixed(3) ?? '—'}, ${result.solar?.lon.toFixed(3) ?? '—'}`}
           />
         </SectionBlock>
 
@@ -246,7 +243,7 @@ const styles = StyleSheet.create({
     color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
-  heroLocation: {
+  heroType: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
     fontWeight: '400',
@@ -303,7 +300,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: MAIN_TEXT_COLOR,
-    flex: 1,
+    flex: 0.5,
   },
   infoValue: {
     fontFamily: FONT_INTER_EXTRABOLD,

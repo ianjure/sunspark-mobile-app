@@ -4,7 +4,6 @@ import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import TooltipIcon from '@/src/components/icons/TooltipIcon';
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import {
-  FONT_INTER_BLACK,
   FONT_INTER_BOLD,
   FONT_INTER_REGULAR,
   FONT_NUNITO_BOLD,
@@ -15,7 +14,6 @@ type Props = {
   value: string;
   label: string;
   tooltip: string;
-  smallValue?: boolean;
 };
 
 const DURATION = 160;
@@ -26,7 +24,6 @@ export default function EstimateMiniCard({
   value,
   label,
   tooltip,
-  smallValue = false,
 }: Props) {
   const [showBack, setShowBack] = useState(false);
   const scaleX = useRef(new Animated.Value(1)).current;
@@ -73,9 +70,7 @@ export default function EstimateMiniCard({
             </View>
             {icon}
             <View style={{ height: 5 }} />
-            <Text style={smallValue ? styles.smallValue : styles.value}>
-              {value}
-            </Text>
+            <Text style={styles.value}>{value}</Text>
             <Text style={styles.label}>{label}</Text>
           </>
         )}
@@ -117,21 +112,12 @@ const styles = StyleSheet.create({
   value: {
     fontFamily: FONT_INTER_BOLD,
     fontSize: 25,
-    fontWeight: '900',
-    color: MAIN_TEXT_COLOR,
-    textAlign: 'center',
-  },
-  smallValue: {
-    fontFamily: FONT_INTER_BLACK,
-    fontSize: 25,
-    fontWeight: '900',
     color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
   label: {
     fontFamily: FONT_NUNITO_BOLD,
     fontSize: 10,
-    fontWeight: '700',
     color: '#667085',
     textAlign: 'center',
   },

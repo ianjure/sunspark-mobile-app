@@ -138,7 +138,7 @@ export default function ProvidersTab({ result, onViewProfile }: Props) {
 
 const styles = StyleSheet.create({
   cardList: {
-    gap: 20,
+    gap: 15,
   },
   loadingText: {
     fontFamily: FONT_INTER_REGULAR,

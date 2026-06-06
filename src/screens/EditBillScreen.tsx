@@ -151,32 +151,13 @@ export default function EditBillScreen({ navigation, route }: Props) {
           />
         </View>
 
-        {originalResult.customer_type ? (
-          <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
-            <Text
-              style={{
-                fontFamily: FONT_INTER_REGULAR,
-                fontSize: 12,
-                color: MAIN_TEXT_COLOR,
-                opacity: 0.6,
-                marginBottom: 4,
-              }}
-            >
-              Customer Type
-            </Text>
-            <Text
-              style={{
-                fontFamily: FONT_INTER_REGULAR,
-                fontSize: 15,
-                color: MAIN_TEXT_COLOR,
-              }}
-            >
-              {originalResult.customer_type}
-            </Text>
-          </View>
-        ) : null}
-
         <View style={{ marginTop: 24 }}>
+          <InputField
+            title="Customer Type"
+            value={originalResult.customer_type ?? undefined}
+            editable={false}
+          />
+          <View style={{ height: 20 }} />
           <InputField
             title="Avg Monthly Bill"
             value={monthlyBill}
@@ -186,7 +167,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
           />
           <View style={{ height: 20 }} />
           <InputField
-            title="Avg Monthly kWh"
+            title="Avg Monthly kWh Usage"
             value={avgMonthlyKwh}
             onChangeText={setAvgMonthlyKwh}
             keyboardType="decimal-pad"
@@ -210,7 +191,7 @@ export default function EditBillScreen({ navigation, route }: Props) {
               }}
             >
               {
-                'Tip: Average monthly consumption is usually shown in the "Your typical consumption" section of your bill. Effective rate will be computed automatically if left blank.'
+                'Tip: Effective rate will be computed automatically if left blank.'
               }
             </Text>
           </View>

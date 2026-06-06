@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import { FONT_INTER_BLACK, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { SunsparkResult } from '@/src/types/sunspark';
-import { formatCurrency } from '@/src/utils/formatCurrency';
 
 import EstimateMiniCard from '@/src/components/EstimateMiniCard';
 import InstallationCostIcon from '@/src/components/icons/InstallationCostIcon';
@@ -24,10 +23,15 @@ function getFirstName(fullName: string) {
 export default function HomeTab({ result }: Props) {
   const readinessScore = result.readiness_score;
   const readinessLabel = result.readiness_label;
+
+  const estimatedRecommendedSize = `${result.estimate?.recommended_system_size_kwp ?? 'N/A'} kWp`;
+  const estimatedMonthlySavings = formatPeso(
+    result.estimate?.estimated_monthly_savings,
+  );
   const estimatedInstallCost = formatPeso(
     result.estimate?.estimated_install_cost,
   );
-  const paybackYears = result.estimate?.payback_years
+  const estimatedPaybackYears = result.estimate?.payback_years
     ? `${result.estimate.payback_years} years`
     : 'Not available';
 
@@ -53,13 +57,13 @@ export default function HomeTab({ result }: Props) {
       <View style={styles.estimateGrid}>
         <EstimateMiniCard
           icon={<RecommendedSizeIcon height={40} />}
-          value={`${result.estimate?.recommended_system_size_kwp ?? 'N/A'} kWp`}
+          value={estimatedRecommendedSize}
           label="RECOMMENDED SIZE"
           tooltip="The ideal solar panel system size for your home based on your energy usage and roof space."
         />
         <EstimateMiniCard
           icon={<MonthlySavingsIcon height={40} />}
-          value={formatCurrency(result.estimate?.estimated_monthly_savings)}
+          value={estimatedMonthlySavings}
           label="MONTHLY SAVINGS"
           tooltip="Estimated reduction in your monthly electricity bill after switching to solar."
         />
@@ -68,12 +72,11 @@ export default function HomeTab({ result }: Props) {
           value={estimatedInstallCost}
           label="INSTALLATION COST"
           tooltip="Approximate total cost to purchase and install the recommended solar system."
-          smallValue
         />
         <EstimateMiniCard
           icon={<PaybackIcon height={40} />}
-          value={paybackYears}
-          label="PAYBACK"
+          value={estimatedPaybackYears}
+          label="PAYBACK PERIOD"
           tooltip="How long it takes for your monthly savings to fully cover the installation cost."
         />
       </View>

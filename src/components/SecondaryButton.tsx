@@ -7,7 +7,7 @@ import {
   MUTED_TEXT_COLOR,
   PRIMARY_BLUE_COLOR,
 } from '@/src/constants/colors';
-import { FONT_INTER_BOLD } from '@/src/constants/fonts';
+import { FONT_NUNITO_BOLD } from '@/src/constants/fonts';
 
 type SecondaryButtonProps = {
   label: string;
@@ -177,9 +177,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   label: {
-    fontFamily: FONT_INTER_BOLD,
+    fontFamily: FONT_NUNITO_BOLD,
     fontSize: 14,
-    fontWeight: '700',
     letterSpacing: 14 * 0.05,
     color: PRIMARY_BLUE_COLOR,
   },

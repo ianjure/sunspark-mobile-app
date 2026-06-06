@@ -160,7 +160,7 @@ export default function MainScreen({ navigation, route }: Props) {
         style={activeTab !== 'providers' && styles.hidden}
         contentContainerStyle={[
           styles.tabContent,
-          { paddingTop: 20, paddingBottom: TAB_BAR_HEIGHT + 20 },
+          { paddingTop: 20, paddingBottom: TAB_BAR_HEIGHT + 22 },
         ]}
       >
         <ProvidersTab result={result} onViewProfile={handleViewProfile} />
