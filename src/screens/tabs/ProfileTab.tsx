@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import {
-  FONT_INTER_BLACK,
+  FONT_INTER_BOLD,
   FONT_INTER_EXTRABOLD,
   FONT_INTER_REGULAR,
 } from '@/src/constants/fonts';
@@ -55,7 +55,7 @@ function SectionBlock({
 }
 
 export default function ProfileTab({ result, resetApp }: Props) {
-  function handleReset() {
+  async function handleReset() {
     resetOnboardingProgress();
     resetApp();
   }
@@ -230,23 +230,20 @@ const styles = StyleSheet.create({
     borderColor: '#E5A900',
   },
   avatarInitials: {
-    fontFamily: FONT_INTER_BLACK,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 34,
-    fontWeight: '900',
     color: MAIN_TEXT_COLOR,
     letterSpacing: 1,
   },
   heroName: {
-    fontFamily: FONT_INTER_BLACK,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 26,
-    fontWeight: '900',
     color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
   heroType: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
-    fontWeight: '400',
     color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
@@ -276,9 +273,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sectionTitle: {
-    fontFamily: FONT_INTER_BLACK,
+    fontFamily: FONT_INTER_BOLD,
     fontSize: 15,
-    fontWeight: '900',
     color: MAIN_TEXT_COLOR,
     letterSpacing: 0.3,
   },
@@ -298,14 +294,12 @@ const styles = StyleSheet.create({
   infoLabel: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 12,
-    fontWeight: '400',
     color: MAIN_TEXT_COLOR,
     flex: 0.5,
   },
   infoValue: {
     fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 12,
-    fontWeight: '800',
     color: MAIN_TEXT_COLOR,
     flex: 0.5,
     textAlign: 'right',

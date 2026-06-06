@@ -12,8 +12,7 @@ import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import {
-  FONT_INTER_BLACK,
-  FONT_INTER_BOLD,
+  FONT_INTER_EXTRABOLD,
   FONT_INTER_REGULAR,
   FONT_INTER_SEMIBOLD,
 } from '@/src/constants/fonts';
@@ -193,9 +192,8 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   avatarText: {
-    fontFamily: FONT_INTER_BOLD,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 28,
-    fontWeight: '700',
     color: '#FFFFFF',
     letterSpacing: 1,
   },
@@ -204,9 +202,8 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   providerName: {
-    fontFamily: FONT_INTER_BLACK,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 22,
-    fontWeight: '900',
     color: MAIN_TEXT_COLOR,
     lineHeight: 28,
   },
@@ -231,7 +228,6 @@ const styles = StyleSheet.create({
   fieldValue: {
     fontFamily: FONT_INTER_SEMIBOLD,
     fontSize: 15,
-    fontWeight: '600',
     color: MAIN_TEXT_COLOR,
   },
   fieldLabelSpaced: {

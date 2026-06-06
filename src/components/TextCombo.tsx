@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
-import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
+import {
+  FONT_INTER_EXTRABOLD,
+  FONT_INTER_REGULAR,
+} from '@/src/constants/fonts';
 
 type Props = {
   title: string;
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontFamily: FONT_INTER_BOLD,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 24,
     lineHeight: 24 * 1.3,
     color: MAIN_TEXT_COLOR,

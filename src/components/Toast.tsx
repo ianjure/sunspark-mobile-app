@@ -2,7 +2,11 @@ import { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { BLACK_COLOR, DANGER_RED_COLOR, SURFACE_COLOR } from '@/src/constants/colors';
+import {
+  BLACK_COLOR,
+  DANGER_RED_COLOR,
+  SURFACE_COLOR,
+} from '@/src/constants/colors';
 
 type Props = {
   message: string | null;
@@ -98,6 +102,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     flex: 1,
-    fontWeight: '500',
   },
 });

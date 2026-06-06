@@ -25,11 +25,13 @@ export default function InputField({
   style,
   ...textInputProps
 }: InputFieldProps) {
+  const isDisabled = textInputProps.editable === false;
+
   return (
     <View style={[styles.wrapper, style]}>
       {title && <Text style={styles.title}>{title}</Text>}
       <TextInput
-        style={styles.input}
+        style={[styles.input, isDisabled && styles.inputDisabled]}
         placeholderTextColor={BORDER_COLOR}
         {...textInputProps}
       />
@@ -56,5 +58,9 @@ const styles = StyleSheet.create({
     fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
     color: MAIN_TEXT_COLOR,
+  },
+  inputDisabled: {
+    color: MUTED_TEXT_COLOR,
+    backgroundColor: BORDER_COLOR,
   },
 });

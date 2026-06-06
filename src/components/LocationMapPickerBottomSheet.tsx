@@ -169,15 +169,10 @@ const LocationMapPickerBottomSheet = forwardRef<
       onDismiss={handleDismiss}
     >
       <BottomSheetView
-        style={[
-          styles.modalContainer,
-          { height: mapSheetContentHeight },
-        ]}
+        style={[styles.modalContainer, { height: mapSheetContentHeight }]}
       >
         <View style={styles.instructionSection}>
-          <Text style={styles.instructionText}>
-            Tap to pin your home
-          </Text>
+          <Text style={styles.instructionText}>Tap to pin your home</Text>
         </View>
 
         <View style={styles.mapFrame}>
@@ -250,7 +245,6 @@ const styles = StyleSheet.create({
   instructionText: {
     fontFamily: FONT_INTER_BOLD,
     fontSize: 20,
-    fontWeight: '700',
     color: '#17202A',
     textAlign: 'center',
     paddingBottom: 10,

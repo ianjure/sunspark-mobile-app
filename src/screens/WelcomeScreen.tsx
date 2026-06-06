@@ -9,10 +9,25 @@ import SecondaryButton from '@/src/components/SecondaryButton';
 import TextCombo from '@/src/components/TextCombo';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
+import { clearResult, loadResult } from '@/src/utils/storage';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 export default function WelcomeScreen({ navigation }: Props) {
+  async function handleGetStarted() {
+    await clearResult();
+    navigation.replace('Location');
+  }
+
+  async function handleAlreadyHaveAccount() {
+    const saved = await loadResult();
+    if (saved) {
+      navigation.replace('Main');
+    } else {
+      navigation.replace('Location');
+    }
+  }
+
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
       <View style={{ paddingTop: 30, alignItems: 'center' }}>
@@ -34,14 +49,11 @@ export default function WelcomeScreen({ navigation }: Props) {
         />
       </View>
 
-      <PrimaryButton
-        label="GET STARTED"
-        onPress={() => navigation.replace('Location')}
-      />
+      <PrimaryButton label="GET STARTED" onPress={handleGetStarted} />
       <View style={{ height: 15 }} />
       <SecondaryButton
         label="I ALREADY HAVE AN ACCOUNT"
-        onPress={() => navigation.replace('Main')}
+        onPress={handleAlreadyHaveAccount}
         style={styles.lastButton}
       />
     </SafeAreaView>

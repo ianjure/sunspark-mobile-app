@@ -2,9 +2,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import {
   Alert,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
-  Text,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -17,8 +18,7 @@ import PrimaryButton from '@/src/components/PrimaryButton';
 import TextCombo from '@/src/components/TextCombo';
 import Toast from '@/src/components/Toast';
 import { RECOMPUTE_ESTIMATE_API } from '@/src/constants/api';
-import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
-import { FONT_INTER_REGULAR } from '@/src/constants/fonts';
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import { SunsparkResult } from '@/src/types/sunspark';
 
@@ -107,103 +107,91 @@ export default function EditBillScreen({ navigation, route }: Props) {
   }
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
-      edges={['top', 'bottom']}
-    >
-      <Toast message={errorMsg} onDismiss={() => setErrorMsg(null)} />
-      <LoadingOverlay
-        visible={isRecomputing}
-        message="Updating your solar estimate..."
-      />
-
-      <View style={{ flexDirection: 'row', marginRight: 20 }}>
-        <BackArrowButton
-          onPress={() =>
-            navigation.replace('ScanBill', {
-              latitude: latitude ?? 0,
-              longitude: longitude ?? 0,
-            })
-          }
-        />
-        <View
-          style={{
-            flex: 1,
-            marginLeft: 20,
-            paddingTop: 25,
-            justifyContent: 'center',
-          }}
-        >
-          <OnboardingProgressBar step={2} />
-        </View>
-      </View>
-
-      <KeyboardAvoidingView
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView
         style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        edges={['top', 'bottom']}
       >
-        <View style={{ paddingHorizontal: 20, paddingTop: 25 }}>
-          <TextCombo
-            title="Review bill details"
-            subtitle={
-              'Check the values we found from your bill.\nYou can edit them before we create\nyour solar assessment.'
+        <Toast message={errorMsg} onDismiss={() => setErrorMsg(null)} />
+        <LoadingOverlay
+          visible={isRecomputing}
+          message="Updating your solar estimate..."
+        />
+
+        <View style={{ flexDirection: 'row', marginRight: 20 }}>
+          <BackArrowButton
+            onPress={() =>
+              navigation.replace('ScanBill', {
+                latitude: latitude ?? 0,
+                longitude: longitude ?? 0,
+              })
             }
           />
-        </View>
-
-        <View style={{ marginTop: 24 }}>
-          <InputField
-            title="Customer Type"
-            value={originalResult.customer_type ?? undefined}
-            editable={false}
-          />
-          <View style={{ height: 20 }} />
-          <InputField
-            title="Avg Monthly Bill"
-            value={monthlyBill}
-            onChangeText={setMonthlyBill}
-            keyboardType="decimal-pad"
-            placeholder="Example: 3500"
-          />
-          <View style={{ height: 20 }} />
-          <InputField
-            title="Avg Monthly kWh Usage"
-            value={avgMonthlyKwh}
-            onChangeText={setAvgMonthlyKwh}
-            keyboardType="decimal-pad"
-            placeholder="Example: 214"
-          />
-          <View style={{ height: 20 }} />
-          <InputField
-            title="Effective Rate per kWh"
-            value={effectiveRatePerKwh}
-            onChangeText={setEffectiveRatePerKwh}
-            keyboardType="decimal-pad"
-            placeholder="Leave blank to compute automatically"
-          />
-
-          <View style={{ paddingTop: 10, paddingHorizontal: 20 }}>
-            <Text
-              style={{
-                fontFamily: FONT_INTER_REGULAR,
-                fontSize: 12,
-                color: MAIN_TEXT_COLOR,
-              }}
-            >
-              {
-                'Tip: Effective rate will be computed automatically if left blank.'
-              }
-            </Text>
+          <View
+            style={{
+              flex: 1,
+              marginLeft: 20,
+              paddingTop: 25,
+              justifyContent: 'center',
+            }}
+          >
+            <OnboardingProgressBar step={2} />
           </View>
-          <View style={{ height: 30 }} />
-          <PrimaryButton
-            label={isRecomputing ? 'UPDATING...' : 'CONTINUE'}
-            onPress={continueToMain}
-            loading={isRecomputing}
-          />
         </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+
+        <KeyboardAvoidingView
+          style={{ flex: 1, backgroundColor: APP_BACKGROUND_COLOR }}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
+          <View style={{ paddingHorizontal: 20, paddingTop: 25 }}>
+            <TextCombo
+              title="Review bill details"
+              subtitle={
+                'Check the values we found from your bill.\nYou can edit them before we create\nyour solar assessment.'
+              }
+            />
+          </View>
+
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <InputField
+              title="Average Monthly Bill"
+              value={monthlyBill}
+              onChangeText={setMonthlyBill}
+              keyboardType="decimal-pad"
+              placeholder="Example: 3500"
+            />
+            <View style={{ height: 12 }} />
+            <InputField
+              title="Average Monthly kWh"
+              value={avgMonthlyKwh}
+              onChangeText={setAvgMonthlyKwh}
+              keyboardType="decimal-pad"
+              placeholder="Example: 214"
+            />
+            <View style={{ height: 12 }} />
+            <InputField
+              title="Effective Rate per kWh"
+              value={effectiveRatePerKwh}
+              editable={false}
+            />
+            <View style={{ height: 12 }} />
+            <InputField
+              title="Customer Type"
+              value={originalResult.customer_type ?? undefined}
+              editable={false}
+            />
+          </View>
+        </KeyboardAvoidingView>
+
+        <PrimaryButton
+          label={isRecomputing ? 'UPDATING...' : 'CONTINUE'}
+          onPress={continueToMain}
+          loading={isRecomputing}
+        />
+        <View style={{ height: 15 }} />
+        <View style={{ height: 22 + 55 }} />
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 

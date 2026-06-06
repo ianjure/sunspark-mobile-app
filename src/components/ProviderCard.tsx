@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import PrimaryButton from '@/src/components/PrimaryButton';
-import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
+import {
+  FONT_INTER_BOLD,
+  FONT_INTER_EXTRABOLD,
+  FONT_INTER_REGULAR,
+} from '@/src/constants/fonts';
 import { SolarDeveloper } from '@/src/types/provider';
 
 type Props = {
@@ -21,7 +25,7 @@ export default function ProviderCard({ provider, onViewProfile }: Props) {
 
   const location = [provider.city_municipality, provider.province]
     .filter(Boolean)
-    .join(', ');
+    .join(',\n');
 
   return (
     <View style={styles.card}>
@@ -38,9 +42,7 @@ export default function ProviderCard({ provider, onViewProfile }: Props) {
             {provider.name}
           </Text>
           {location ? (
-            <Text style={styles.companyLocation} numberOfLines={1}>
-              {location}
-            </Text>
+            <Text style={styles.companyLocation}>{location}</Text>
           ) : null}
         </View>
       </View>
@@ -81,9 +83,8 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   avatarText: {
-    fontFamily: FONT_INTER_BOLD,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 28,
-    fontWeight: '700',
     color: '#FFFFFF',
     letterSpacing: 1,
   },
@@ -93,14 +94,12 @@ const styles = StyleSheet.create({
   companyName: {
     fontFamily: FONT_INTER_BOLD,
     fontSize: 18,
-    fontWeight: '700',
     color: '#17202A',
     lineHeight: 24,
   },
   companyLocation: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 12,
-    fontWeight: '400',
     color: '#667085',
     marginTop: 5,
     lineHeight: 16,

@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: FONT_INTER_BOLD,
     fontSize: 20,
-    fontWeight: '700',
     letterSpacing: 14 * 0.05,
     color: MUTED_TEXT_COLOR,
   },

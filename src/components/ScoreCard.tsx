@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
   scoreBadgeText: {
     fontFamily: FONT_NUNITO_BOLD,
     fontSize: 12,
-    fontWeight: '800',
     color: SURFACE_COLOR,
   },
   scoreDescription: {

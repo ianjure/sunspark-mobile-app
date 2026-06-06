@@ -1,11 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { RootStackParamList } from '@/src/navigation/types';
-import { STORAGE_KEY } from '@/src/utils/storage';
+import { saveResult } from '@/src/utils/storage';
 
 import BackArrowButton from '@/src/components/icons/BackArrowButton';
 import RegisterIllustration from '@/src/components/illustrations/RegisterIllustration';
@@ -33,7 +32,7 @@ export default function RegisterScreen({ navigation, route }: Props) {
       user_name: fullName.trim(),
     };
 
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(finalResult));
+    await saveResult(finalResult);
     navigation.replace('Main', { result: finalResult });
   }
 

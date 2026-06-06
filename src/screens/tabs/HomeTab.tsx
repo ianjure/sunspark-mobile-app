@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
-import { FONT_INTER_BLACK, FONT_INTER_REGULAR } from '@/src/constants/fonts';
+import {
+  FONT_INTER_EXTRABOLD,
+  FONT_INTER_REGULAR,
+} from '@/src/constants/fonts';
 import { SunsparkResult } from '@/src/types/sunspark';
 
 import EstimateMiniCard from '@/src/components/EstimateMiniCard';
@@ -102,10 +105,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   greetingTitle: {
-    fontFamily: FONT_INTER_BLACK,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 30,
     lineHeight: 32,
-    fontWeight: '900',
     color: MAIN_TEXT_COLOR,
   },
   greetingSubtitle: {

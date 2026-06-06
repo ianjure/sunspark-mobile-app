@@ -1,6 +1,11 @@
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
-import { BLACK_COLOR, MAIN_TEXT_COLOR, SURFACE_COLOR } from '@/src/constants/colors';
+import {
+  BLACK_COLOR,
+  MAIN_TEXT_COLOR,
+  SURFACE_COLOR,
+} from '@/src/constants/colors';
+import { FONT_INTER_REGULAR } from '@/src/constants/fonts';
 
 type Props = {
   visible: boolean;
@@ -42,9 +47,9 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   text: {
+    fontFamily: FONT_INTER_REGULAR,
     color: SURFACE_COLOR,
     fontSize: 14,
-    fontWeight: '500',
     lineHeight: 20,
   },
 });

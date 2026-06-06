@@ -6,7 +6,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { APP_BACKGROUND_COLOR, MAIN_TEXT_COLOR } from '@/src/constants/colors';
-import { FONT_INTER_BOLD, FONT_INTER_REGULAR } from '@/src/constants/fonts';
+import {
+  FONT_INTER_EXTRABOLD,
+  FONT_INTER_REGULAR,
+} from '@/src/constants/fonts';
 
 import BottomTabBar, { MainTab } from '@/src/components/BottomTabBar';
 import ProviderProfileBottomSheet from '@/src/components/ProviderProfileBottomSheet';
@@ -71,8 +74,10 @@ export default function MainScreen({ navigation, route }: Props) {
 
   async function resetApp() {
     try {
-      await AsyncStorage.removeItem(STORAGE_KEY);
-      navigation.replace('Welcome');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
     } catch (error) {
       console.log('Reset app error:', error);
     }
@@ -226,15 +231,13 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   providerTopBarTitle: {
-    fontFamily: FONT_INTER_BOLD,
+    fontFamily: FONT_INTER_EXTRABOLD,
     fontSize: 24,
-    fontWeight: '700',
     color: MAIN_TEXT_COLOR,
   },
   providerTopBarSubtitle: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 16,
-    fontWeight: '400',
     color: MAIN_TEXT_COLOR,
   },
 });
