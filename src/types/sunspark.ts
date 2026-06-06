@@ -11,9 +11,14 @@ export type SunsparkResult = {
   user_name?: string;
   monthly_bill: number | null;
   kwh_usage: number | null;
+  avg_monthly_kwh: number | null;
+  avg_monthly_bill: number | null;
   rate_per_kwh_found_on_bill: number | null;
   effective_rate_per_kwh: number | null;
+  customer_type: string | null;
   assessment_answers?: AssessmentAnswers;
+  readiness_score: number;
+  readiness_label: string;
   location: {
     barangay: string | null;
     city_or_municipality: string | null;

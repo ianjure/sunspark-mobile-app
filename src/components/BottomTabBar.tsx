@@ -36,14 +36,14 @@ export default function BottomTabBar({ activeTab, setActiveTab }: Props) {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[tabStyles.bar, { paddingBottom: insets.bottom }]}>
-      <View style={tabStyles.inner}>
+    <View style={[styles.bar, { paddingBottom: insets.bottom }]}>
+      <View style={styles.inner}>
         {TABS.map(({ id, xml }) => {
           const active = activeTab === id;
           return (
             <TouchableOpacity
               key={id}
-              style={[tabStyles.tabButton, active && tabStyles.tabButtonActive]}
+              style={[styles.tabButton, active && styles.tabButtonActive]}
               onPress={() => setActiveTab(id)}
               activeOpacity={0.7}
             >
@@ -56,7 +56,7 @@ export default function BottomTabBar({ activeTab, setActiveTab }: Props) {
   );
 }
 
-const tabStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   bar: {
     position: 'absolute',
     left: 0,

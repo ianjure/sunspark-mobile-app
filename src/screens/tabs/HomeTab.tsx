@@ -1,13 +1,8 @@
-import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import { FONT_INTER_BLACK, FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { SunsparkResult } from '@/src/types/sunspark';
-import {
-  calculateReadinessScore,
-  getReadinessLabel,
-} from '@/src/utils/calculateReadinessScore';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
 import EstimateMiniCard from '@/src/components/EstimateMiniCard';
@@ -27,26 +22,14 @@ function getFirstName(fullName: string) {
 }
 
 export default function HomeTab({ result }: Props) {
-  const readinessScore = useMemo(
-    () => calculateReadinessScore(result),
-    [result],
+  const readinessScore = result.readiness_score;
+  const readinessLabel = result.readiness_label;
+  const estimatedInstallCost = formatPeso(
+    result.estimate?.estimated_install_cost,
   );
-  const readinessLabel = useMemo(
-    () => getReadinessLabel(readinessScore),
-    [readinessScore],
-  );
-
-  const estimatedInstallCost = useMemo(() => {
-    const cost = result.estimate?.estimated_install_cost;
-    if (!cost) return 'Not available';
-    return formatPeso(cost);
-  }, [result]);
-
-  const paybackYears = useMemo(() => {
-    const years = result.estimate?.payback_years;
-    if (!years) return 'Not available';
-    return `${years} years`;
-  }, [result]);
+  const paybackYears = result.estimate?.payback_years
+    ? `${result.estimate.payback_years} years`
+    : 'Not available';
 
   const displayName = result.user_name
     ? getFirstName(result.user_name)
@@ -61,7 +44,7 @@ export default function HomeTab({ result }: Props) {
       <View style={styles.greetingSection}>
         <Text style={styles.greetingTitle}>Hello, {displayName}</Text>
         <Text style={styles.greetingSubtitle}>
-          Here's your solar readiness snapshot.
+          {"Here's your solar readiness snapshot."}
         </Text>
       </View>
 

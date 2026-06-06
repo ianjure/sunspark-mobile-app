@@ -20,7 +20,6 @@ import { RootStackParamList } from '@/src/navigation/types';
 import HomeTab from '@/src/screens/tabs/HomeTab';
 import ProfileTab from '@/src/screens/tabs/ProfileTab';
 import ProvidersTab from '@/src/screens/tabs/ProvidersTab';
-import { styles } from '@/src/styles/styles';
 import { SolarDeveloper } from '@/src/types/provider';
 import { SunsparkResult } from '@/src/types/sunspark';
 import { STORAGE_KEY } from '@/src/utils/storage';
@@ -108,29 +107,32 @@ export default function MainScreen({ navigation, route }: Props) {
 
   if (loading) {
     return (
-      <View style={styles.screen}>
-        <Text style={styles.title}>Loading Assessment</Text>
-        <ActivityIndicator style={{ marginTop: 16 }} />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator />
+        <Text style={styles.loadingText}>Loading assessment...</Text>
       </View>
     );
   }
 
   if (!result) {
     return (
-      <View style={styles.screen}>
-        <Text style={styles.title}>No assessment found</Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={styles.emptyText}>No assessment found</Text>
       </View>
     );
   }
 
   return (
-    <View style={screenStyles.mainShell}>
+    <View style={styles.mainShell}>
+      {/* Status bar background */}
+      <View style={[styles.statusBarBg, { height: insets.top }]} />
+
       {/* Home tab */}
       <ScrollView
-        style={activeTab !== 'home' && screenStyles.hidden}
+        style={activeTab !== 'home' && styles.hidden}
         contentContainerStyle={[
-          screenStyles.tabContent,
-          { paddingTop: insets.top + 30, paddingBottom: TAB_BAR_HEIGHT },
+          styles.tabContent,
+          { paddingTop: 20, paddingBottom: TAB_BAR_HEIGHT },
         ]}
       >
         <HomeTab result={result} />
@@ -139,16 +141,15 @@ export default function MainScreen({ navigation, route }: Props) {
       {/* Providers top bar */}
       <View
         style={[
-          screenStyles.providerTopBarSafeArea,
-          { paddingTop: insets.top },
-          activeTab !== 'providers' && screenStyles.hidden,
+          styles.providerTopBarSafeArea,
+          activeTab !== 'providers' && styles.hidden,
         ]}
       >
-        <View style={screenStyles.providerTopBar}>
-          <Text style={screenStyles.providerTopBarTitle}>
+        <View style={styles.providerTopBar}>
+          <Text style={styles.providerTopBarTitle}>
             Solar developers near you
           </Text>
-          <Text style={screenStyles.providerTopBarSubtitle}>
+          <Text style={styles.providerTopBarSubtitle}>
             Showing providers based on your location.
           </Text>
         </View>
@@ -156,9 +157,9 @@ export default function MainScreen({ navigation, route }: Props) {
 
       {/* Providers tab */}
       <ScrollView
-        style={activeTab !== 'providers' && screenStyles.hidden}
+        style={activeTab !== 'providers' && styles.hidden}
         contentContainerStyle={[
-          screenStyles.tabContent,
+          styles.tabContent,
           { paddingTop: 20, paddingBottom: TAB_BAR_HEIGHT + 20 },
         ]}
       >
@@ -167,10 +168,10 @@ export default function MainScreen({ navigation, route }: Props) {
 
       {/* Profile tab */}
       <ScrollView
-        style={activeTab !== 'profile' && screenStyles.hidden}
+        style={activeTab !== 'profile' && styles.hidden}
         contentContainerStyle={[
-          screenStyles.tabContent,
-          { paddingTop: insets.top + 16, paddingBottom: TAB_BAR_HEIGHT },
+          styles.tabContent,
+          { paddingTop: 10, paddingBottom: TAB_BAR_HEIGHT },
         ]}
       >
         <ProfileTab result={result} resetApp={resetApp} />
@@ -188,13 +189,30 @@ export default function MainScreen({ navigation, route }: Props) {
   );
 }
 
-const screenStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   mainShell: {
     flex: 1,
     backgroundColor: APP_BACKGROUND_COLOR,
   },
+  statusBarBg: {
+    backgroundColor: APP_BACKGROUND_COLOR,
+    zIndex: 10,
+  },
   hidden: {
     display: 'none',
+  },
+  loadingText: {
+    fontFamily: FONT_INTER_REGULAR,
+    fontSize: 16,
+    textAlign: 'center',
+    color: MAIN_TEXT_COLOR,
+  },
+  emptyText: {
+    fontFamily: FONT_INTER_REGULAR,
+    fontSize: 14,
+    color: MAIN_TEXT_COLOR,
+    lineHeight: 20,
+    textAlign: 'center',
   },
   tabContent: {
     flexGrow: 1,

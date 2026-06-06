@@ -54,13 +54,13 @@ export default function QuestionScreenLayout({
       </View>
 
       {/* Center icon + TextCombo in the remaining space above the buttons */}
-      <View style={questionLayoutStyles.textComboWrapper}>
+      <View style={styles.textComboWrapper}>
         {icon}
         <TextCombo title={title} subtitle={subtitle ?? ''} />
       </View>
 
       {/* Buttons anchored to the bottom */}
-      <View style={questionLayoutStyles.optionList}>
+      <View style={styles.optionList}>
         {options.map((option, index) => (
           <TertiaryButton
             key={option.label}
@@ -68,7 +68,7 @@ export default function QuestionScreenLayout({
             onPress={() => onSelect(option.label)}
             style={
               index === options.length - 1
-                ? questionLayoutStyles.lastOption
+                ? styles.lastOption
                 : undefined
             }
           />
@@ -78,7 +78,7 @@ export default function QuestionScreenLayout({
   );
 }
 
-const questionLayoutStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   textComboWrapper: {
     flex: 1,
     justifyContent: 'center',

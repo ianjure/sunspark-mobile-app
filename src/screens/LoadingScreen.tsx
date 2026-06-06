@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
+import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
-import { styles } from '@/src/styles/styles';
 import { STORAGE_KEY } from '@/src/utils/storage';
 
 import Logo from '@/src/components/icons/Logo';
@@ -37,3 +37,13 @@ export default function LoadingScreen({ navigation }: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: APP_BACKGROUND_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

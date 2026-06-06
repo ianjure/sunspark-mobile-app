@@ -17,7 +17,12 @@ import {
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 
-import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
+import {
+  APP_BACKGROUND_COLOR,
+  BORDER_COLOR,
+  MAIN_TEXT_COLOR,
+  MUTED_TEXT_COLOR,
+} from '@/src/constants/colors';
 import { FONT_INTER_BOLD } from '@/src/constants/fonts';
 
 type ModalInputFieldProps = TextInputProps & {
@@ -119,7 +124,7 @@ export default function ModalInputField({
             value={value?.toString()}
             onChangeText={onChangeText}
             placeholder={placeholder}
-            placeholderTextColor="#D0D5DD"
+            placeholderTextColor={BORDER_COLOR}
             returnKeyType="done"
             onSubmitEditing={() => {
               inputRef.current?.blur();
@@ -140,27 +145,27 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONT_INTER_BOLD,
     fontSize: 18,
-    color: '#667085',
+    color: MUTED_TEXT_COLOR,
     marginBottom: 4,
   },
   input: {
     height: 55,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#D0D5DD',
+    borderColor: BORDER_COLOR,
     paddingHorizontal: 16,
     fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
-    color: '#17202A',
+    color: MAIN_TEXT_COLOR,
     justifyContent: 'center',
   },
   inputText: {
     fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
-    color: '#17202A',
+    color: MAIN_TEXT_COLOR,
   },
   placeholderText: {
-    color: '#D0D5DD',
+    color: BORDER_COLOR,
   },
   sheetBackground: {
     backgroundColor: APP_BACKGROUND_COLOR,

@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Pressable, StyleSheet, ViewStyle } from 'react-native';
 
+import {
+  APP_BACKGROUND_COLOR,
+  BORDER_COLOR,
+  MUTED_TEXT_COLOR,
+  PRIMARY_BLUE_COLOR,
+} from '@/src/constants/colors';
 import { FONT_INTER_BOLD } from '@/src/constants/fonts';
 
 type SecondaryButtonProps = {
@@ -97,12 +103,12 @@ export default function SecondaryButton({
 
   const animatedButtonColor = buttonColor.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#F5F7FA', '#F5F7FA'], // background stays the same
+    outputRange: [APP_BACKGROUND_COLOR, APP_BACKGROUND_COLOR], // background stays the same
   });
 
   const animatedBorderColor = borderColor.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#D0D5DD', '#D0D5DD'], // border stays the same
+    outputRange: [BORDER_COLOR, BORDER_COLOR], // border stays the same
   });
 
   return (
@@ -160,7 +166,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: 55,
     borderRadius: 12,
-    backgroundColor: '#D0D5DD',
+    backgroundColor: BORDER_COLOR,
   },
   button: {
     height: 55,
@@ -175,10 +181,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     letterSpacing: 14 * 0.05,
-    color: '#1E88E5',
+    color: PRIMARY_BLUE_COLOR,
   },
   disabledLabel: {
-    color: '#667085',
+    color: MUTED_TEXT_COLOR,
   },
   labelOverlay: {
     position: 'absolute',

@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { BLACK_COLOR, DANGER_RED_COLOR, SURFACE_COLOR } from '@/src/constants/colors';
+
 type Props = {
   message: string | null;
   onDismiss: () => void;
@@ -78,11 +80,11 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     zIndex: 999,
-    backgroundColor: '#EF4444',
+    backgroundColor: DANGER_RED_COLOR,
     borderRadius: 12,
     paddingVertical: 12,
     paddingHorizontal: 16,
-    shadowColor: '#000',
+    shadowColor: BLACK_COLOR,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.18,
     shadowRadius: 12,
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   text: {
-    color: '#FFFFFF',
+    color: SURFACE_COLOR,
     fontSize: 14,
     lineHeight: 20,
     flex: 1,

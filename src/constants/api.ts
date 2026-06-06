@@ -1,2 +1,4 @@
-export const API_URL =
-  'https://ianjure--sunspark-ocr-backend-fastapi-app.modal.run/extract-bill-from-image';
+export const EXTRACT_DATA_API =
+  'https://ianjure--sunspark-sunsparkbackend.modal.run/extract-data-from-image';
+export const RECOMPUTE_ESTIMATE_API =
+  'https://ianjure--sunspark-sunsparkbackend.modal.run/recompute-estimate';

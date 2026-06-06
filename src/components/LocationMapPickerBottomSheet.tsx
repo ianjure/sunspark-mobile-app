@@ -112,8 +112,8 @@ const LocationMapPickerBottomSheet = forwardRef<
 
   const renderHandle = useCallback(
     () => (
-      <View style={mapPickerStyles.handle}>
-        <View style={mapPickerStyles.handleIndicator} />
+      <View style={styles.handle}>
+        <View style={styles.handleIndicator} />
       </View>
     ),
     [],
@@ -164,26 +164,26 @@ const LocationMapPickerBottomSheet = forwardRef<
       handleComponent={renderHandle}
       topInset={insets.top + SHEET_TOP_OFFSET}
       bottomInset={insets.bottom}
-      backgroundStyle={mapPickerStyles.sheetBackground}
+      backgroundStyle={styles.sheetBackground}
       keyboardBehavior="extend"
       onDismiss={handleDismiss}
     >
       <BottomSheetView
         style={[
-          mapPickerStyles.modalContainer,
+          styles.modalContainer,
           { height: mapSheetContentHeight },
         ]}
       >
-        <View style={mapPickerStyles.instructionSection}>
-          <Text style={mapPickerStyles.instructionText}>
+        <View style={styles.instructionSection}>
+          <Text style={styles.instructionText}>
             Tap to pin your home
           </Text>
         </View>
 
-        <View style={mapPickerStyles.mapFrame}>
+        <View style={styles.mapFrame}>
           <MapView
             ref={mapRef}
-            style={mapPickerStyles.map}
+            style={styles.map}
             initialRegion={PH_CENTER_REGION}
             onPress={handleMapPress}
             onRegionChangeComplete={handleRegionChangeComplete}
@@ -200,7 +200,7 @@ const LocationMapPickerBottomSheet = forwardRef<
 
         <View
           style={[
-            mapPickerStyles.footer,
+            styles.footer,
             { paddingBottom: insets.bottom + BOTTOM_PADDING },
           ]}
         >
@@ -217,7 +217,7 @@ const LocationMapPickerBottomSheet = forwardRef<
 
 export default LocationMapPickerBottomSheet;
 
-const mapPickerStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: APP_BACKGROUND_COLOR,
     overflow: 'hidden',

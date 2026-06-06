@@ -1,5 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
+import {
+  BORDER_COLOR,
+  MUTED_TEXT_COLOR,
+  SURFACE_COLOR,
+} from '@/src/constants/colors';
 import { FONT_INTER_REGULAR, FONT_NUNITO_BOLD } from '@/src/constants/fonts';
 import { getScoreColor } from '@/src/utils/getScoreColor';
 
@@ -34,9 +39,9 @@ export default function ScoreCard({ score, label }: Props) {
 const styles = StyleSheet.create({
   scoreCard: {
     height: 200,
-    backgroundColor: '#ffffff',
+    backgroundColor: SURFACE_COLOR,
     borderWidth: 2,
-    borderColor: '#D0D5DD',
+    borderColor: BORDER_COLOR,
     borderRadius: 20,
     padding: 20,
     marginBottom: 12,
@@ -59,12 +64,12 @@ const styles = StyleSheet.create({
     fontFamily: FONT_NUNITO_BOLD,
     fontSize: 12,
     fontWeight: '800',
-    color: '#FFFFFF',
+    color: SURFACE_COLOR,
   },
   scoreDescription: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
     lineHeight: 19,
-    color: '#667085',
+    color: MUTED_TEXT_COLOR,
   },
 });

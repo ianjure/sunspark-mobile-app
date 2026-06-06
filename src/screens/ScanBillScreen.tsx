@@ -11,7 +11,7 @@ import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import TextCombo from '@/src/components/TextCombo';
 import Toast from '@/src/components/Toast';
-import { API_URL } from '@/src/constants/api';
+import { EXTRACT_DATA_API } from '@/src/constants/api';
 import { APP_BACKGROUND_COLOR } from '@/src/constants/colors';
 import { RootStackParamList } from '@/src/navigation/types';
 import { SunsparkResult } from '@/src/types/sunspark';
@@ -75,7 +75,10 @@ export default function ScanBillScreen({ navigation, route }: Props) {
       formData.append('lat', String(latitude));
       formData.append('lon', String(longitude));
 
-      const response = await fetch(API_URL, { method: 'POST', body: formData });
+      const response = await fetch(EXTRACT_DATA_API, {
+        method: 'POST',
+        body: formData,
+      });
       const responseText = await response.text();
 
       let data: SunsparkResult;
@@ -131,9 +134,9 @@ export default function ScanBillScreen({ navigation, route }: Props) {
 
       <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 25 }}>
         <TextCombo
-          title="Scan your electric bill"
+          title="Scan your electricity bill"
           subtitle={
-            'Take a clear photo of your latest electric bill\nto estimate your solar savings.'
+            'Take a clear photo of your latest electricity bill\nto estimate your solar savings.'
           }
         />
 

@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
+import {
+  BORDER_COLOR,
+  SUCCESS_GREEN_COLOR,
+  SUCCESS_GREEN_SHINE_COLOR,
+} from '@/src/constants/colors';
+
 // 8-step onboarding flow:
 // 1. Location
 // 2. Scan Bill / Review Bill
@@ -16,19 +22,23 @@ const TOTAL_STEPS = 8;
 
 const TRACK_HEIGHT = 18;
 const TRACK_BORDER_RADIUS = 10;
-const TRACK_COLOR = '#D0D5DD';
+const TRACK_COLOR = BORDER_COLOR;
 
-const FILL_COLOR = '#58C33D';
+const FILL_COLOR = SUCCESS_GREEN_COLOR;
 
 const SHINE_TOP = 4;
 const SHINE_HEIGHT = 6;
 const SHINE_MARGIN_LEFT = 8;
 const SHINE_MARGIN_RIGHT = 24;
-const SHINE_COLOR = '#78D361';
+const SHINE_COLOR = SUCCESS_GREEN_SHINE_COLOR;
 
 // Module-level — persists across navigation.replace remounts within the same
 // app session. Tracks the last step so each new screen knows where to start from.
 let lastStep: OnboardingStep | null = null;
+
+export function resetOnboardingProgress() {
+  lastStep = null;
+}
 
 type Props = {
   step: OnboardingStep;

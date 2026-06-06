@@ -1,7 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Pressable, StyleSheet, ViewStyle } from 'react-native';
 
-import { FONT_INTER_BOLD } from '@/src/constants/fonts';
+import {
+  BORDER_COLOR,
+  MAIN_TEXT_COLOR,
+  MUTED_TEXT_COLOR,
+  PRIMARY_YELLOW_COLOR,
+  PRIMARY_YELLOW_SHADOW_COLOR,
+} from '@/src/constants/colors';
+import { FONT_NUNITO_BOLD } from '@/src/constants/fonts';
 
 type PrimaryButtonProps = {
   label: string;
@@ -19,8 +26,8 @@ export default function PrimaryButton({
   disabled = false,
   loading = false,
   style,
-  color = '#FFC928',
-  shadowColor = '#E5A900',
+  color = PRIMARY_YELLOW_COLOR,
+  shadowColor = PRIMARY_YELLOW_SHADOW_COLOR,
 }: PrimaryButtonProps) {
   const translateY = useRef(new Animated.Value(0)).current;
   const shadowOpacity = useRef(new Animated.Value(disabled ? 0 : 1)).current;
@@ -104,7 +111,7 @@ export default function PrimaryButton({
 
   const animatedButtonColor = buttonColor.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#D0D5DD', color],
+    outputRange: [BORDER_COLOR, color],
   });
 
   return (
@@ -166,14 +173,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   label: {
-    fontFamily: FONT_INTER_BOLD,
+    fontFamily: FONT_NUNITO_BOLD,
     fontSize: 14,
-    fontWeight: '700',
     letterSpacing: 14 * 0.05,
-    color: '#17202A',
+    color: MAIN_TEXT_COLOR,
   },
   disabledLabel: {
-    color: '#667085',
+    color: MUTED_TEXT_COLOR,
   },
   labelOverlay: {
     position: 'absolute',

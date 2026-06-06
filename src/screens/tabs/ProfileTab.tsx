@@ -10,6 +10,8 @@ import {
 import { SunsparkResult } from '@/src/types/sunspark';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 
+import { resetOnboardingProgress } from '@/src/components/OnboardingProgressBar';
+
 type Props = {
   result: SunsparkResult;
   resetApp: () => void;
@@ -23,11 +25,11 @@ function getInitials(fullName: string) {
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
-    <View style={profileStyles.infoRow}>
-      <Text style={profileStyles.infoLabel} numberOfLines={1}>
+    <View style={styles.infoRow}>
+      <Text style={styles.infoLabel} numberOfLines={1}>
         {label}
       </Text>
-      <Text style={profileStyles.infoValue} numberOfLines={2}>
+      <Text style={styles.infoValue} numberOfLines={2}>
         {value}
       </Text>
     </View>
@@ -42,38 +44,43 @@ function SectionBlock({
   children: React.ReactNode;
 }) {
   return (
-    <View style={profileStyles.sectionBlock}>
-      <View style={profileStyles.sectionHeader}>
-        <Text style={profileStyles.sectionTitle}>{title}</Text>
+    <View style={styles.sectionBlock}>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{title}</Text>
       </View>
-      <View style={profileStyles.sectionDivider} />
+      <View style={styles.sectionDivider} />
       {children}
     </View>
   );
 }
 
 export default function ProfileTab({ result, resetApp }: Props) {
+  function handleReset() {
+    resetOnboardingProgress();
+    resetApp();
+  }
+
   const displayName = result.user_name ?? 'User';
   const initials = getInitials(displayName);
 
   return (
     <>
       {/* Hero Profile Header */}
-      <View style={profileStyles.heroSection}>
-        <View style={profileStyles.avatarContainer}>
-          <View style={profileStyles.avatar}>
-            <Text style={profileStyles.avatarInitials}>{initials}</Text>
+      <View style={styles.heroSection}>
+        <View style={styles.avatarContainer}>
+          <View style={styles.avatar}>
+            <Text style={styles.avatarInitials}>{initials}</Text>
           </View>
         </View>
-        <Text style={profileStyles.heroName}>{displayName}</Text>
-        <Text style={profileStyles.heroLocation}>
+        <Text style={styles.heroName}>{displayName}</Text>
+        <Text style={styles.heroLocation}>
           {result.location?.city_or_municipality ?? 'Unknown'},{' '}
           {result.location?.province ?? 'Philippines'}
         </Text>
       </View>
 
       {/* Unified Card */}
-      <View style={profileStyles.unifiedCard}>
+      <View style={styles.unifiedCard}>
         <SectionBlock title="⚡ Solar Estimate">
           <InfoRow
             label="Recommended System Size"
@@ -195,7 +202,7 @@ export default function ProfileTab({ result, resetApp }: Props) {
       {/* Reset Button */}
       <PrimaryButton
         label="RESET APP"
-        onPress={resetApp}
+        onPress={handleReset}
         color="#EF4444"
         shadowColor="#B91C1C"
         style={{ marginBottom: 26 }}
@@ -204,7 +211,7 @@ export default function ProfileTab({ result, resetApp }: Props) {
   );
 }
 
-const profileStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   /* ── Hero ── */
   heroSection: {
     alignItems: 'center',
@@ -242,7 +249,7 @@ const profileStyles = StyleSheet.create({
   heroLocation: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: '400',
     color: MAIN_TEXT_COLOR,
     textAlign: 'center',
   },
@@ -294,7 +301,7 @@ const profileStyles = StyleSheet.create({
   infoLabel: {
     fontFamily: FONT_INTER_REGULAR,
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '400',
     color: MAIN_TEXT_COLOR,
     flex: 1,
   },
@@ -303,7 +310,7 @@ const profileStyles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '800',
     color: MAIN_TEXT_COLOR,
-    flex: 1.2,
+    flex: 0.5,
     textAlign: 'right',
   },
 });

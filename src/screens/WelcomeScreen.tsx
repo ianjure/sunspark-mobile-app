@@ -14,7 +14,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 export default function WelcomeScreen({ navigation }: Props) {
   return (
-    <SafeAreaView style={welcomeStyles.screen} edges={['top', 'bottom']}>
+    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
       <View style={{ paddingTop: 30, alignItems: 'center' }}>
         <Logo height={34} />
       </View>
@@ -42,13 +42,13 @@ export default function WelcomeScreen({ navigation }: Props) {
       <SecondaryButton
         label="I ALREADY HAVE AN ACCOUNT"
         onPress={() => navigation.replace('Main')}
-        style={welcomeStyles.lastButton}
+        style={styles.lastButton}
       />
     </SafeAreaView>
   );
 }
 
-const welcomeStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: APP_BACKGROUND_COLOR,

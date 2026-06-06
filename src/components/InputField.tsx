@@ -8,6 +8,11 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import {
+  BORDER_COLOR,
+  MAIN_TEXT_COLOR,
+  MUTED_TEXT_COLOR,
+} from '@/src/constants/colors';
 import { FONT_INTER_BOLD } from '@/src/constants/fonts';
 
 type InputFieldProps = TextInputProps & {
@@ -25,7 +30,7 @@ export default function InputField({
       {title && <Text style={styles.title}>{title}</Text>}
       <TextInput
         style={styles.input}
-        placeholderTextColor="#D0D5DD"
+        placeholderTextColor={BORDER_COLOR}
         {...textInputProps}
       />
     </View>
@@ -39,17 +44,17 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONT_INTER_BOLD,
     fontSize: 18,
-    color: '#667085',
+    color: MUTED_TEXT_COLOR,
     marginBottom: 4,
   },
   input: {
     height: 55,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#D0D5DD',
+    borderColor: BORDER_COLOR,
     paddingHorizontal: 16,
     fontFamily: FONT_INTER_BOLD,
     fontSize: 16,
-    color: '#17202A',
+    color: MAIN_TEXT_COLOR,
   },
 });
