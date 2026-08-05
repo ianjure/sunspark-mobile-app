@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import PrimaryButton from '@/src/components/PrimaryButton';
+import ProgressCard from '@/src/components/ProgressCard';
 import { MAIN_TEXT_COLOR } from '@/src/constants/colors';
 import {
   FONT_INTER_BOLD,
@@ -73,11 +74,22 @@ export default function ProfileTab({ result, resetApp }: Props) {
           </View>
         </View>
         <Text style={styles.heroName}>{displayName}</Text>
-        <Text style={styles.heroType}>{result.customer_type ?? 'Unknown'}</Text>
+        <Text style={styles.heroType}>
+          {result.customer_type ?? 'Residential'}
+        </Text>
       </View>
 
       {/* Unified Card */}
       <View style={styles.unifiedCard}>
+        <SectionBlock title="⏳ Progress Overview">
+          <View style={styles.progressStack}>
+            <ProgressCard label="Assessment" status="done" />
+            <ProgressCard label="Quote Approved" status="done" />
+            <ProgressCard label="Financing Pending" status="pending" />
+            <ProgressCard label="Installation" status="none" />
+            <ProgressCard label="Completed" status="none" />
+          </View>
+        </SectionBlock>
         <SectionBlock title="⚡ Solar Estimate">
           <InfoRow
             label="Recommended Size"
@@ -246,6 +258,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: MAIN_TEXT_COLOR,
     textAlign: 'center',
+  },
+
+  /* ── Progress Stack ── */
+  progressStack: {
+    gap: 10,
+    marginTop: 10,
+    marginBottom: 10,
   },
 
   /* ── Unified Card ── */
