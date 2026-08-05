@@ -5,9 +5,10 @@ import {
   MUTED_TEXT_COLOR,
   SURFACE_COLOR,
 } from '@/src/constants/colors';
-import { FONT_INTER_REGULAR, FONT_NUNITO_BOLD } from '@/src/constants/fonts';
+import { FONT_INTER_REGULAR } from '@/src/constants/fonts';
 import { getScoreColor } from '@/src/utils/getScoreColor';
 
+import Badge from '@/src/components/Badge';
 import CircularProgress from '@/src/components/CircularProgress';
 
 type Props = {
@@ -23,9 +24,7 @@ export default function ScoreCard({ score, label }: Props) {
       <CircularProgress score={score} />
 
       <View style={styles.scoreContent}>
-        <View style={[styles.scoreBadge, { backgroundColor: badgeColor }]}>
-          <Text style={styles.scoreBadgeText}>{label}</Text>
-        </View>
+        <Badge label={label} color={badgeColor} />
 
         <Text style={styles.scoreDescription}>
           Your location, bill, roof, and solar resource data were used to create
@@ -52,18 +51,7 @@ const styles = StyleSheet.create({
   },
   scoreContent: {
     flex: 1,
-  },
-  scoreBadge: {
-    alignSelf: 'flex-start',
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 999,
-    marginBottom: 8,
-  },
-  scoreBadgeText: {
-    fontFamily: FONT_NUNITO_BOLD,
-    fontSize: 12,
-    color: SURFACE_COLOR,
+    gap: 8,
   },
   scoreDescription: {
     fontFamily: FONT_INTER_REGULAR,

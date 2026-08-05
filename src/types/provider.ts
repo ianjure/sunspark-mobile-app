@@ -7,4 +7,5 @@ export type SolarDeveloper = {
   region: string | null;
   contact_number: string | null;
   email: string | null;
+  rating: number | null;
 };

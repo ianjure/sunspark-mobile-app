@@ -50,12 +50,12 @@ export default function ProvidersTab({ result, onViewProfile }: Props) {
       const locationMatchedProviders = [...cityResult, ...provinceOnlyResult];
 
       if (locationMatchedProviders.length > 0) {
-        setProviders(locationMatchedProviders);
+        setProviders(sortByRating(locationMatchedProviders));
         return;
       }
 
       const fallbackResult = await queryFallbackProviders();
-      setProviders(fallbackResult);
+      setProviders(sortByRating(fallbackResult));
     } catch (error: any) {
       console.log('Fetch providers error:', error);
       setErrorMessage(error.message || 'Unable to fetch providers.');
@@ -94,6 +94,12 @@ export default function ProvidersTab({ result, onViewProfile }: Props) {
 
     if (error) throw error;
     return data ?? [];
+  }
+
+  // Rating is the primary sort layer: highest-rated providers surface first,
+  // regardless of whether they matched by city or province.
+  function sortByRating(list: SolarDeveloper[]) {
+    return [...list].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
   }
 
   return (
