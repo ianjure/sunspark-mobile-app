@@ -104,6 +104,15 @@ export default function MainScreen({ navigation, route }: Props) {
     }, 300);
   }, []);
 
+  // Called by REQUEST A QUOTE — dismiss the sheet, then navigate on top of it
+  const handleRequestQuote = useCallback(
+    (provider: SolarDeveloper) => {
+      profileSheetRef.current?.dismiss();
+      navigation.navigate('QuoteScreen', { provider });
+    },
+    [navigation],
+  );
+
   if (loading) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -191,6 +200,7 @@ export default function MainScreen({ navigation, route }: Props) {
         provider={selectedProvider}
         onClosePressed={handleClosePressed}
         onDismiss={handleSheetDismiss}
+        onRequestQuote={handleRequestQuote}
       />
     </View>
   );

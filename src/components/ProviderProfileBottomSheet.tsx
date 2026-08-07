@@ -22,6 +22,7 @@ type Props = {
   provider: SolarDeveloper | null;
   onClosePressed: () => void;
   onDismiss: () => void;
+  onRequestQuote: (provider: SolarDeveloper) => void;
 };
 
 const SHEET_TOP_RADIUS = 20;
@@ -30,7 +31,7 @@ const BOTTOM_PADDING = 22;
 
 const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
   function ProviderProfileBottomSheet(
-    { provider, onClosePressed, onDismiss },
+    { provider, onClosePressed, onDismiss, onRequestQuote },
     ref,
   ) {
     const insets = useSafeAreaInsets();
@@ -148,7 +149,7 @@ const ProviderProfileBottomSheet = forwardRef<BottomSheetModal, Props>(
         >
           <PrimaryButton
             label="REQUEST A QUOTE"
-            onPress={() => {}}
+            onPress={() => provider && onRequestQuote(provider)}
             color="#1E88E5"
             shadowColor="#156CC4"
             style={styles.footerButton}

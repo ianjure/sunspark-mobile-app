@@ -13,6 +13,7 @@ import LoadingScreen from '@/src/screens/LoadingScreen';
 import LocationScreen from '@/src/screens/LocationScreen';
 import MainScreen from '@/src/screens/MainScreen';
 import PaymentQuestionScreen from '@/src/screens/PaymentQuestionScreen';
+import QuoteScreen from '@/src/screens/QuoteScreen';
 import RegisterScreen from '@/src/screens/RegisterScreen';
 import RoofSpaceQuestionScreen from '@/src/screens/RoofSpaceQuestionScreen';
 import ScanBillScreen from '@/src/screens/ScanBillScreen';
@@ -61,6 +62,7 @@ export default function App() {
             />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Main" component={MainScreen} />
+            <Stack.Screen name="QuoteScreen" component={QuoteScreen} />
           </Stack.Navigator>
         </BottomSheetModalProvider>
       </NavigationContainer>

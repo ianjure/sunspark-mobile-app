@@ -1,3 +1,4 @@
+import { SolarDeveloper } from '@/src/types/provider';
 import { SunsparkResult } from '@/src/types/sunspark';
 
 export type RootStackParamList = {
@@ -36,4 +37,7 @@ export type RootStackParamList = {
         result?: SunsparkResult;
       }
     | undefined;
+  QuoteScreen: {
+    provider: SolarDeveloper;
+  };
 };
