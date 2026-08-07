@@ -39,5 +39,6 @@ export type RootStackParamList = {
     | undefined;
   QuoteScreen: {
     provider: SolarDeveloper;
+    result: SunsparkResult;
   };
 };

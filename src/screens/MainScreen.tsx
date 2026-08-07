@@ -107,10 +107,11 @@ export default function MainScreen({ navigation, route }: Props) {
   // Called by REQUEST A QUOTE — dismiss the sheet, then navigate on top of it
   const handleRequestQuote = useCallback(
     (provider: SolarDeveloper) => {
+      if (!result) return;
       profileSheetRef.current?.dismiss();
-      navigation.navigate('QuoteScreen', { provider });
+      navigation.navigate('QuoteScreen', { provider, result });
     },
-    [navigation],
+    [navigation, result],
   );
 
   if (loading) {
